@@ -1,10 +1,10 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
-import { graphQlIDField, graphlQLObjectName } from './utils';
+import { graphQlIDField, graphlQLObjectName } from '../utils';
 
-import { InterviewrResolverContext } from './context';
-import { Skill } from '../entities/Skill';
+import { InterviewrResolverContext } from '../context';
+import { Skill } from '../../entities/Skill';
 import { SkillGroupType } from './SkillGroupType';
-import { nodeInterface } from './nodeDefinitions';
+import { nodeInterface } from '../nodeDefinitions';
 
 export const SkillType = new GraphQLObjectType({
     name: graphlQLObjectName(Skill),

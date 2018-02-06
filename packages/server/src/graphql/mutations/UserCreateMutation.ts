@@ -3,7 +3,7 @@ import { MutationConfig, mutationWithClientMutationId } from "graphql-relay";
 
 import { InterviewrResolverContext } from "../context";
 import { User } from "../../entities/User";
-import { UserType } from "../UserType";
+import { UserType } from "../types/UserType";
 
 export const UserCreateMutation = mutationWithClientMutationId({
     name: 'UserCreate',

@@ -1,9 +1,9 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
-import { graphQlIDField, graphlQLObjectName } from './utils';
+import { graphQlIDField, graphlQLObjectName } from '../utils';
 
-import { Education } from "../entities/Education";
-import { InterviewrResolverContext } from "./context";
-import { nodeInterface } from './nodeDefinitions';
+import { Education } from "../../entities/Education";
+import { InterviewrResolverContext } from "../context";
+import { nodeInterface } from '../nodeDefinitions';
 
 export const EducationType = new GraphQLObjectType({
     name: graphlQLObjectName(Education),

@@ -1,9 +1,9 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
-import { graphQlIDField, graphlQLObjectName } from './utils';
+import { graphQlIDField, graphlQLObjectName } from '../utils';
 
-import { InterviewrResolverContext } from './context';
-import { Personal } from '../entities/Personal';
-import { nodeInterface } from './nodeDefinitions';
+import { InterviewrResolverContext } from '../context';
+import { Personal } from '../../entities/Personal';
+import { nodeInterface } from '../nodeDefinitions';
 
 export const PersonalDataType = new GraphQLObjectType({
     name: graphlQLObjectName(Personal),

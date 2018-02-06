@@ -1,12 +1,12 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
-import { graphQlIDField, graphlQLObjectName } from './utils';
+import { graphQlIDField, graphlQLObjectName } from '../utils';
 
 import { EducationType } from './EducationType';
-import { InterviewrResolverContext } from './context';
+import { InterviewrResolverContext } from '../context';
 import { PersonalDataType } from './PersonalDataType';
 import { SkillType } from './SkillType';
-import { User } from '../entities/User';
-import { nodeInterface } from './nodeDefinitions';
+import { User } from '../../entities/User';
+import { nodeInterface } from '../nodeDefinitions';
 
 export const UserType = new GraphQLObjectType({
     name: graphlQLObjectName(User),
