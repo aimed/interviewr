@@ -1,0 +1,10 @@
+{
+  "name": "interviewr",
+  "version": "1.0.0",
+  "description": "Helps your to create the perfect resume.",
+  "repository": "https://github.com/aimed/interviewr",
+  "author": "Maximilian Täschner",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
