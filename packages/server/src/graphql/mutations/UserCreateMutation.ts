@@ -15,8 +15,8 @@ export const UserCreateMutation = mutationWithClientMutationId({
     outputFields: {
         user: { type: UserType }
     },
-    mutateAndGetPayload(object: { email: string, password: string }, context: InterviewrResolverContext, info) {        
-        const userService = new UserService(context.connection);
+    mutateAndGetPayload(object: { email: string, password: string }, context: InterviewrResolverContext, info) {                     
+        const userService = new UserService(context.connection);        
         const user = userService.createUser(object.email, object.password);
         return { user };
     }

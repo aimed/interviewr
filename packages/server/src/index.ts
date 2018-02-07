@@ -1,6 +1,6 @@
-import "dotenv/config";
 import "reflect-metadata";
 
+import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import * as graphQLHTTP from 'express-graphql';
 import * as path from 'path';
@@ -22,7 +22,8 @@ import { schema } from "./graphql/schema";
 // const options: ConnectionOptions = require(path.resolve(__dirname, '..', 'ormconfig.json'));
 const options: SqliteConnectionOptions = { 
     type: 'sqlite', 
-    database: path.resolve(__dirname, '..', 'database.sqlite') ,
+    database: path.resolve(__dirname, '..', 'database.sqlite'),
+    synchronize: true,
     entities: [
         User,
         Education,
@@ -36,12 +37,14 @@ const options: SqliteConnectionOptions = {
 createConnection(options).then(async connection => {
     const app = express();
     
+    app.use(cookieParser());
+    
     app.use(
-        '/graphql', 
+        '/graphql',
         (req, res) => graphQLHTTP(
-            (gqlRequest) => ({ 
+            async (gqlRequest) => ({
                 schema: schema, 
-                context: contextBuilder(connection)(req, res), 
+                context: await contextBuilder(connection, req, res), 
                 graphiql: true 
             })
         )(req, res)
