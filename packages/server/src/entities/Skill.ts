@@ -9,7 +9,7 @@ export class Skill {
     public id: number;
 
     @ManyToOne(() => User)
-    public user: User;
+    public user: Promise<User>;
     
     @ManyToMany(() => SkillGroup, group => group.skills)
     public group: Promise<SkillGroup>;

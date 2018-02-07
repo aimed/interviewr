@@ -12,7 +12,7 @@ export class SkillGroup {
     public id: number;
 
     @OneToMany(() => Skill, skill => skill.group)
-    public skills: Skill[]
+    public skills: Promise<Skill[]>;
     
     @Column()
     public title: string;

@@ -14,13 +14,13 @@ export class User {
     public personalData: Promise<Personal>;
 
     @OneToMany(() => Skill, skill => skill.user)
-    public skills: Skill[];
+    public skills: Promise<Skill[]>;
 
     @OneToMany(() => Education, education => education.user)
-    public education: Education[];
+    public education: Promise<Education[]>;
 
     @OneToMany(() => Work, work => work.user)
-    public work: Work[];
+    public work: Promise<Work[]>;
     
     @Column({ length: 256, unique: true }) // Maximum length of an email
     public email: string;

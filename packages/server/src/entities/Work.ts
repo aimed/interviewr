@@ -8,7 +8,7 @@ export class Work {
     public id: number;
 
     @ManyToOne(() => User)
-    public user: User;
+    public user: Promise<User>;
     
     @Column()
     public startDate: Date;

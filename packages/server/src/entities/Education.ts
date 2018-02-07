@@ -8,7 +8,7 @@ export class Education {
     public id: number;
 
     @ManyToOne(() => User)
-    public user: User;
+    public user: Promise<User>;
     
     @Column()
     public institution: string;

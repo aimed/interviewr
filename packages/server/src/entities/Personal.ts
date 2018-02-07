@@ -11,7 +11,7 @@ export class Personal {
     public id: number;
 
     @OneToOne(() => User)
-    public user: User;
+    public user: Promise<User>;
 
     @Column()
     public nationality: string;
