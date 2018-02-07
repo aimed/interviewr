@@ -3,6 +3,7 @@ import { MutationConfig, mutationWithClientMutationId } from "graphql-relay";
 
 import { InterviewrResolverContext } from "../context";
 import { User } from "../../entities/User";
+import { UserService } from "../../services/UserService";
 import { UserType } from "../types/UserType";
 
 export const UserCreateMutation = mutationWithClientMutationId({
@@ -15,8 +16,8 @@ export const UserCreateMutation = mutationWithClientMutationId({
         user: { type: UserType }
     },
     mutateAndGetPayload(object: { email: string, password: string }, context: InterviewrResolverContext, info) {        
-        const userRepo = context.connection.getRepository(User);
-        const user = userRepo.create({ email: object.email, password: object.password });
+        const userService = new UserService(context.connection);
+        const user = userService.createUser(object.email, object.password);
         return { user };
     }
 });

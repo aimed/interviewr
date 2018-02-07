@@ -1,16 +1,19 @@
+import { Request, Response } from "express";
+
 import { Connection } from "typeorm";
-import { Request } from "express";
 
 export interface InterviewrResolverContext {
-    connection: Connection,
-    req: Request
+    connection: Connection;
+    req: Request;
+    res: Response;
 }
 
 export const contextBuilder = (connection: Connection) => (
-    (req: Request): InterviewrResolverContext => {
+    (req: Request, res: Response): InterviewrResolverContext => {
         return { 
             connection,
-            req
+            req,
+            res
         };
     }
 );
