@@ -22,7 +22,7 @@ export class User {
     @OneToMany(() => Work, work => work.user)
     public work: Work[];
     
-    @Column({ length: 256 }) // Maximum length of an email
+    @Column({ length: 256, unique: true }) // Maximum length of an email
     public email: string;
     
     @Column()
