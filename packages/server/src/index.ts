@@ -5,12 +5,11 @@ import * as express from 'express';
 import * as graphQLHTTP from 'express-graphql';
 import * as path from 'path';
 
-import { ConnectionOptions } from "typeorm/connection/ConnectionOptions";
+import { ConnectionOptions } from "typeorm";
 import { Education } from "./entities/Education";
 import { Personal } from "./entities/Personal";
 import { Skill } from "./entities/Skill";
 import { SkillGroup } from "./entities/SkillGroup";
-import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionOptions";
 import { User } from "./entities/User";
 import { Work } from "./entities/Work";
 import { contextBuilder } from "./graphql/context";
@@ -20,7 +19,7 @@ import { schema } from "./graphql/schema";
 // TODO: Generate initial migration once it is availiable in the next typeorm version. See https://github.com/typeorm/typeorm/issues/1305
 // Configure connection in .env http://typeorm.io/#/using-ormconfig/loading-from-ormconfigenv-or-from-environment-variables
 // const options: ConnectionOptions = require(path.resolve(__dirname, '..', 'ormconfig.json'));
-const options: SqliteConnectionOptions = { 
+const options: ConnectionOptions = { 
     type: 'sqlite', 
     database: path.resolve(__dirname, '..', 'database.sqlite'),
     synchronize: true,
