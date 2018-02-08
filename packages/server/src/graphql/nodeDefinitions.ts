@@ -6,4 +6,6 @@ export const { nodeInterface, nodeField } = nodeDefinitions<InterviewrResolverCo
     const { type, id } = fromGlobalId(globalId);
     const repository = context.connection.getRepository(type);
     return repository.findOneById(id);
+}, (value: object) => {
+    return value.constructor.name;
 });
