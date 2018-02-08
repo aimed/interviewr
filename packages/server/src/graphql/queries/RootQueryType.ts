@@ -2,6 +2,7 @@ import { GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig,
 
 import { InterviewrResolverContext } from "../context";
 import { LoginQueryType } from "./LoginQueryType";
+import { LogoutQueryType } from "./LogoutQueryType";
 import { User } from "../../entities/User";
 import { ViewerType } from "../types/ViewerType";
 import { nodeField } from "../nodeDefinitions";
@@ -23,6 +24,7 @@ export const RootQueryType = new GraphQLObjectType({
                 return 'world';
             }
         },
-        login: LoginQueryType
+        login: LoginQueryType,
+        logout: LogoutQueryType
     })
 } as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>)

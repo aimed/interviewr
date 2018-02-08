@@ -4,18 +4,18 @@ import { GraphQLString } from "graphql/type/scalars";
 import { InterviewrResolverContext } from "../context";
 import { User } from "../../entities/User";
 import { UserService } from "../../services/UserService";
-import { UserType } from "../types/UserType";
+import { ViewerType } from "../types/ViewerType";
 
 export const LoginQueryResponseType = new GraphQLObjectType({
     name: 'LoginQueryResponse',
     fields: () => ({
-        user: { type: new GraphQLNonNull(UserType) },
+        viewer: { type: new GraphQLNonNull(ViewerType) },
         token: { type: new GraphQLNonNull(GraphQLString) }
     })
 })
 
 export const LoginQueryType = {
-    type: LoginQueryResponseType,
+    type: new GraphQLNonNull(LoginQueryResponseType),
     args: {
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
@@ -23,13 +23,17 @@ export const LoginQueryType = {
     async resolve(source, args, context, info) {        
         const userService = new UserService(context.connection);
         const payload = await userService.createUserToken(args.email, args.password);
-
+        
+        context.user = payload.user;
         if (payload.user && payload.token) {
             context.res.cookie('jwt', payload.token);
         } else {
             context.res.clearCookie('jwt');
         }
 
-        return payload;
+        return {
+            token: payload.token,
+            viewer: {}
+        };
     }
 } as GraphQLFieldConfig<{}, InterviewrResolverContext, { email: string, password: string }>

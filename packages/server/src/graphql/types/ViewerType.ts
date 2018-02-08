@@ -7,7 +7,10 @@ export const ViewerType = new GraphQLObjectType({
     name: 'Viewer',
     fields: () => ({
         user: { 
-            type: UserType
+            type: UserType,
+            resolve(source, args, context) {
+                return context.user;
+            }
         }
     })
 } as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>);
