@@ -22,7 +22,6 @@ import { schema } from "./graphql/schema";
 const options: ConnectionOptions = { 
     type: 'sqlite', 
     database: path.resolve(__dirname, '..', 'database.sqlite'),
-    synchronize: true,
     entities: [
         User,
         Education,

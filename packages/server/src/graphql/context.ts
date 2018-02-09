@@ -8,17 +8,19 @@ export interface InterviewrResolverContext {
     connection: Connection;
     req: Request;
     res: Response;
-    user?: User;
+    user?: User | null;
+    authService: AuthService;
 }
 
 export const contextBuilder = async (connection: Connection, req: Request, res: Response): Promise<InterviewrResolverContext> => {
-    const authService = new AuthService(connection);
-    const { user } = await authService.authenticate(req, res);
+    const authService = new AuthService(connection, req, res);
+    const user = await authService.getRequestUser();
 
     return {
         connection,
         req,
         res,
-        user
+        user,
+        authService
     };
 };

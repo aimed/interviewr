@@ -15,7 +15,7 @@ export const UserType = new GraphQLObjectType({
         id: graphQlIDField(User, u => u.id),
         email: { type: new GraphQLNonNull(GraphQLString) },
         personal: { 
-            type: new GraphQLNonNull(PersonalDataType),
+            type: new GraphQLNonNull(new GraphQLList(PersonalDataType)),
             resolve(source, args, context) {
                 return source.personalData;
             }

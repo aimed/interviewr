@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Education } from './Education';
 import { Skill } from './Skill';
@@ -10,47 +10,47 @@ export class Personal {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     public user: Promise<User>;
 
-    @Column()
+    @Column({ nullable: true })
     public nationality: string;
 
-    @Column()
+    @Column({ nullable: true })
     public martialStatus: string;
 
     // This is free text, because users should have the option to specifiy 
     // their age as well.
-    @Column()
+    @Column({ nullable: true })
     public numberOfChildren: string;
 
-    @Column()
+    @Column({ nullable: true })
     public phone: string;
 
-    @Column()
+    @Column({ nullable: true })
     public birthDate: Date;
 
-    @Column()
+    @Column({ nullable: true })
     public birthPlace: string;
     
-    @Column()
+    @Column({ nullable: true })
     public firstName: string;
     
-    @Column()
+    @Column({ nullable: true })
     public lastName: string;
     
     // Use a simplified address scheme, because there is no reason to validate 
     // the data, nor a need to localize it in the forseeable future.
-    @Column()
+    @Column({ nullable: true })
     public addressLine1: string;
     
-    @Column()
+    @Column({ nullable: true })
     public addressLine2: string;
     
-    @Column()
+    @Column({ nullable: true })
     public addressLine3: string;
     
-    @Column()
+    @Column({ nullable: true })
     public addressLine4: string;
 }
 

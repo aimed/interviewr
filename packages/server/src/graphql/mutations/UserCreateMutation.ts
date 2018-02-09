@@ -6,6 +6,11 @@ import { User } from "../../entities/User";
 import { UserService } from "../../services/UserService";
 import { UserType } from "../types/UserType";
 
+interface UserCreateMutationInput { 
+    email: string;
+    password: string;
+};
+
 export const UserCreateMutation = mutationWithClientMutationId({
     name: 'UserCreate',
     inputFields: {
@@ -15,7 +20,7 @@ export const UserCreateMutation = mutationWithClientMutationId({
     outputFields: {
         user: { type: UserType }
     },
-    mutateAndGetPayload(object: { email: string, password: string }, context: InterviewrResolverContext, info) {                     
+    mutateAndGetPayload(object: UserCreateMutationInput, context: InterviewrResolverContext, info) {                     
         const userService = new UserService(context.connection);        
         const user = userService.createUser(object.email, object.password);
         return { user };

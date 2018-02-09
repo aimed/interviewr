@@ -10,8 +10,8 @@ export class User {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @OneToOne(() => Personal)
-    public personalData: Promise<Personal>;
+    @OneToMany(() => Personal, personal => personal.user)
+    public personalData: Promise<Personal[]>;
 
     @OneToMany(() => Skill, skill => skill.user)
     public skills: Promise<Skill[]>;
