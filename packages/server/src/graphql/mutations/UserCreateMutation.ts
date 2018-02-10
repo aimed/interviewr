@@ -5,6 +5,7 @@ import { InterviewrResolverContext } from "../context";
 import { User } from "../../entities/User";
 import { UserService } from "../../services/UserService";
 import { UserType } from "../types/UserType";
+import { ViewerType } from "../types/ViewerType";
 
 interface UserCreateMutationInput { 
     email: string;
@@ -18,11 +19,19 @@ export const UserCreateMutation = mutationWithClientMutationId({
         password: { type: new GraphQLNonNull(GraphQLString) }
     },
     outputFields: {
-        user: { type: UserType }
+        user: { type: new GraphQLNonNull(UserType) },
+        token: { type: new GraphQLNonNull(GraphQLString) },
+        viewer: { type: new GraphQLNonNull(ViewerType) }
     },
-    mutateAndGetPayload(object: UserCreateMutationInput, context: InterviewrResolverContext, info) {                     
+    async mutateAndGetPayload(object: UserCreateMutationInput, context: InterviewrResolverContext, info) {                     
         const userService = new UserService(context.connection);        
-        const user = userService.createUser(object.email, object.password);
-        return { user };
+        const user = await userService.createUser(object.email, object.password);
+        const { token } = await userService.createUserToken(user.email, object.password);
+        
+        return { 
+            token, 
+            user, 
+            viewer: {} 
+        };
     }
 });

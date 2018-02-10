@@ -43,7 +43,7 @@ createConnection(options).then(async connection => {
             async (gqlRequest) => ({
                 schema: schema, 
                 context: await contextBuilder(connection, req, res), 
-                graphiql: true 
+                graphiql: true
             })
         )(req, res)
     );

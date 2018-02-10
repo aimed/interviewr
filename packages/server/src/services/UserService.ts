@@ -2,6 +2,7 @@ import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 
 import { Connection } from "typeorm";
+import { InvalidTokenError } from "../errors/InvalidTokenError";
 import { User } from "../entities/User";
 
 export type UserTokenPayload = string;
@@ -46,7 +47,7 @@ export class UserService {
         const user = await userRepo.findOneById(payload);
 
         if (!user) {
-            throw 'User does not seem to exist anymore.';
+            throw new InvalidTokenError('User does not seem to exist anymore.');
         }
         
         return user;

@@ -9,7 +9,7 @@ export const ViewerType = new GraphQLObjectType({
         user: { 
             type: UserType,
             resolve(source, args, context) {
-                return context.user;
+                return context.authService.getRequestUser();
             }
         }
     })

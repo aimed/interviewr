@@ -12,7 +12,7 @@ export const LoginQueryResponseType = new GraphQLObjectType({
         viewer: { type: new GraphQLNonNull(ViewerType) },
         token: { type: new GraphQLNonNull(GraphQLString) }
     })
-})
+});
 
 export const LoginQueryType = {
     type: new GraphQLNonNull(LoginQueryResponseType),
@@ -24,11 +24,10 @@ export const LoginQueryType = {
         const userService = new UserService(context.connection);
         const payload = await userService.createUserToken(args.email, args.password);
         
-        context.user = payload.user;
         if (payload.user && payload.token) {
-            context.res.cookie('jwt', payload.token);
+            context.authService.setRequestUser(payload.user, payload.token);
         } else {
-            context.res.clearCookie('jwt');
+            context.authService.clearRequestUser();
         }
 
         return {

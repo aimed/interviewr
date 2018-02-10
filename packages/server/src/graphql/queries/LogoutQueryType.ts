@@ -13,8 +13,7 @@ export const LogoutQueryResponseType = new GraphQLObjectType({
 export const LogoutQueryType = {
     type: new GraphQLNonNull(LogoutQueryResponseType),
     resolve(source, args, context) {
-        context.res.clearCookie('jwt');
-        context.user = null;
+        context.authService.clearRequestUser();
         
         return {
             viewer: {}

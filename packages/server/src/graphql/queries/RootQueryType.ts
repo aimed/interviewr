@@ -14,8 +14,7 @@ export const RootQueryType = new GraphQLObjectType({
         viewer: { 
             type: ViewerType,
             resolve(source, args, context) {
-                const { user } = context;
-                return { user };
+                return {};
             }
         },
         hello: {

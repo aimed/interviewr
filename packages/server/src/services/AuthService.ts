@@ -16,20 +16,32 @@ export class AuthService {
         this.res = res;
     }
 
-    public setRequestUser(user: User) {
+    public clearRequestUser() {
+        this.user = null;
+        this.res.clearCookie('jwt');
+    }
+
+    public setRequestUser(user: User, token: string) {
         this.user = user;
+        this.res.cookie('jwt', token);
     }
 
     public async getRequestUser(): Promise<User | null> {
-        if (this.user) {
+        if (this.user !== undefined) {
             return this.user;
         }
 
         if (this.req.cookies && this.req.cookies.jwt) {
             const userService = new UserService(this.connection);
-            const user = await userService.verifyUserToken(this.req.cookies.jwt);
-            this.user = user;
-            return user;
+            try {
+                const user = await userService.verifyUserToken(this.req.cookies.jwt);            
+                this.user = user;
+                return user;
+            } catch (e) {
+                // TODO: Check specifically for auth errors.
+                this.clearRequestUser();
+                throw e;
+            }
         }
         return null;
     }
