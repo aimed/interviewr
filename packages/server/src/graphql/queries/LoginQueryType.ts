@@ -23,16 +23,11 @@ export const LoginQueryType = {
     async resolve(source, args, context, info) {        
         const userService = new UserService(context.connection);
         const payload = await userService.createUserToken(args.email, args.password);
-        
-        if (payload.user && payload.token) {
-            context.authService.setRequestUser(payload.user, payload.token);
-        } else {
-            context.authService.clearRequestUser();
-        }
+        context.authService.setRequestUser(payload.user, payload.token);
 
         return {
             token: payload.token,
             viewer: {}
         };
     }
-} as GraphQLFieldConfig<{}, InterviewrResolverContext, { email: string, password: string }>
+} as GraphQLFieldConfig<{}, InterviewrResolverContext, { email: string, password: string }>;
