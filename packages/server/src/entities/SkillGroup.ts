@@ -1,6 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Skill } from './Skill';
+import { User } from './User';
 
 /**
  * A SkillGroup defines a group a set of skills belong to.
@@ -14,6 +15,9 @@ export class SkillGroup {
     @OneToMany(() => Skill, skill => skill.group)
     public skills: Promise<Skill[]>;
     
+    @ManyToOne(() => User, user => user.skillGroups)
+    public user: Promise<User>;
+
     @Column()
     public title: string;
 }

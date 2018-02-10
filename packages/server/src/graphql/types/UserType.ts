@@ -4,6 +4,7 @@ import { graphQlIDField, graphlQLObjectName } from '../utils';
 import { EducationType } from './EducationType';
 import { InterviewrResolverContext } from '../context';
 import { PersonalDataType } from './PersonalDataType';
+import { SkillGroupType } from './SkillGroupType';
 import { SkillType } from './SkillType';
 import { User } from '../../entities/User';
 import { nodeInterface } from '../nodeDefinitions';
@@ -24,6 +25,12 @@ export const UserType = new GraphQLObjectType({
             type: new GraphQLNonNull(new GraphQLList(SkillType)),
             resolve(source, args, context) {
                 return source.skills;
+            }
+        },
+        skillGroups: {
+            type: new GraphQLNonNull(new GraphQLList(SkillGroupType)),
+            resolve(source, args, context) {
+                return source.skillGroups;
             }
         },
         education: {

@@ -3,6 +3,7 @@ import { BeforeInsert, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColu
 import { Education } from './Education';
 import { Personal } from './Personal';
 import { Skill } from './Skill';
+import { SkillGroup } from './SkillGroup';
 import { Work } from './Work';
 
 @Entity()
@@ -15,6 +16,9 @@ export class User {
 
     @OneToMany(() => Skill, skill => skill.user)
     public skills: Promise<Skill[]>;
+
+    @OneToMany(() => SkillGroup, skillGroup => skillGroup.user)
+    public skillGroups: Promise<SkillGroup[]>
 
     @OneToMany(() => Education, education => education.user)
     public education: Promise<Education[]>;
