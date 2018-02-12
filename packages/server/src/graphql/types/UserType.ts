@@ -1,4 +1,5 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
+import { User, UserTypeScope } from '../../entities/User';
 import { graphQlIDField, graphlQLObjectName } from '../utils';
 
 import { EducationType } from './EducationType';
@@ -6,16 +7,15 @@ import { InterviewrResolverContext } from '../context';
 import { PersonalDataType } from './PersonalDataType';
 import { SkillGroupType } from './SkillGroupType';
 import { SkillType } from './SkillType';
-import { User } from '../../entities/User';
+import { graphQLReflector } from '../GraphQLReflector';
 import { nodeInterface } from '../nodeDefinitions';
 
 export const UserType = new GraphQLObjectType({
     name: graphlQLObjectName(User),
     interfaces: [nodeInterface],
     fields: () => ({
-        id: graphQlIDField(User, u => u.id),
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        personal: { 
+        ...graphQLReflector.getOutputFields(User, UserTypeScope),
+        personal: {
             type: new GraphQLNonNull(new GraphQLList(PersonalDataType)),
             resolve(source, args, context) {
                 return source.personalData;
@@ -41,4 +41,3 @@ export const UserType = new GraphQLObjectType({
         }
     })
 } as GraphQLObjectTypeConfig<User, InterviewrResolverContext>);
-

@@ -1,19 +1,19 @@
 import { GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
-import { graphQlIDField, graphlQLObjectName } from "../utils";
+import { graphQlIDField, graphlQLObjectName } from '../utils';
 
 import { InterviewrResolverContext } from '../context';
 import { SkillGroup } from '../../entities/SkillGroup';
 import { SkillType } from './SkillType';
 import { UserType } from './UserType';
+import { graphQLReflector } from '../GraphQLReflector';
 import { nodeInterface } from '../nodeDefinitions';
 
 export const SkillGroupType = new GraphQLObjectType({
     name: graphlQLObjectName(SkillGroup),
     interfaces: [nodeInterface],
     fields: () => ({
-        id: graphQlIDField(SkillGroup, s => s.id),
-        title: { type: new GraphQLNonNull(GraphQLString) },
-        user: { 
+        ...graphQLReflector.getOutputFields(SkillGroup),
+        user: {
             type: new GraphQLNonNull(UserType),
             resolve(source, args, context) {
                 return source.user;
@@ -27,4 +27,3 @@ export const SkillGroupType = new GraphQLObjectType({
         }
     })
 } as GraphQLObjectTypeConfig<SkillGroup, InterviewrResolverContext>);
-

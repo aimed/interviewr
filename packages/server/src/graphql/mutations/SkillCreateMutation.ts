@@ -1,12 +1,13 @@
-import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
 
-import { InterviewrResolverContext } from "../context";
-import { Skill } from "../../entities/Skill";
-import { SkillGroup } from "../../entities/SkillGroup";
-import { SkillType } from "../types/SkillType";
-import { ViewerType } from "../types/ViewerType";
-import { mutationWithClientMutationId } from "graphql-relay";
-import { safeIdFetcher } from "../nodeDefinitions";
+import { InterviewrResolverContext } from '../context';
+import { Skill } from '../../entities/Skill';
+import { SkillGroup } from '../../entities/SkillGroup';
+import { SkillType } from '../types/SkillType';
+import { ViewerType } from '../types/ViewerType';
+import { graphQLReflector } from '../GraphQLReflector';
+import { mutationWithClientMutationId } from 'graphql-relay';
+import { safeIdFetcher } from '../nodeDefinitions';
 
 interface SkillCreateMutationInput {
     skillGroup: string;
@@ -16,10 +17,8 @@ interface SkillCreateMutationInput {
 export const SkillCreateMutation = mutationWithClientMutationId({
     name: 'SkillCreate',
     inputFields: () => ({
-        skillGroup: { 
-            type: new GraphQLNonNull(GraphQLID)
-        },
-        description: { type: new GraphQLNonNull(GraphQLString) }
+        skillGroup: { type: new GraphQLNonNull(GraphQLID) },
+        ...graphQLReflector.getInputFields(Skill)
     }),
     outputFields: () => ({
         skill: { type: new GraphQLNonNull(SkillType) },
@@ -34,7 +33,7 @@ export const SkillCreateMutation = mutationWithClientMutationId({
         skill.group = Promise.resolve(skillGroupInstance);
         skill.user = Promise.resolve(user);
         await skillRepo.save(skill);
-        
+
         return {
             skill,
             viewer: {}

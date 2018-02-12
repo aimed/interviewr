@@ -4,15 +4,15 @@ import { graphQlIDField, graphlQLObjectName } from '../utils';
 import { InterviewrResolverContext } from '../context';
 import { Skill } from '../../entities/Skill';
 import { SkillGroupType } from './SkillGroupType';
+import { graphQLReflector } from '../GraphQLReflector';
 import { nodeInterface } from '../nodeDefinitions';
 
 export const SkillType = new GraphQLObjectType({
     name: graphlQLObjectName(Skill),
     interfaces: [nodeInterface],
     fields: () => ({
-        id: graphQlIDField(Skill, s => s.id),
-        description: { type: new GraphQLNonNull(GraphQLString) },
-        skillGroup: { 
+        ...graphQLReflector.getOutputFields(Skill),
+        skillGroup: {
             type: new GraphQLNonNull(SkillGroupType),
             resolve(source, args, context) {
                 return source.group;
