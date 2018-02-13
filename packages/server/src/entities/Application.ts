@@ -13,19 +13,19 @@ export class Application {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @ManyToOne(() => Personal)
+    @ManyToOne(() => Personal, personal => personal.applications)
     public personal: Promise<Personal>;
 
-    @ManyToMany(() => Skill)
+    @ManyToMany(() => Skill, skill => skill.applications)
     public skills: Promise<Skill[]>;
 
-    @ManyToMany(() => Work)
+    @ManyToMany(() => Work, work => work.applications)
     public work: Promise<Work[]>;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, user => user.applications)
     public user: Promise<User>;
 
-    @ManyToMany(() => Education)
+    @ManyToMany(() => Education, education => education.applications)
     public education: Promise<Education[]>;
 
     @GraphQLScalarField()
@@ -33,6 +33,6 @@ export class Application {
     public text: string;
 
     @GraphQLScalarField()
-    @Column()
+    @Column({ default: true })
     public draft: boolean;
 }

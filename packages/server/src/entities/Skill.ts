@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
+import { Application } from './Application';
 import { SkillGroup } from './SkillGroup';
 import { User } from './User';
 import { graphQlIDField } from '../graphql/utils';
@@ -16,6 +17,9 @@ export class Skill {
 
     @ManyToMany(() => SkillGroup, group => group.skills)
     public group: Promise<SkillGroup>;
+
+    @ManyToMany(() => Application, application => application.skills)
+    public applications: Application[];
 
     @GraphQLScalarField({nonNull: true})
     @Column()

@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
+import { Application } from './Application';
 import { Education } from './Education';
 import { Skill } from './Skill';
 import { User } from './User';
@@ -15,6 +16,9 @@ export class Personal {
 
     @ManyToOne(() => User)
     public user: Promise<User>;
+
+    @OneToMany(() => Application, application => application.personal)
+    public applications: Promise<Application[]>;
 
     @GraphQLScalarField()
     @Column({ nullable: true })
