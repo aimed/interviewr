@@ -7,6 +7,7 @@ import { InterviewrResolverContext } from '../context';
 import { PersonalDataType } from './PersonalDataType';
 import { SkillGroupType } from './SkillGroupType';
 import { SkillType } from './SkillType';
+import { WorkType } from './WorkType';
 import { graphQLReflector } from '../GraphQLReflector';
 import { nodeInterface } from '../nodeDefinitions';
 
@@ -37,6 +38,12 @@ export const UserType = new GraphQLObjectType({
             type: new GraphQLNonNull(new GraphQLList(EducationType)),
             resolve(source, args, context) {
                 return source.education;
+            }
+        },
+        work: {
+            type: new GraphQLNonNull(new GraphQLList(WorkType)),
+            resolve(source, args, context) {
+                return source.work;
             }
         }
     })
