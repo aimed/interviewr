@@ -1,3 +1,4 @@
+import { ApplicationCreateMutation } from './ApplicationCreateMutation';
 import { EducationCreateMutation } from './EducationCreateMutation';
 import { GraphQLObjectType } from 'graphql';
 import { PersonalCreateMutation } from './PersonalCreateMutation';
@@ -14,6 +15,7 @@ export const MutationType = new GraphQLObjectType({
         SkillGroupCreate: SkillGroupCreateMutation,
         SkillCreate: SkillCreateMutation,
         EducationCreate: EducationCreateMutation,
-        WorkCreate: WorkCreateMutation
+        WorkCreate: WorkCreateMutation,
+        ApplicationCreate: ApplicationCreateMutation
     })
 });
