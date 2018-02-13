@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as graphQLHTTP from 'express-graphql';
 import * as path from 'path';
 
+import { Application } from './entities/Application';
 import { ConnectionOptions } from 'typeorm';
 import { Education } from './entities/Education';
 import { Personal } from './entities/Personal';
@@ -28,7 +29,8 @@ const options: ConnectionOptions = {
         Personal,
         SkillGroup,
         Skill,
-        Work
+        Work,
+        Application
     ]
 };
 

@@ -1,6 +1,7 @@
 import { BeforeInsert, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { GraphQLInputField, GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
+import { Application } from './Application';
 import { Education } from './Education';
 import { Personal } from './Personal';
 import { Skill } from './Skill';
@@ -31,6 +32,9 @@ export class User {
 
     @OneToMany(() => Work, work => work.user)
     public work: Promise<Work[]>;
+
+    @OneToMany(() => Application, application => application.user)
+    public applications: Promise<Application>;
 
     @GraphQLScalarField({ nonNull: true })
     @Column({ length: 256, unique: true }) // Maximum length of an email

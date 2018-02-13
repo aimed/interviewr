@@ -2,6 +2,7 @@ import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLObjec
 import { User, UserTypeScope } from '../../entities/User';
 import { graphQlIDField, graphlQLObjectName } from '../utils';
 
+import { ApplicationType } from './ApplicationType';
 import { EducationType } from './EducationType';
 import { InterviewrResolverContext } from '../context';
 import { PersonalDataType } from './PersonalDataType';
@@ -44,6 +45,12 @@ export const UserType = new GraphQLObjectType({
             type: new GraphQLNonNull(new GraphQLList(WorkType)),
             resolve(source, args, context) {
                 return source.work;
+            }
+        },
+        applications: {
+            type: new GraphQLNonNull(new GraphQLList(ApplicationType)),
+            resolve(source, args, context) {
+                return source.applications;
             }
         }
     })
