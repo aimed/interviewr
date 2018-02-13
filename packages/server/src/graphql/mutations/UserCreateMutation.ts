@@ -1,8 +1,8 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { MutationConfig, mutationWithClientMutationId } from 'graphql-relay';
+import { User, UserCreateScope } from '../../entities/User';
 
 import { InterviewrResolverContext } from '../context';
-import { User } from '../../entities/User';
 import { UserService } from '../../services/UserService';
 import { UserType } from '../types/UserType';
 import { ViewerType } from '../types/ViewerType';
@@ -16,7 +16,7 @@ interface UserCreateMutationInput {
 export const UserCreateMutation = mutationWithClientMutationId({
     name: 'UserCreate',
     inputFields: {
-        ...graphQLReflector.getInputFields(User)
+        ...graphQLReflector.getInputFields(User, UserCreateScope)
     },
     outputFields: {
         user: { type: new GraphQLNonNull(UserType) },

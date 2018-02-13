@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
+import { GraphQLInputField, GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
 import { Education } from './Education';
 import { Personal } from './Personal';
@@ -36,7 +36,7 @@ export class User {
     @Column({ length: 256, unique: true }) // Maximum length of an email
     public email: string;
 
-    @GraphQLOutputField({ nonNull: true, scopes: [UserCreateScope] })
+    @GraphQLInputField({ nonNull: true, scopes: [UserCreateScope] })
     @Column()
     public password: string;
 }
