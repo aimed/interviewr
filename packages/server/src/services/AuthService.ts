@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
-import { Connection } from "typeorm";
-import { User } from "../entities/User";
-import { UserService } from "./UserService";
+import { AuthorizationError } from '../errors/AuthorizationError';
+import { Connection } from 'typeorm';
+import { User } from '../entities/User';
+import { UserService } from './UserService';
 
 export class AuthService {
     private connection: Connection;
@@ -34,7 +35,7 @@ export class AuthService {
         if (this.req.cookies && this.req.cookies.jwt) {
             const userService = new UserService(this.connection);
             try {
-                const user = await userService.verifyUserToken(this.req.cookies.jwt);            
+                const user = await userService.verifyUserToken(this.req.cookies.jwt);
                 this.user = user;
                 return user;
             } catch (e) {
@@ -49,9 +50,18 @@ export class AuthService {
     public async requireAuthenticated(): Promise<User> {
         const user = await this.getRequestUser();
         if (!user) {
-            throw 'Not authenticated.';
+            throw new AuthorizationError('Not authenticated');
         }
 
         return user;
+    }
+
+    public async permissionSelfOrAdmin(userOrUserPromise: User | Promise<User>) {
+        const user = await userOrUserPromise;
+        const requestUser = await this.getRequestUser();
+
+        if (user.id !== requestUser.id) {
+            throw new AuthorizationError('Not authorized');
+        }
     }
 }

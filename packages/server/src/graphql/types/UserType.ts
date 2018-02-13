@@ -19,37 +19,43 @@ export const UserType = new GraphQLObjectType({
         ...graphQLReflector.getOutputFields(User, UserTypeScope),
         personal: {
             type: new GraphQLNonNull(new GraphQLList(PersonalDataType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.personalData;
             }
         },
         skills: {
             type: new GraphQLNonNull(new GraphQLList(SkillType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.skills;
             }
         },
         skillGroups: {
             type: new GraphQLNonNull(new GraphQLList(SkillGroupType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.skillGroups;
             }
         },
         education: {
             type: new GraphQLNonNull(new GraphQLList(EducationType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.education;
             }
         },
         work: {
             type: new GraphQLNonNull(new GraphQLList(WorkType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.work;
             }
         },
         applications: {
             type: new GraphQLNonNull(new GraphQLList(ApplicationType)),
-            resolve(source, args, context) {
+            async resolve(source, args, context) {
+                await context.authService.permissionSelfOrAdmin(source);
                 return source.applications;
             }
         }
