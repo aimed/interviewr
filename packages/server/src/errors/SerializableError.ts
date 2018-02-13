@@ -6,8 +6,8 @@ export class SerializableError extends Error {
     private static createMessage(type: new (...params: any[]) => Error, message: string, data: {}): string {
         const jsonData = {
             type: type.name,
-            message: message,
-            data: data
+            message,
+            data
         };
 
         // TODO: Replace with formatError
