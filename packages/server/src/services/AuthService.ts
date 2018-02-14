@@ -1,20 +1,25 @@
+import { Inject, Service } from 'typedi';
 import { Request, Response } from 'express';
+import { RequestService, ResponseService } from '../graphql/context';
 
 import { AuthorizationError } from '../errors/AuthorizationError';
 import { Connection } from 'typeorm';
 import { User } from '../entities/User';
 import { UserService } from './UserService';
 
+@Service()
 export class AuthService {
-    private connection: Connection;
+    private user?: User | null;
     private req: Request;
     private res: Response;
-    private user?: User | null;
 
-    constructor(connection: Connection, req: Request, res: Response) {
-        this.connection = connection;
-        this.req = req;
+    constructor(
+        private connection: Connection,
+        @Inject(() => RequestService) req: Request,
+        @Inject(() => ResponseService) res: Response
+    ) {
         this.res = res;
+        this.req = req;
     }
 
     public clearRequestUser() {

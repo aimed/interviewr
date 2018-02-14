@@ -1,20 +1,19 @@
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
-import { Connection } from "typeorm";
-import { InvalidTokenError } from "../errors/InvalidTokenError";
-import { User } from "../entities/User";
+import { Connection } from 'typeorm';
+import { InvalidTokenError } from '../errors/InvalidTokenError';
+import { Service } from 'typedi';
+import { User } from '../entities/User';
 
 export type UserTokenPayload = string;
 
+@Service()
 export class UserService {
-    private connection: Connection;
-
-    constructor(connection: Connection) {
-        this.connection = connection;
+    constructor(private connection: Connection) {
     }
 
-    public async createUser(email: string, clearTextPassword: string): Promise<User> {        
+    public async createUser(email: string, clearTextPassword: string): Promise<User> {
         const userRepo = this.connection.getRepository(User);
         const password = await bcrypt.hash(clearTextPassword, 10);
         const user = await userRepo.create({ email, password });
@@ -27,13 +26,13 @@ export class UserService {
         const user = await userRepo.findOne({ email });
 
         if (!user) {
-            throw `No user with email ${email} exists.`;
+            throw new Error(`No user with email ${email} exists.`);
         }
 
         const isPasswordCorrect = await bcrypt.compare(clearTextPassword, user.password);
 
         if (!isPasswordCorrect) {
-            throw 'Incorrect password.';
+            throw new Error('Incorrect password.');
         }
 
         const payload: UserTokenPayload = user.id + '';
@@ -49,7 +48,7 @@ export class UserService {
         if (!user) {
             throw new InvalidTokenError('User does not seem to exist anymore.');
         }
-        
+
         return user;
     }
 }

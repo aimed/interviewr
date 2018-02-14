@@ -3,6 +3,7 @@ import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '.
 
 import { Application } from './Application';
 import { Education } from './Education';
+import { GraphQLString } from 'graphql';
 import { Skill } from './Skill';
 import { User } from './User';
 import { Work } from './Work';
@@ -38,7 +39,7 @@ export class Personal {
     @Column({ nullable: true })
     public phone: string;
 
-    @GraphQLScalarField()
+    @GraphQLScalarField({ type: GraphQLString })
     @Column({ nullable: true })
     public birthDate: Date;
 

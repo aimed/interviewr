@@ -8,7 +8,7 @@ import { UserType } from '../types/UserType';
 import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 
-interface UserCreateMutationInput {
+export interface UserCreateMutationInput {
     email: string;
     password: string;
 }

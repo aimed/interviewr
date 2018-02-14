@@ -14,5 +14,6 @@
         "trailing-comma": [true, false],
         "interface-name": [false]
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "ignore-pattern": "[0-9]+.*"
 }

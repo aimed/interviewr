@@ -21,7 +21,7 @@ export const getTypeFromMetadata = <T extends GraphQLInputType | GraphQLOutputTy
 
     if (!type) {
         throw new Error(
-            `Cannot convert ${metadata.name || metadata.contructor.name} to an GraphlQLOutputType.`,
+            `Cannot convert ${metadata.name || metadata.contructor.name} on ${key} to an GraphlQLOutputType.`,
         );
     }
     const typeWithNotNull = nonNull && !(type instanceof GraphQLNonNull) ? new GraphQLNonNull(type) : type;
@@ -77,3 +77,11 @@ export function GraphQLPrimaryIdField(...scopes: symbol[]): PropertyDecorator {
         graphQLReflector.registerOutputField(target, key, scopes.length === 0 ? [DefaultScope] : scopes, field);
     };
 }
+
+/*
+export function GraphQLListField(typeGetter: () => GraphQLObjectType): PropertyDecorator {
+    return (target, key) => {
+        const a = 2 * 3;
+    };
+}
+*/

@@ -1,14 +1,15 @@
 {
-   "type": "sqlite",
-   "database": "database.sqlite",
+   "type": "mysql",
+   "database": "interviewr",
+   "username": "root",
    "entities": [
-      "build/entities/**/*.js"
+      "src/entities/**/*.ts"
    ],
    "migrations": [
-      "build/migrations/**/*.js"
+      "src/migrations/**/*.ts"
    ],
    "subscribers": [
-      "build/subscribers/**/*.js"
+      "src/subscribers/**/*.ts"
    ],
    "cli": {
       "entitiesDir": "build/entities",
