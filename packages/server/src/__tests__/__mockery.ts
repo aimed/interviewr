@@ -8,6 +8,7 @@ import { AuthService } from '../services/AuthService';
 import { AuthorizationError } from '../errors/AuthorizationError';
 import { Container } from 'typedi';
 import { User } from '../entities/User';
+import { toGlobalId } from 'graphql-relay';
 
 export function connect() {
     const random = Math.random().toString();
@@ -69,4 +70,8 @@ export async function createContextWithUser(connection: Connection, user: Promis
         container
     );
     return context;
+}
+
+export function getGlobalId(obj: { id: number }): string {
+    return toGlobalId(obj.constructor.name, obj.id + '');
 }

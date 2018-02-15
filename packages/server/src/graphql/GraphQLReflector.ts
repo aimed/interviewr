@@ -8,6 +8,7 @@ interface IStoreOutShape { [index: string]: ITypeStoreOutShape; }
 interface ITypeStoreInShape { [index: string]: GraphQLInputFieldConfigMap; }
 interface IStoreInShape { [index: string]: ITypeStoreInShape; }
 
+// TODO: Add thunks.
 export class GraphlQLReflector {
     private outputFields: IStoreOutShape = {
     };
