@@ -1,7 +1,7 @@
-import { GraphQLFieldConfig, GraphQLNonNull, GraphQLObjectType } from "graphql";
+import { GraphQLFieldConfig, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
-import { InterviewrResolverContext } from "../context";
-import { ViewerType } from "../types/ViewerType";
+import { InterviewrResolverContext } from '../context';
+import { ViewerType } from '../types/ViewerType';
 
 export const LogoutQueryResponseType = new GraphQLObjectType({
     name: 'LogoutQueryResponse',
@@ -14,7 +14,7 @@ export const LogoutQueryType = {
     type: new GraphQLNonNull(LogoutQueryResponseType),
     resolve(source, args, context) {
         context.authService.clearRequestUser();
-        
+
         return {
             viewer: {}
         };
