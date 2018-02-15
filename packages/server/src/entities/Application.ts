@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
 import { Education } from './Education';
@@ -17,15 +17,18 @@ export class Application {
     public personal: Promise<Personal>;
 
     @ManyToMany(() => Skill, skill => skill.applications)
+    @JoinTable()
     public skills: Promise<Skill[]>;
 
     @ManyToMany(() => Work, work => work.applications)
+    @JoinTable()
     public work: Promise<Work[]>;
 
     @ManyToOne(() => User, user => user.applications)
     public user: Promise<User>;
 
     @ManyToMany(() => Education, education => education.applications)
+    @JoinTable()
     public education: Promise<Education[]>;
 
     @GraphQLScalarField()
