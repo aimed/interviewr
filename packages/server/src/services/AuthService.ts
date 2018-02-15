@@ -15,6 +15,7 @@ export class AuthService {
 
     constructor(
         private connection: Connection,
+        private userService: UserService,
         @Inject(() => RequestService) req: Request,
         @Inject(() => ResponseService) res: Response
     ) {
@@ -38,9 +39,8 @@ export class AuthService {
         }
 
         if (this.req.cookies && this.req.cookies.jwt) {
-            const userService = new UserService(this.connection);
             try {
-                const user = await userService.verifyUserToken(this.req.cookies.jwt);
+                const user = await this.userService.verifyUserToken(this.req.cookies.jwt);
                 this.user = user;
                 return user;
             } catch (e) {
