@@ -1,10 +1,10 @@
-import { GraphQLFieldConfig, GraphQLNonNull, GraphQLObjectType } from "graphql";
+import { GraphQLFieldConfig, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
-import { GraphQLString } from "graphql/type/scalars";
-import { InterviewrResolverContext } from "../context";
-import { User } from "../../entities/User";
-import { UserService } from "../../services/UserService";
-import { ViewerType } from "../types/ViewerType";
+import { GraphQLString } from 'graphql/type/scalars';
+import { InterviewrResolverContext } from '../context';
+import { User } from '../../entities/User';
+import { UserService } from '../../services/UserService';
+import { ViewerType } from '../types/ViewerType';
 
 export const LoginQueryResponseType = new GraphQLObjectType({
     name: 'LoginQueryResponse',
@@ -20,8 +20,8 @@ export const LoginQueryType = {
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
     },
-    async resolve(source, args, context, info) {        
-        const userService = new UserService(context.connection);
+    async resolve(source, args, context, info) {
+        const userService = context.container.get(UserService);
         const payload = await userService.createUserToken(args.email, args.password);
         context.authService.setRequestUser(payload.user, payload.token);
 
