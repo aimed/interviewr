@@ -10,6 +10,7 @@ import { AuthService } from '../services/AuthService';
 import { Container } from 'typedi';
 import { User } from '../entities/User';
 import { UserCreateMutationInput } from '../graphql/mutations/UserCreateMutation';
+import { createContextWithoutUser } from './__mockery';
 import { graphql } from 'graphql';
 import { schema } from '../graphql/schema';
 
@@ -32,25 +33,7 @@ beforeAll(async () => {
 
 describe('User mutation', () => {
     it('should create', async () => {
-        const repo = connection.getRepository(User);
-        const user = repo.create({ email: '', password: '' });
-        await repo.save(user);
-
-        const authServiceMock = mock(AuthService);
-        when(authServiceMock.getRequestUser()).thenReturn(Promise.resolve(user));
-
-        const authServiceInstance = instance(authServiceMock);
-
-        const container = Container.of({});
-        container.set(AuthService, authServiceInstance);
-
-        const context: InterviewrResolverContext = await contextBuilder(
-            connection,
-            {} as any,
-            {} as any,
-            container
-        );
-
+        const context: InterviewrResolverContext = await createContextWithoutUser(connection);
         const input: UserCreateMutationInput = {
             email: 'test@example.com',
             password: '123123'

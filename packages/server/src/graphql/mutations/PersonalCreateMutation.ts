@@ -7,7 +7,7 @@ import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
-interface PersonalCreateMutationInput {
+export interface PersonalCreateMutationInput {
     nationality: string;
     martialStatus: string;
     numberOfChildren: string;

@@ -45,7 +45,7 @@
         "test": "tsc && yarn jest"
     },
     "jest": {
-        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+        "testRegex": "(/__tests__/[a-z0-9].*^|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
         "moduleFileExtensions": [
             "js",
             "jsx",
