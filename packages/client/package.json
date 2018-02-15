@@ -1,0 +1,32 @@
+{
+  "name": "interviewr-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "apollo-client-preset": "^1.0.8",
+    "graphql": "^0.13.0",
+    "graphql-tag": "^2.7.3",
+    "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
+    "react-dom": "^16.2.0",
+    "react-scripts-ts": "2.13.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
+    "gql": "yarn gql:schema && yarn gql:build",
+    "gql:schema": "apollo-codegen introspect-schema http://localhost:8000/graphql --output schema.json",
+    "gql:build": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output src/operation-result-types.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.1.2",
+    "@types/node": "^9.4.5",
+    "@types/react": "^16.0.37",
+    "@types/react-dom": "^16.0.4",
+    "apollo-codegen": "^0.18.3",
+    "typescript": "^2.7.1"
+  },
+  "proxy": "http://localhost:8000"
+}
