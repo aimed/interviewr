@@ -1,9 +1,9 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
 import { InterviewrResolverContext } from '../context';
 import { SkillGroup } from '../../entities/SkillGroup';
 import { SkillGroupType } from '../types/SkillGroupType';
-import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
@@ -17,7 +17,7 @@ export const SkillGroupCreateMutation = mutationWithClientMutationId({
         ...graphQLReflector.getInputFields(SkillGroup)
     }),
     outputFields: () => ({
-        viewer: { type: new GraphQLNonNull(ViewerType) },
+        viewer: ViewerOutputField,
         skillGroup: { type: new GraphQLNonNull(SkillGroupType) }
     }),
     async mutateAndGetPayload(object: SkillGroupCreateMutationInput, context: InterviewrResolverContext, info) {
@@ -29,7 +29,6 @@ export const SkillGroupCreateMutation = mutationWithClientMutationId({
         await skillGroupRepo.save(skillGroup);
 
         return {
-            viewer: {},
             skillGroup
         };
     }

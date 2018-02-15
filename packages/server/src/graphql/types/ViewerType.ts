@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLObjectTypeConfig } from 'graphql';
+import { GraphQLFieldConfig, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLOutputType } from 'graphql';
 
 import { InterviewrResolverContext } from '../context';
 import { UserType } from './UserType';
@@ -14,3 +14,10 @@ export const ViewerType = new GraphQLObjectType({
         }
     })
 } as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>);
+
+export const ViewerOutputField = {
+    type: ViewerType,
+    resolve() {
+        return {};
+    }
+} as GraphQLFieldConfig<any, any>;

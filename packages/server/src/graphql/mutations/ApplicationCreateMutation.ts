@@ -1,4 +1,5 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
 import { Application } from '../../entities/Application';
 import { ApplicationType } from '../types/ApplicationType';
@@ -6,7 +7,6 @@ import { Education } from '../../entities/Education';
 import { InterviewrResolverContext } from '../context';
 import { Personal } from '../../entities/Personal';
 import { Skill } from '../../entities/Skill';
-import { ViewerType } from '../types/ViewerType';
 import { Work } from '../../entities/Work';
 import { graphQLReflector } from '../GraphQLReflector';
 import { mutationWithClientMutationId } from 'graphql-relay';
@@ -32,19 +32,21 @@ export const ApplicationCreateMutation = mutationWithClientMutationId({
     },
     outputFields: {
         application: { type: new GraphQLNonNull(ApplicationType) },
-        viewer: { type: new GraphQLNonNull(ViewerType) }
+        viewer: ViewerOutputField
     },
     async mutateAndGetPayload(object: ApplicationCreateMutationInput, context: InterviewrResolverContext, info) {
         const { personal, work, education, skills, ...data } = object;
         const user = await context.authService.requireAuthenticated();
         const repo = context.connection.getRepository(Application);
-        const application = repo.create(data);
-        application.user = Promise.resolve(user);
-        application.personal = safeIdFetcher<Personal>(personal, context);
-        application.work = Promise.all(work.map(w => safeIdFetcher<Work>(w, context)));
-        application.education = Promise.all(education.map(e => safeIdFetcher<Education>(e, context)));
-        application.skills = Promise.all(skills.map(s => safeIdFetcher<Skill>(s, context)));
+        const application = repo.create({
+            user: Promise.resolve(user),
+            personal: safeIdFetcher<Personal>(personal, context),
+            work: Promise.all(work.map(w => safeIdFetcher<Work>(w, context))),
+            education: Promise.all(education.map(e => safeIdFetcher<Education>(e, context))),
+            skills: Promise.all(skills.map(s => safeIdFetcher<Skill>(s, context))),
+            ...data
+        });
         await repo.save(application);
-        return { application, viewer: {} };
+        return { application };
     }
 });

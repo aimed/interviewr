@@ -1,9 +1,9 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
 import { InterviewrResolverContext } from '../context';
 import { Personal } from '../../entities/Personal';
 import { PersonalDataType } from '../types/PersonalDataType';
-import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
@@ -28,7 +28,7 @@ export const PersonalCreateMutation = mutationWithClientMutationId({
         ...graphQLReflector.getInputFields(Personal)
     }),
     outputFields: () => ({
-        viewer: { type: new GraphQLNonNull(ViewerType) },
+        viewer: ViewerOutputField,
         personal: { type: new GraphQLNonNull(PersonalDataType) }
     }),
     async mutateAndGetPayload(object: PersonalCreateMutationInput, context: InterviewrResolverContext, info) {
@@ -39,8 +39,7 @@ export const PersonalCreateMutation = mutationWithClientMutationId({
         await personalRepo.save(personal);
 
         return {
-            personal,
-            viewer: {}
+            personal
         };
     }
 });

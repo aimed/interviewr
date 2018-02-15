@@ -1,7 +1,8 @@
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
+
 import { GraphQLNonNull } from 'graphql';
 import { InterviewrResolverContext } from '../context';
 import { User } from '../../entities/User';
-import { ViewerType } from '../types/ViewerType';
 import { Work } from '../../entities/Work';
 import { WorkType } from '../types/WorkType';
 import { graphQLReflector } from '../GraphQLReflector';
@@ -20,7 +21,7 @@ export const WorkCreateMutation = mutationWithClientMutationId({
         ...graphQLReflector.getInputFields(Work)
     },
     outputFields: {
-        viewer: { type: new GraphQLNonNull(ViewerType) },
+        viewer: ViewerOutputField,
         work: { type: new GraphQLNonNull(WorkType) }
     },
     async mutateAndGetPayload(object: {}, context: InterviewrResolverContext, info) {
@@ -31,8 +32,7 @@ export const WorkCreateMutation = mutationWithClientMutationId({
         await repo.save(work);
 
         return {
-            work,
-            viewer: {}
+            work
         };
     }
 });

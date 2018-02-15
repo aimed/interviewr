@@ -1,8 +1,9 @@
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
+
 import { Education } from '../../entities/Education';
 import { EducationType } from '../types/EducationType';
 import { GraphQLNonNull } from 'graphql';
 import { InterviewrResolverContext } from '../context';
-import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
@@ -21,7 +22,7 @@ export const EducationCreateMutation = mutationWithClientMutationId({
     },
     outputFields: {
         education: { type: new GraphQLNonNull(EducationType) },
-        viewer: { type: new GraphQLNonNull(ViewerType) }
+        viewer: ViewerOutputField
     },
     async mutateAndGetPayload(object: EducationCreateMutationInput, context: InterviewrResolverContext, info) {
         const user = await context.authService.requireAuthenticated();
@@ -31,8 +32,7 @@ export const EducationCreateMutation = mutationWithClientMutationId({
         await repo.save(education);
 
         return {
-            education,
-            viewer: {}
+            education
         };
     }
 });

@@ -1,11 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { MutationConfig, mutationWithClientMutationId } from 'graphql-relay';
 import { User, UserCreateScope } from '../../entities/User';
+import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
 import { InterviewrResolverContext } from '../context';
 import { UserService } from '../../services/UserService';
 import { UserType } from '../types/UserType';
-import { ViewerType } from '../types/ViewerType';
 import { graphQLReflector } from '../GraphQLReflector';
 
 export interface UserCreateMutationInput {
@@ -21,7 +21,7 @@ export const UserCreateMutation = mutationWithClientMutationId({
     outputFields: {
         user: { type: new GraphQLNonNull(UserType) },
         token: { type: new GraphQLNonNull(GraphQLString) },
-        viewer: { type: new GraphQLNonNull(ViewerType) }
+        viewer: ViewerOutputField
     },
     async mutateAndGetPayload(object: UserCreateMutationInput, context: InterviewrResolverContext, info) {
         const userService = new UserService(context.connection);
@@ -30,8 +30,7 @@ export const UserCreateMutation = mutationWithClientMutationId({
 
         return {
             token,
-            user,
-            viewer: {}
+            user
         };
     }
 });
