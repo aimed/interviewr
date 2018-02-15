@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
 import { Application } from './Application';
@@ -16,6 +16,7 @@ export class Skill {
     public user: Promise<User>;
 
     @ManyToMany(() => SkillGroup, group => group.skills)
+    @JoinTable()
     public group: Promise<SkillGroup>;
 
     @ManyToMany(() => Application, application => application.skills)
