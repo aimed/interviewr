@@ -20,10 +20,11 @@ beforeAll(async () => {
 
 describe('Auth', () => {
     it('should login', async () => {
-        const input = { email: 'test@example.com', password: 'test123123' };
-        const service = new UserService(connection);
-        const user = await service.createUser(input.email, input.password);
+        const input = { email: 'success@example.com', password: 'test123123' };
         const container = Container.of({});
+        container.set(Connection, connection);
+        const service = container.get(UserService);
+        const user = await service.createUser(input.email, input.password);
 
         const context = await contextBuilder(
             connection,
@@ -49,5 +50,37 @@ describe('Auth', () => {
         if (result.errors) {
             throw result.errors[0];
         }
+    });
+
+    it('should fail to login', async () => {
+        const input = { email: 'fail@example.com', password: 'test123123' };
+        const container = Container.of({});
+        container.set(Connection, connection);
+        const service = container.get(UserService);
+        const user = await service.createUser(input.email, input.password);
+
+        const context = await contextBuilder(
+            connection,
+            {} as Request,
+            { cookie(...params: any[]) { /**/} } as Response,
+            container
+        );
+
+        const result = await graphql(schema, `
+            {
+                login(email: "${input.email}", password: "${input.password}__NOT") {
+                    token
+                    viewer {
+                        user {
+                            id
+                            email
+                        }
+                    }
+                }
+            }
+        `, null, context);
+
+        expect(result.errors).toBeTruthy();
+        expect(result.errors.length).toBe(1);
     });
 });
