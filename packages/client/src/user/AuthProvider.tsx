@@ -14,7 +14,6 @@ query AuthProvider {
         id
         user {
             id
-            email
         }
     }
 }

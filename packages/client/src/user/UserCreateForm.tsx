@@ -45,7 +45,7 @@ export class UserCreateForm extends React.Component<UserCreateFormProps, UserCre
             <form onSubmit={submit(this.onCreate)}>
                 <FormTextField field={email} />
                 <FormTextField field={password} type="password" />
-                <Button primary={true}>{submitting ? 'Creating...' : 'Create'}</Button>
+                <Button primary={true}>{submitting ? 'Signing up...' : 'Sign up'}</Button>
             </form>
         );
     }
@@ -59,7 +59,6 @@ mutation UserCreate($input: UserCreateInput!) {
             id
             user {
                 id
-                email
             }
         }
     }

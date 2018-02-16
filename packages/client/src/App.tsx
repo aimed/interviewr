@@ -1,17 +1,16 @@
 import * as React from 'react';
 
 import { AuthProvider } from './user/AuthProvider';
-import { HelloWorld } from './HelloWorld';
-import { UserCreateFormWithData } from './user/UserCreateForm';
+import { DashboardPage } from './dashboard/DashboardPage';
+import { WelcomePage } from './welcome/WelcomePage';
 
-export class App extends React.Component {
+export class App extends React.PureComponent {
   render() {
     return (
       <div className="App">
-        <HelloWorld />
         <AuthProvider>{authenticated => authenticated
-          ? <span>Hello</span>
-          : <UserCreateFormWithData />
+          ? <DashboardPage />
+          : <WelcomePage />
         }</AuthProvider>
       </div>
     );
