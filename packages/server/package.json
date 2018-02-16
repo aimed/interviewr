@@ -42,7 +42,7 @@
         "start": "node_modules/.bin/ts-node --type-check -r dotenv/config src/index.ts",
         "build": "tsc",
         "typeorm": "node_modules/.bin/ts-node --type-check ./node_modules/.bin/typeorm",
-        "test": "tsc && yarn jest"
+        "test": "tsc --skipLibCheck && yarn jest --testEnvironment=node"
     },
     "jest": {
         "testRegex": "(/__tests__/[a-z0-9].*^|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",

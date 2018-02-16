@@ -8,9 +8,9 @@ export const HelloWorld = graphql<HelloWorldQuery>(gql`
 query HelloWorld {
     hello
 }
-`)(props => {
-    if (!props.data) {
-        return <div>Loading...</div>;
+`)(({ data }) => {
+    if (!data) {
+        return <div />;
     }
-    return <div>{props.data.hello}</div>;
+    return <div>{data.hello}</div>;
 });

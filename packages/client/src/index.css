@@ -1,5 +1,77 @@
+.hk-textfield__native-control {
+  font-size: 1rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #333333;
+  padding: 0.5rem 0.4rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color linear 0.2s; }
+  .hk-textfield__native-control:hover, .hk-textfield__native-control:focus {
+    background-color: #fafafa; }
+
+.hk-formfield {
+  vertical-align: middle; }
+  .hk-formfield__hint, .hk-formfield__label {
+    transition: color linear 0.2s;
+    color: #999999;
+    font-size: 0.8rem;
+    margin-left: 5px; }
+    .hk-formfield--focussed .hk-formfield__hint, .hk-formfield--focussed .hk-formfield__label {
+      color: #666666; }
+  .hk-formfield__meta {
+    margin-bottom: 0.1em; }
+  .hk-formfield__error {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    margin-top: 0.5em; }
+  .hk-formfield--error {
+    color: #FF413A; }
+  .hk-formfield + .hk-formfield {
+    margin-top: 1rem; }
+
+.hk-button {
+  font-size: 1rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 5px;
+  outline: none;
+  border: 0;
+  outline: none;
+  background-color: #ffffff;
+  color: #333333;
+  transition: background-color, border .2s ease-out; }
+  .hk-button:hover {
+    cursor: pointer; }
+  .hk-button:hover, .hk-button:focus {
+    background-color: #f2f2f2; }
+  .hk-button:disabled {
+    background-color: #fafafa;
+    color: #666666;
+    cursor: not-allowed; }
+  .hk-button--primary {
+    font-size: 1rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 5px;
+    outline: none;
+    border: 0;
+    outline: none;
+    background-color: #02AFF5;
+    color: #ffffff;
+    transition: background-color, border .2s ease-out; }
+    .hk-button--primary:hover {
+      cursor: pointer; }
+    .hk-button--primary:hover, .hk-button--primary:focus {
+      background-color: #029ddc; }
+    .hk-button--primary:disabled {
+      background-color: #fafafa;
+      color: #666666;
+      cursor: not-allowed; }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-}
+  font-family: sans-serif; }
