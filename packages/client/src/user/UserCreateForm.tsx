@@ -56,6 +56,7 @@ mutation UserCreate($input: UserCreateInput!) {
     UserCreate(input: $input) {
         token
         viewer {
+            id
             user {
                 id
                 email

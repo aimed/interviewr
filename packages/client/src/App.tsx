@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { AuthProvider } from './user/AuthProvider';
 import { HelloWorld } from './HelloWorld';
 import { UserCreateFormWithData } from './user/UserCreateForm';
 
@@ -8,7 +9,10 @@ export class App extends React.Component {
     return (
       <div className="App">
         <HelloWorld />
-        <UserCreateFormWithData />
+        <AuthProvider>{authenticated => authenticated
+          ? <span>Hello</span>
+          : <UserCreateFormWithData />
+        }</AuthProvider>
       </div>
     );
   }

@@ -1,12 +1,21 @@
-import { GraphQLFieldConfig, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLOutputType } from 'graphql';
+import { GraphQLFieldConfig, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLOutputType } from 'graphql';
 
 import { AuthService } from '../../services/AuthService';
 import { InterviewrResolverContext } from '../context';
 import { UserType } from './UserType';
+import { nodeInterface } from '../nodeDefinitions';
+import { toGlobalId } from 'graphql-relay';
 
 export const ViewerType = new GraphQLObjectType({
     name: 'Viewer',
+    intefaces: [nodeInterface],
     fields: () => ({
+        id: {
+            type: new GraphQLNonNull(GraphQLID),
+            resolve() {
+                return toGlobalId('Viewer', '0');
+            }
+        },
         user: {
             type: UserType,
             resolve(source, args, context) {
@@ -17,7 +26,7 @@ export const ViewerType = new GraphQLObjectType({
 } as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>);
 
 export const ViewerOutputField = {
-    type: ViewerType,
+    type: new GraphQLNonNull(ViewerType),
     resolve() {
         return {};
     }
