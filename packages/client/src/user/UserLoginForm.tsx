@@ -35,7 +35,11 @@ export class UserLoginForm extends React.Component<UserLoginFormProps, UserLogin
     });
 
     login = async (variables: LoginQueryVariables) => {
-        await this.props.client.query({ query: loginQuery, variables });
+        try {
+            await this.props.client.query({ query: loginQuery, variables });
+        } catch (error) {
+            console.warn(error);
+        }
     }
 
     render() {

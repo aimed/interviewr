@@ -1,18 +1,22 @@
 import * as React from 'react';
 
-import { AuthProvider } from './user/AuthProvider';
+import { Redirect, Route } from 'react-router';
+
+import { AuthenticatedRoute } from './user/AuthenticatedRoute';
+import { BrowserRouter } from 'react-router-dom';
 import { DashboardPage } from './dashboard/DashboardPage';
 import { WelcomePage } from './welcome/WelcomePage';
 
 export class App extends React.PureComponent {
   render() {
     return (
-      <div className="App">
-        <AuthProvider>{authenticated => authenticated
-          ? <DashboardPage />
-          : <WelcomePage />
-        }</AuthProvider>
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          <Route exact path="/" component={WelcomePage} />
+          <AuthenticatedRoute exact path="/" render={() => <Redirect to="/dashboard" />} />
+          <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
+        </div>
+      </BrowserRouter>
     );
   }
 }

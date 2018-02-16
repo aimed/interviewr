@@ -10,7 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+      <App />
   </ApolloProvider>,
   document.getElementById('root') as HTMLElement
 );

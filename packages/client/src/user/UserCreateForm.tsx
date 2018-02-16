@@ -32,9 +32,10 @@ export class UserCreateForm extends React.Component<UserCreateFormProps, UserCre
         const opts: MutationOpts<UserCreateMutationVariables> = { variables: { input } };
         try {
             const result = await this.props.mutate(opts);
-            console.warn('r', result);
+            // tslint:disable-next-line:no-console
+            console.info(result);
         } catch (error) {
-            console.warn('e', error);
+            console.warn(error);
         }
     }
 

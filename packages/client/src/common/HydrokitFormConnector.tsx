@@ -11,13 +11,13 @@ export function formField<T, F extends object>(field: Field<T, F>) {
     return { label, error: errors ? errors.join(', ') : undefined };
 }
 
-export function textField<F extends object>(field: Field<string, F>) {
+export function textField<F extends object>(field: Field<string | null | undefined, F>) {
     const { value, onBlur } = field;
     const onChange: FormEventHandler<HTMLInputElement> = event => field.value = event.currentTarget.value;
-    return { value, onBlur, onChange };
+    return { value: value || '', onBlur, onChange };
 }
 
-export const FormTextField = observer((props: { field: Field<string, {}>, type?: string }) => (
+export const FormTextField = observer((props: { field: Field<string | null | undefined, {}>, type?: string }) => (
     <FormField {...formField(props.field)}>
         <TextField {...textField(props.field)} type={props.type} />
     </FormField>
