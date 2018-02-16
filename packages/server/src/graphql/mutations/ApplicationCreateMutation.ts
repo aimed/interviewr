@@ -3,6 +3,7 @@ import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
 import { Application } from '../../entities/Application';
 import { ApplicationType } from '../types/ApplicationType';
+import { AuthService } from '../../services/AuthService';
 import { Education } from '../../entities/Education';
 import { InterviewrResolverContext } from '../context';
 import { Personal } from '../../entities/Personal';
@@ -36,7 +37,7 @@ export const ApplicationCreateMutation = mutationWithClientMutationId({
     },
     async mutateAndGetPayload(object: ApplicationCreateMutationInput, context: InterviewrResolverContext, info) {
         const { personal, work, education, skills, ...data } = object;
-        const user = await context.authService.requireAuthenticated();
+        const user = await context.container.get(AuthService).requireAuthenticated();
         const repo = context.connection.getRepository(Application);
         const application = repo.create({
             user: Promise.resolve(user),

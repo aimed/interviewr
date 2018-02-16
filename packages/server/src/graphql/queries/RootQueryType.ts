@@ -1,17 +1,17 @@
-import { GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from "graphql";
+import { GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
 
-import { InterviewrResolverContext } from "../context";
-import { LoginQueryType } from "./LoginQueryType";
-import { LogoutQueryType } from "./LogoutQueryType";
-import { User } from "../../entities/User";
-import { ViewerType } from "../types/ViewerType";
-import { nodeField } from "../nodeDefinitions";
+import { InterviewrResolverContext } from '../context';
+import { LoginQueryType } from './LoginQueryType';
+import { LogoutQueryType } from './LogoutQueryType';
+import { User } from '../../entities/User';
+import { ViewerType } from '../types/ViewerType';
+import { nodeField } from '../nodeDefinitions';
 
 export const RootQueryType = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: () => ({
         node: nodeField,
-        viewer: { 
+        viewer: {
             type: ViewerType,
             resolve(source, args, context) {
                 return {};
@@ -26,4 +26,4 @@ export const RootQueryType = new GraphQLObjectType({
         login: LoginQueryType,
         logout: LogoutQueryType
     })
-} as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>)
+} as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>);

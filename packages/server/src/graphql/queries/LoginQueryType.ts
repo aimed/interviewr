@@ -1,5 +1,6 @@
 import { GraphQLFieldConfig, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
+import { AuthService } from '../../services/AuthService';
 import { GraphQLString } from 'graphql/type/scalars';
 import { InterviewrResolverContext } from '../context';
 import { User } from '../../entities/User';
@@ -23,7 +24,7 @@ export const LoginQueryType = {
     async resolve(source, args, context, info) {
         const userService = context.container.get(UserService);
         const payload = await userService.createUserToken(args.email, args.password);
-        context.authService.setRequestUser(payload.user, payload.token);
+        context.container.get(AuthService).setRequestUser(payload.user, payload.token);
 
         return {
             token: payload.token,

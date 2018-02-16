@@ -12,7 +12,6 @@ export interface InterviewrResolverContext {
     connection: Connection;
     req: Request;
     res: Response;
-    authService: AuthService;
     container: ContainerInstance;
 }
 
@@ -21,13 +20,11 @@ export const contextBuilder = async (connection: Connection, req: Request, res: 
     container.set(RequestService, req);
     container.set(ResponseService, res);
     container.set(Connection, connection);
-    const authService = container.get(AuthService);
 
     return {
         connection,
         req,
         res,
-        authService,
         container
     };
 };

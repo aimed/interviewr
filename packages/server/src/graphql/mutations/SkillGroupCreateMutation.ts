@@ -1,6 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
+import { AuthService } from '../../services/AuthService';
 import { InterviewrResolverContext } from '../context';
 import { SkillGroup } from '../../entities/SkillGroup';
 import { SkillGroupType } from '../types/SkillGroupType';
@@ -21,7 +22,7 @@ export const SkillGroupCreateMutation = mutationWithClientMutationId({
         skillGroup: { type: new GraphQLNonNull(SkillGroupType) }
     }),
     async mutateAndGetPayload(object: SkillGroupCreateMutationInput, context: InterviewrResolverContext, info) {
-        const user = await context.authService.requireAuthenticated();
+        const user = await context.container.get(AuthService).requireAuthenticated();
         const skillGroupRepo = context.connection.getRepository(SkillGroup);
         const skillGroup = skillGroupRepo.create(object);
         skillGroup.user = Promise.resolve(user);

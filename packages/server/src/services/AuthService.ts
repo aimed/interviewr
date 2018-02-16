@@ -69,4 +69,11 @@ export class AuthService {
             throw new AuthorizationError('Not authorized');
         }
     }
+
+    public async requireNotAuthenticated(): Promise<void> {
+        const user = await this.getRequestUser();
+        if (user) {
+            throw new Error('Cannot create a user while logged in.');
+        }
+    }
 }

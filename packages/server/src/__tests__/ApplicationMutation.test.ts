@@ -1,5 +1,6 @@
 import { connect, createContextWithUser, getGlobalId } from './__mockery';
 
+import { AuthService } from '../services/AuthService';
 import { Connection } from 'typeorm';
 import { Education } from '../entities/Education';
 import { Personal } from '../entities/Personal';
@@ -18,7 +19,7 @@ beforeAll(async () => {
 describe('Application mutation', () => {
     it('should create', async () => {
         const context = await createContextWithUser(connection);
-        const user = await context.authService.getRequestUser();
+        const user = await context.container.get(AuthService).getRequestUser();
 
         const personalRepo = connection.getRepository(Personal);
         const personal = personalRepo.create({ firstName: 'firstName' });

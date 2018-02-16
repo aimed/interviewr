@@ -1,5 +1,6 @@
 import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
+import { AuthService } from '../../services/AuthService';
 import { Education } from '../../entities/Education';
 import { EducationType } from '../types/EducationType';
 import { GraphQLNonNull } from 'graphql';
@@ -25,7 +26,7 @@ export const EducationCreateMutation = mutationWithClientMutationId({
         viewer: ViewerOutputField
     },
     async mutateAndGetPayload(object: EducationCreateMutationInput, context: InterviewrResolverContext, info) {
-        const user = await context.authService.requireAuthenticated();
+        const user = await context.container.get(AuthService).requireAuthenticated();
         const repo = context.connection.getRepository(Education);
         const education = repo.create(object);
         education.user = Promise.resolve(user);

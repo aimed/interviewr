@@ -3,6 +3,8 @@ import { MutationConfig, mutationWithClientMutationId } from 'graphql-relay';
 import { User, UserCreateScope } from '../../entities/User';
 import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
+import { AuthService } from '../../services/AuthService';
+import { Container } from 'typedi';
 import { InterviewrResolverContext } from '../context';
 import { UserService } from '../../services/UserService';
 import { UserType } from '../types/UserType';
@@ -24,9 +26,13 @@ export const UserCreateMutation = mutationWithClientMutationId({
         viewer: ViewerOutputField
     },
     async mutateAndGetPayload(object: UserCreateMutationInput, context: InterviewrResolverContext, info) {
-        const userService = new UserService(context.connection);
+        const authService = context.container.get(AuthService);
+        await authService.requireNotAuthenticated();
+
+        const userService = context.container.get(UserService);
         const user = await userService.createUser(object.email, object.password);
         const { token } = await userService.createUserToken(user.email, object.password);
+        authService.setRequestUser(user, token);
 
         return {
             token,

@@ -1,6 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { ViewerOutputField, ViewerType } from '../types/ViewerType';
 
+import { AuthService } from '../../services/AuthService';
 import { InterviewrResolverContext } from '../context';
 import { Personal } from '../../entities/Personal';
 import { PersonalDataType } from '../types/PersonalDataType';
@@ -32,7 +33,7 @@ export const PersonalCreateMutation = mutationWithClientMutationId({
         personal: { type: new GraphQLNonNull(PersonalDataType) }
     }),
     async mutateAndGetPayload(object: PersonalCreateMutationInput, context: InterviewrResolverContext, info) {
-        const user = await context.authService.requireAuthenticated();
+        const user = await context.container.get(AuthService).requireAuthenticated();
         const personalRepo = context.connection.getRepository(Personal);
         const personal = personalRepo.create(object);
         personal.user = Promise.resolve(user);

@@ -1,5 +1,6 @@
 import { GraphQLFieldConfig, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLOutputType } from 'graphql';
 
+import { AuthService } from '../../services/AuthService';
 import { InterviewrResolverContext } from '../context';
 import { UserType } from './UserType';
 
@@ -9,7 +10,7 @@ export const ViewerType = new GraphQLObjectType({
         user: {
             type: UserType,
             resolve(source, args, context) {
-                return context.authService.getRequestUser();
+                return context.container.get(AuthService).getRequestUser();
             }
         }
     })
