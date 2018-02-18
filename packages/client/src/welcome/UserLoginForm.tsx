@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import ApolloClient from 'apollo-client';
 import { Button } from '@hydrokit/button';
+import { FormField } from '@hydrokit/formfield';
 import { FormTextField } from '../common/HydrokitFormConnector';
 import { LoginQueryVariables } from '../operation-result-types';
 import { MobxForm } from '../common/MobxForm';
@@ -30,8 +31,8 @@ export interface UserLoginFormProps {
 @observer
 export class UserLoginForm extends React.Component<UserLoginFormProps, UserLoginFormState> {
     form = new MobxForm<LoginQueryVariables>({
-        email: { defaultValue: '', label: 'Email' },
-        password: { defaultValue: '', label: 'Password' }
+        email: { defaultValue: '' },
+        password: { defaultValue: '' }
     });
 
     login = async (variables: LoginQueryVariables) => {
@@ -47,9 +48,11 @@ export class UserLoginForm extends React.Component<UserLoginFormProps, UserLogin
         const { email, password } = this.form.fields;
         return (
             <form onSubmit={submit(this.login)}>
-                <FormTextField field={email} />
-                <FormTextField field={password} />
-                <Button primary={true} type="submit">{submitting ? 'Signin in...' : 'Sign in'}</Button>
+                <FormTextField field={email} placeholder="Email" />
+                <FormTextField field={password} placeholder="Password" />
+                <FormField>
+                    <Button type="submit">{submitting ? 'Signin in...' : 'Sign in'}</Button>
+                </FormField>
             </form>
         );
     }

@@ -12,9 +12,10 @@ export class App extends React.PureComponent {
     return (
       <BrowserRouter>
         <div className="app">
-          <Route exact path="/" component={WelcomePage} />
           <AuthenticatedRoute exact path="/" render={() => <Redirect to="/dashboard" />} />
           <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
+          <Route path="/onboarding" component={WelcomePage} />
+          <Route exact path="/" component={WelcomePage} />
         </div>
       </BrowserRouter>
     );

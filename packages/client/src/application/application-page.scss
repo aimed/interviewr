@@ -1,0 +1,39 @@
+.application-page {
+    display: grid;
+    grid-template: 
+        "personal       personal"
+        "work           skills"
+        "education      skills"
+    ;
+
+    .education {
+        grid-area: education;
+    }
+
+    .work-experience {
+        grid-area: work;
+    }
+
+    .skills {
+        grid-area: skills;
+        border-left: 1px solid darken(#ffffff, 5%);
+    }
+
+    .skills,
+    .education,
+    .work-experience {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .personal {
+        grid-area: personal;
+    }
+
+    @media (max-width: 800px) {
+        display: block;
+        .skills {
+            border-left: 0;
+        }
+    }
+}

@@ -1,0 +1,32 @@
+.welcome-page {
+    min-height: 100vh;
+    display: grid;
+
+    grid-template: 
+    "header"
+    "content";
+
+    grid-template-rows: auto 1fr;
+
+    &__sign-in {
+        grid-area: header;
+
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+
+            > .hk-formfield {
+                margin-top: 0.2em;
+                margin-right: 0.2em;
+            }
+        }
+    }
+
+    &__content {
+        grid-area: content;
+        align-self: center;
+        justify-self: center;
+    }
+}

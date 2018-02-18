@@ -21,3 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 schema.json
 operation-result-types.ts
+*.css

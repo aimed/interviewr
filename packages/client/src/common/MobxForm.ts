@@ -123,7 +123,11 @@ export class MobxForm<T extends object> {
     }
 
     @action
-    public updateDefaultValues(values: Partial<T>) {
+    public updateDefaultValues(values: Partial<T> | null | undefined) {
+        if (!values) {
+            return;
+        }
+        
         Object.keys(values).forEach((key: keyof T) => this.fields[key].defaultValue = values[key] as T[keyof T]);
     }
 
@@ -135,8 +139,10 @@ export class MobxForm<T extends object> {
     }
 
     public submit = <R>(submit: (values: T) => Promise<R> | void) => {
-        return async (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
+        return async (event?: React.FormEvent<HTMLFormElement>) => {
+            if (event) {
+                event.preventDefault();
+            }
 
             if (this.submitting) {
                 return;
@@ -156,8 +162,8 @@ export class MobxForm<T extends object> {
             this.submitting = true;
             try {
                 await submit(this.values);           
-            } catch (e) {
-                console.warn('MobxForm submitted a form with an unhandled error: ', e);
+            } catch (error) {
+                console.warn('MobxForm submitted a form with an unhandled error: ', error);
             } finally {
                 this.submitting = false;
             }

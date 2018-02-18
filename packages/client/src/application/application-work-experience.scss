@@ -1,0 +1,5 @@
+@import './experience-item-mixin';
+
+.work-experience {
+    @include experience-item('employer', 'role');
+}

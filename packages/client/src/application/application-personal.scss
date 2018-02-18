@@ -1,0 +1,52 @@
+@import '../theme';
+
+.personal {
+    $margin: 1rem;
+    padding: 1rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    background: #FCFCFC;
+
+    &__name {
+        margin: 0;
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        color: #000000;
+    }
+
+    &__picture {
+        margin: $margin;
+        img {
+            width: 150px;
+            height: auto;
+            border-radius: 10%;
+        }
+    }
+
+    &__data {
+        margin: $margin;
+    }
+
+    &__items {
+        display: grid;
+        grid-template: 
+            "birth-date-place contact"
+            "nationality address"
+        ;
+        grid-row-gap: 1em;
+        grid-column-gap: 2em;
+    }
+
+    &__item {
+        &-title {
+            @include label;
+        }
+
+        &-value {
+        }
+    }
+}

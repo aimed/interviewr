@@ -1,0 +1,33 @@
+@import '../theme';
+
+/**
+ * @param $at-label examples: institution, employer, etc.
+ */
+@mixin experience-item($where-label: 'where', $what-label: 'what') {
+    &-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    
+        &__meta {
+            margin-right: 1rem;
+        }
+    
+        &__description {
+            max-width: 600px;
+        }
+    
+        &__#{$where-label} {
+            @include label;
+        }
+        &__#{$where-label},
+        &__#{$what-label} {
+            text-transform: uppercase;
+            font-weight: lighter;
+        }
+    
+        @media (max-width: 800px) {
+            flex-direction: column;
+        }
+    }
+}

@@ -17,8 +17,9 @@ export function textField<F extends object>(field: Field<string | null | undefin
     return { value: value || '', onBlur, onChange };
 }
 
-export const FormTextField = observer((props: { field: Field<string | null | undefined, {}>, type?: string }) => (
+// tslint:disable-next-line:max-line-length
+export const FormTextField = observer((props: { field: Field<string | null | undefined, {}>, type?: string, placeholder?: string }) => (
     <FormField {...formField(props.field)}>
-        <TextField {...textField(props.field)} type={props.type} />
+        <TextField {...textField(props.field)} type={props.type} placeholder={props.placeholder} />
     </FormField>
 ));
