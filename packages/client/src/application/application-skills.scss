@@ -2,8 +2,12 @@
 
 .skill-group {
     &__title {
+        color: $color-label;
+        text-transform: uppercase;
     }
 
-    &__skills {        
+    &__skills {
+        list-style-type: none;  
+        padding: 0;
     }
 }

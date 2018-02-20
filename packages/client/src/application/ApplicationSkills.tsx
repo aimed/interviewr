@@ -24,7 +24,7 @@ export const ApplicationSkillGroup: React.StatelessComponent<ApplicationSkillGro
     const { title, skills } = props;
     return (
         <div className="skill-group">
-            <h4 className="skill-group__title">{title}</h4>
+            <div className="skill-group__title">{title}</div>
             <ul className="skill-group__skills">{
                 skills.map(skill => 
                     <li className="skill" key={skill.id}>
