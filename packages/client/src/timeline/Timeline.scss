@@ -1,0 +1,48 @@
+@import '../theme';
+
+.timeline {
+    &__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        @media (max-width: 800px) {
+            display: block;
+        }
+
+        & + & {
+            margin-top: 2em;
+        }
+    }
+
+    &__time {
+        width: 20%;
+        min-width: 200px;
+    }
+
+    &__title {
+        vertical-align: text-bottom;
+        margin-bottom: 0.5em;
+
+        color: $color-label;
+        text-transform: uppercase;
+
+        &__primary,
+        &__secondary {
+            display: inline;
+        }
+
+        &__secondary {
+            font-weight: lighter;
+            font-size: $font-size-label;
+        }
+
+        &__primary + &__secondary{
+            margin-left: 1em;
+        }
+    }
+
+    &__body {
+        max-width: 60ch;
+    }
+}

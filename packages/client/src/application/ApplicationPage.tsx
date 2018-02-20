@@ -25,8 +25,16 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
         id: '1',
         institution: 'TU Dortmund',
         degree: 'B.Sc. Logistics',
-        description: '',
-        startDate: new Date(2009, 8, 1)
+        description: 'Focus on facility logistics. The program includes a wide range of classes related to math, programming and project management.',
+        startDate: new Date(2009, 8, 1),
+        endDate: new Date(2016, 8, 1)
+    }, {
+        id: '2',
+        institution: 'TU Dortmund',
+        degree: 'B.Sc. Computer Science',
+        description: 'Computer Science degree with classes on web development and formal system verification.',
+        startDate: new Date(20013, 8, 1),
+        endDate: new Date(2018, 5, 1)
     }];
 
     const programmingGroup: SkillGroup = {

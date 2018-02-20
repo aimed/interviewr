@@ -1,5 +1,0 @@
-@import './experience-item-mixin';
-
-.education {
-    @include experience-item('institution', 'degree');
-}

@@ -1,9 +1,8 @@
-import './application-work-experience.css';
-
 import * as React from 'react';
 
+import { Timeline, TimelineItem } from '../timeline/Timeline';
+
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
-import { Period } from './Period';
 
 export interface WorkExperience {
     id: string;
@@ -14,43 +13,20 @@ export interface WorkExperience {
     endDate?: Date;
 }
 
-export interface WorkExperienceItemProps {
-    work: WorkExperience;
-}
-
-export const WorkExperienceItem: React.StatelessComponent<WorkExperienceItemProps> = props => {
-    const {
-        role,
-        employer,
-        description,
-        startDate,
-        endDate
-    } = props.work;
-    return (
-        <div className="work-experience-item">
-            <div className="work-experience-item__meta">
-                <div className="work-experience-item__role">{role}</div>
-                <div className="work-experience-item__employer">{employer}</div>
-                <Period startDate={startDate} endDate={endDate} />
-            </div>
-            <div className="work-experience-item__description">{description}</div>
-        </div>
-    );
-};
+const workToTimelineItem: (work: WorkExperience) => TimelineItem = 
+    ({ role, employer, description, ...rest }) => 
+        ({ title: role, text: description, secondaryTitle: employer, ...rest });
 
 export interface ApplicationWorkExperienceProps {
     work: WorkExperience[];
 }
 
 export const ApplicationWorkExperience: React.StatelessComponent<ApplicationWorkExperienceProps> = props => {
+    const timeline = props.work.map(workToTimelineItem);
     return (
         <div className="work-experience">
             <ApplicationSectionLabel>Work experience</ApplicationSectionLabel>
-            <div className="work-experience__items">
-            {props.work.map(work => 
-                <WorkExperienceItem work={work} key={work.id} />
-            )}
-            </div>
+            <Timeline timeline={timeline} />
         </div>
     );
 };
