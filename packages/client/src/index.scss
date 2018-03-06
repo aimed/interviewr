@@ -33,3 +33,25 @@ h3 {font-size: 1.266em;}
 h4 {font-size: 1.125em;}
 
 small, .font_small {font-size: 0.889em;}
+
+.hk-field-group {
+  & + & {
+    margin-top: 1em;
+  }
+  &--inline {
+    display: flex;
+    flex-direction: row;
+
+    & .hk-formfield {
+      margin-top: 0;
+    }
+
+    & .hk-formfield + .hk-formfield {
+      margin-left: 0.5em;
+    }
+  }
+}
+
+.hk-textfield__native-control {
+  background-color: darken($color: #fff, $amount: 3%);
+}
