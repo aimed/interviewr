@@ -1,5 +1,6 @@
 import { GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLObjectTypeConfig, GraphQLString } from 'graphql';
 
+import { ApplicationQueryType } from './ApplicationQueryType';
 import { InterviewrResolverContext } from '../context';
 import { LoginQueryType } from './LoginQueryType';
 import { LogoutQueryType } from './LogoutQueryType';
@@ -24,6 +25,7 @@ export const RootQueryType = new GraphQLObjectType({
             }
         },
         login: LoginQueryType,
-        logout: LogoutQueryType
+        logout: LogoutQueryType,
+        application: ApplicationQueryType
     })
 } as GraphQLObjectTypeConfig<{}, InterviewrResolverContext>);

@@ -5,20 +5,12 @@ import { ChildProps, MutationOpts, graphql } from 'react-apollo';
 import { PersonalCreateInput, PersonalCreateMutation, PersonalCreateMutationVariables } from '../operation-result-types';
 
 import { Button } from '@hydrokit/button';
-import { FormField } from '@hydrokit/formfield';
+import { FieldGroup } from '../common/FieldGroup';
 import { FormTextField } from '../common/HydrokitFormConnector';
+import { GraphQLError } from 'graphql';
 import { MobxForm } from '../common/MobxForm';
 import gql from 'graphql-tag';
-
-const FieldGroup: React.StatelessComponent<{ inline?: boolean }> = (props) => {
-    const inlineStyle: React.CSSProperties = {
-        display: 'flex',
-        flexDirection: 'row'
-    };
-    return (
-        <div style={props.inline ? inlineStyle : {}}>{props.children}</div>
-    );
-};
+import { observer } from 'mobx-react';
 
 export interface PersonalCreateFormState { }
 export interface PersonalCreateFormProps extends ChildProps<{}, PersonalCreateMutation> {
@@ -26,8 +18,11 @@ export interface PersonalCreateFormProps extends ChildProps<{}, PersonalCreateMu
     footer?: (submit: () => void) => JSX.Element;
     // tslint:disable-next-line:no-any
     onSubmit?: (input: PersonalCreateInput) => any;
+    // tslint:disable-next-line:no-any
+    onResult?: (result: { data: PersonalCreateMutation, errors?: GraphQLError[] | undefined }) => any;
 }
 
+@observer
 export class PersonalCreateForm extends React.Component<PersonalCreateFormProps, PersonalCreateFormState> {
     form = new MobxForm<PersonalCreateInput>({
         firstName: { defaultValue: '', label: 'First name' },
@@ -52,15 +47,18 @@ export class PersonalCreateForm extends React.Component<PersonalCreateFormProps,
         const opts: MutationOpts<PersonalCreateMutationVariables> = { variables: { input } };
         try {
             const result = await this.props.mutate(opts);
+            if (this.props.onResult) {
+                this.props.onResult(result);
+            }
             // tslint:disable-next-line:no-console
             console.info(result);
-        } catch (error) {
-            console.warn(error);
+        } catch (err) {
+            console.warn(err);
         }
     }
 
     footer(submitting: boolean) {
-        return <Button>{submitting ? 'Submitting...' : 'Submit'}</Button>;
+        return <Button primary>{submitting ? 'Submitting...' : 'Submit'}</Button>;
     }
 
     render() {
@@ -73,29 +71,35 @@ export class PersonalCreateForm extends React.Component<PersonalCreateFormProps,
         return (
             <form onSubmit={submit(this.onSubmit)}>
                 {header}
+                <h4>General</h4>
                 <FieldGroup inline>
-                    <FormTextField field={firstName} />
-                    <FormTextField field={lastName} />
+                    <FormTextField field={firstName} name="first_name" />
+                    <FormTextField field={lastName} name="last_name" />
                 </FieldGroup>
+                <h4>Family</h4>
                 <FieldGroup>
                     <FormTextField field={martialStatus} />
                     <FormTextField field={numberOfChildren} />
                 </FieldGroup>
-                <FormTextField field={nationality} />
+                <h4>Nationality</h4>
+                <FieldGroup>
+                    <FormTextField field={nationality} name="nationality" />
+                </FieldGroup>
                 <FieldGroup inline>
-                    <FormTextField field={birthPlace} />
-                    <FormTextField field={birthDate} />
+                    <FormTextField field={birthPlace} name="birth_place" />
+                    <FormTextField field={birthDate} name="birth_date" />
+                </FieldGroup>
+                <h4>Contact</h4>
+                <FieldGroup>
+                    <FormTextField field={phone} name="phone" />
+                    <FormTextField field={addressLine1} name="address_line_1" />
+                    <FormTextField field={addressLine2} name="address_line_2" />
+                    <FormTextField field={addressLine3} name="address_line_3" />
+                    <FormTextField field={addressLine4} name="address_line_4" />
                 </FieldGroup>
                 <FieldGroup>
-                    <FormTextField field={phone} />
-                    <FormTextField field={addressLine1} />
-                    <FormTextField field={addressLine2} />
-                    <FormTextField field={addressLine3} />
-                    <FormTextField field={addressLine4} />
-                </FieldGroup>
-                <FormField>
                     {footer ? footer(submitHandle) : this.footer(submitting)}
-                </FormField>
+                </FieldGroup>
             </form>
         );
     }

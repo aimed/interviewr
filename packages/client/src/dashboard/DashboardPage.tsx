@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-import { ApplicationPage } from '../application/ApplicationPage';
+import { Route, Switch } from 'react-router';
+
+import { ApplicationCreateForm } from '../application/create/ApplicationCreateForm';
 import { DashboardWithData } from './Dashboard';
-import { UserLogoutButton } from '../user/UserLogoutButton';
+import { Navigation } from '../nav/Navigation';
 
 export interface DashboardPageState { }
 export interface DashboardPageProps { }
@@ -11,12 +13,11 @@ export class DashboardPage extends React.PureComponent<DashboardPageProps, Dashb
   render() {
     return (
       <div className="dashboard-page">
-        <DashboardWithData />
-        <ApplicationPage />
-        <div className="dashboard-page__header">
-          <span>Hello user!</span>
-          <UserLogoutButton />
-        </div>
+        <Navigation />
+        <ApplicationCreateForm />
+        <Switch>
+          <Route component={DashboardWithData} />
+        </Switch>
       </div>
     );
   }

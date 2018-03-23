@@ -33,4 +33,8 @@ export class Work {
     @GraphQLScalarField({ nonNull: true })
     @Column()
     public employer: string;
+
+    @GraphQLScalarField({ nonNull: true })
+    @Column()
+    public role: string;
 }

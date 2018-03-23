@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import { PersonalCreateInput, UserCreateInput } from '../operation-result-types';
 
+import { AuthenticatedRoute } from '../user/AuthenticatedRoute';
+import { Redirect } from 'react-router';
 import { UserCreateFormWithData } from './UserCreateForm';
 import { UserLoginFormWithData } from './UserLoginForm';
 
@@ -17,6 +19,8 @@ export class WelcomePage extends React.Component<WelcomePageProps, WelcomePageSt
   render() {
     return (
       <div className="welcome-page">
+        {/* If we'r logged in, redirect. */}
+        <AuthenticatedRoute exact path="/" render={() => <Redirect to="/dashboard" push={false} />} />
         <div className="welcome-page__sign-in"><UserLoginFormWithData /></div>
         <div className="welcome-page__content">
           <UserCreateFormWithData

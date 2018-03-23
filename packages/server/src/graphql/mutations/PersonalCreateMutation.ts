@@ -32,10 +32,10 @@ export const PersonalCreateMutation = mutationWithClientMutationId({
         viewer: ViewerOutputField,
         personal: { type: new GraphQLNonNull(PersonalDataType) }
     }),
-    async mutateAndGetPayload(object: PersonalCreateMutationInput, context: InterviewrResolverContext, info) {
+    async mutateAndGetPayload(input: PersonalCreateMutationInput, context: InterviewrResolverContext, info) {
         const user = await context.container.get(AuthService).requireAuthenticated();
         const personalRepo = context.connection.getRepository(Personal);
-        const personal = personalRepo.create(object);
+        const personal = personalRepo.create({ ...input });
         personal.user = Promise.resolve(user);
         await personalRepo.save(personal);
 

@@ -16,6 +16,9 @@ export class Dashboard extends React.PureComponent<ChildProps<DashboardProps, Da
         return (
             <div className="dashboard">
                 <div className="dashboard__applications">
+                    <div className="shashboard__applications__placeholder">
+                        You have not created any applications yet.
+                    </div>
                 {this.props.data.viewer.user.applications.map(application => 
                     application && <div key={application.id}>{application.id}</div>
                 )}
