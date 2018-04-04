@@ -1,15 +1,19 @@
 import * as React from 'react';
 
-import { WorkCreateInput, WorkCreateMutation } from '../operation-result-types';
+import { ChildProps, MutationOpts, graphql } from 'react-apollo';
+import { WorkCreateInput, WorkCreateMutation, WorkCreateMutationVariables } from '../operation-result-types';
 
+import { ApolloQueryResult } from 'apollo-client';
+import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
 import { FormTextField } from '../common/HydrokitFormConnector';
 import { MobxForm } from '../common/MobxForm';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
 export interface WorkCreateFormState { }
-export interface WorkCreateFormProps { }
+export interface WorkCreateFormProps extends ChildProps<{}, WorkCreateMutation> {
+    onResult?: (result: ApolloQueryResult<WorkCreateMutation>) => void;
+}
 
 export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCreateFormState> {
     form = new MobxForm<WorkCreateInput>({
@@ -20,7 +24,34 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
         role: { defaultValue: '', label: 'Role' }
     });
 
+    onSubmit = async (input: WorkCreateInput) => {
+        if (!this.props.mutate) {
+            return;
+        }
+
+        const opts: MutationOpts<WorkCreateMutationVariables> = { variables: { input } };
+        try {
+            const result = await this.props.mutate(opts);
+            if (this.props.onResult) {
+                this.props.onResult(result);
+            }
+            // tslint:disable-next-line:no-console
+            console.info(result);
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+    footer(submitting: boolean) {
+        return <Button primary>{submitting ? 'Submitting...' : 'Submit'}</Button>;
+    }
+
     render() {
+        const {
+            submit,
+            submitting
+        } = this.form;
+        
         const {
             role,
             employer,
@@ -30,7 +61,7 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
         } = this.form.fields;
         
         return (
-            <form action="">
+            <form onSubmit={submit(this.onSubmit)}>
                 <FieldGroup inline>
                     <FormTextField field={employer} />
                     <FormTextField field={role} />
@@ -41,6 +72,9 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
                 <FieldGroup>
                     <FormTextField field={startDate} />
                     <FormTextField field={endDate} />
+                </FieldGroup>
+                <FieldGroup>
+                    {this.footer(submitting)}
                 </FieldGroup>
             </form>
         );
