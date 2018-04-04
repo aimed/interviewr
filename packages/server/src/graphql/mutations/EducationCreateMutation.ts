@@ -28,7 +28,7 @@ export const EducationCreateMutation = mutationWithClientMutationId({
     async mutateAndGetPayload(object: EducationCreateMutationInput, context: InterviewrResolverContext, info) {
         const user = await context.container.get(AuthService).requireAuthenticated();
         const repo = context.connection.getRepository(Education);
-        const education = repo.create(object);
+        const education = repo.create({ ...object });
         education.user = Promise.resolve(user);
         await repo.save(education);
 
