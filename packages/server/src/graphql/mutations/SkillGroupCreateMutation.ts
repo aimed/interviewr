@@ -24,7 +24,7 @@ export const SkillGroupCreateMutation = mutationWithClientMutationId({
     async mutateAndGetPayload(object: SkillGroupCreateMutationInput, context: InterviewrResolverContext, info) {
         const user = await context.container.get(AuthService).requireAuthenticated();
         const skillGroupRepo = context.connection.getRepository(SkillGroup);
-        const skillGroup = skillGroupRepo.create(object);
+        const skillGroup = skillGroupRepo.create({ ...object });
         skillGroup.user = Promise.resolve(user);
 
         await skillGroupRepo.save(skillGroup);

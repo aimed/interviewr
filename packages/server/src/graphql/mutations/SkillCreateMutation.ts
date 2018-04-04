@@ -30,7 +30,7 @@ export const SkillCreateMutation = mutationWithClientMutationId({
         const user = await context.container.get(AuthService).requireAuthenticated();
         const skillGroupInstance = await safeIdFetcher<SkillGroup>(skillGroup, context);
         const skillRepo = context.connection.getRepository(Skill);
-        const skill = skillRepo.create(skillData);
+        const skill = skillRepo.create({ ...skillData });
         skill.group = Promise.resolve(skillGroupInstance);
         skill.user = Promise.resolve(user);
         await skillRepo.save(skill);

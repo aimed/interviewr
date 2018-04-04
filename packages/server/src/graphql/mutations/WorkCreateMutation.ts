@@ -28,7 +28,7 @@ export const WorkCreateMutation = mutationWithClientMutationId({
     async mutateAndGetPayload(object: {}, context: InterviewrResolverContext, info) {
         const user = await context.container.get(AuthService).requireAuthenticated();
         const repo = context.connection.getRepository(Work);
-        const work = repo.create(object);
+        const work = repo.create({ ...object });
         work.user = Promise.resolve(user);
         await repo.save(work);
 
