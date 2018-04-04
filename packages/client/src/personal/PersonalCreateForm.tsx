@@ -4,10 +4,10 @@ import { ChildProps, MutationOpts, graphql } from 'react-apollo';
 // tslint:disable-next-line:max-line-length
 import { PersonalCreateInput, PersonalCreateMutation, PersonalCreateMutationVariables } from '../operation-result-types';
 
+import { ApolloQueryResult } from 'apollo-client';
 import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
 import { FormTextField } from '../common/HydrokitFormConnector';
-import { GraphQLError } from 'graphql';
 import { MobxForm } from '../common/MobxForm';
 import gql from 'graphql-tag';
 import { observer } from 'mobx-react';
@@ -19,7 +19,7 @@ export interface PersonalCreateFormProps extends ChildProps<{}, PersonalCreateMu
     // tslint:disable-next-line:no-any
     onSubmit?: (input: PersonalCreateInput) => any;
     // tslint:disable-next-line:no-any
-    onResult?: (result: { data: PersonalCreateMutation, errors?: GraphQLError[] | undefined }) => any;
+    onResult?: (result: ApolloQueryResult<PersonalCreateMutation>) => any;
 }
 
 @observer
