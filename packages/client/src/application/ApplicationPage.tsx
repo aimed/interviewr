@@ -3,15 +3,26 @@ import './application-page.css';
 import * as React from 'react';
 
 import { ApplicationEducation, Education } from './ApplicationEducation';
+import { ApplicationPageQuery, ApplicationPageQueryVariables } from '../operation-result-types';
 import { ApplicationSkills, Skill, SkillGroup } from './ApplicationSkills';
 import { ApplicationWorkExperience, WorkExperience } from './ApplicationWorkExperience';
+import { Query, QueryResult } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import { ApplicationPageQuery } from '../operation-result-types';
 import { ApplicationPersonal } from './ApplicationPersonal';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
+const QUERY = gql`
+    query ApplicationPage($accessCode: String!) {
+        application(accessCode: $accessCode) {
+            id
+        }
+    }
+`;
+
+interface RouteParams {
+    accessCode: string;
+}
 // tslint:disable:max-line-length
 const gravatar = 'https://en.gravatar.com/userimage/24124275/acf9df1a3eb03a58a263aed5c1bff778.jpg?size=200';
 const work: WorkExperience[] = [{
@@ -53,7 +64,9 @@ const skills: Skill[] = [{
     group: programmingGroup
 }];
 
-export interface ApplicationPageProps { }
+export interface ApplicationPageProps {
+    data: ApplicationPageQuery | undefined;
+}
 
 export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = props => {
     return (
@@ -76,25 +89,15 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
     );
 };
 
-interface RouteParams {
-    accessCode: string;
-}
-
-export const ApplicationPageWithData = withRouter(graphql<ApplicationPageQuery, ApplicationPageProps & RouteComponentProps<RouteParams>>(gql`
-    query ApplicationPage($accessCode: String!) {
-        application(accessCode: $accessCode) {
-            id
-        }
-    }
-    `, 
-    // tslint:disable-next-line:align
-    { 
-        options: (route: RouteComponentProps<RouteParams>) => {            
-            return { 
-                variables: { 
-                    accessCode: route.match.params.accessCode 
-                } 
-            };
-        }
-    }
-)(ApplicationPage));
+export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParams>>(routeProps => {
+    const variables: ApplicationPageQueryVariables = {accessCode: routeProps.match.params.accessCode};
+    return (
+        <Query query={QUERY} variables={variables}>{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
+            if (result.loading || !result.data) {
+                return null;
+            }
+            
+            return <ApplicationPage data={result.data} />;
+        }}</Query>
+    );
+});
