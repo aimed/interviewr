@@ -7,6 +7,7 @@
     "@hydrokit/formfield": "^0.6.0",
     "@hydrokit/textfield": "^0.6.0",
     "@types/graphql": "^0.12.4",
+    "@types/prop-types": "^15.5.2",
     "@types/react-router": "^4.0.22",
     "@types/react-router-dom": "^4.2.4",
     "apollo-client-preset": "^1.0.8",
