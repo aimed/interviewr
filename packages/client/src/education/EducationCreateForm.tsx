@@ -1,19 +1,39 @@
 import * as React from 'react';
 
-import { ChildProps, MutationOpts, graphql } from 'react-apollo';
 // tslint:disable-next-line:max-line-length
 import { EducationCreateInput, EducationCreateMutation, EducationCreateMutationVariables } from '../operation-result-types';
+import { ExecutionResult, Mutation, MutationFn, MutationResult } from 'react-apollo';
 
-import { ApolloQueryResult } from 'apollo-client';
 import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
 import { MobxForm } from '../common/MobxForm';
 import gql from 'graphql-tag';
 
+const EDUCATION_CREATE = gql`
+mutation EducationCreate($input: EducationCreateInput!) {
+    EducationCreate(input: $input) {
+        viewer {
+            id
+            user {
+                id
+                education {
+                    id
+                }
+            }
+        }
+        
+        education {
+            id
+        }
+    }
+}
+`;
+
 export interface EducationCreateFormState { }
-export interface EducationCreateFormProps extends ChildProps<{}, EducationCreateMutation> {
+export interface EducationCreateFormProps {
+    mutate: MutationFn<EducationCreateMutation, EducationCreateMutationVariables>;
     // tslint:disable-next-line:no-any
-    onResult?: (result: ApolloQueryResult<EducationCreateMutation>) => any;
+    onResult?: (result: ExecutionResult<EducationCreateMutation> | void) => any;
 }
 
 export class EducationCreateForm extends React.Component<EducationCreateFormProps, EducationCreateFormState> {
@@ -30,7 +50,7 @@ export class EducationCreateForm extends React.Component<EducationCreateFormProp
             return;
         }
 
-        const opts: MutationOpts<EducationCreateMutationVariables> = { variables: { input } };
+        const opts = { variables: { input } };
         try {
             const result = await this.props.mutate(opts);
             if (this.props.onResult) {
@@ -67,22 +87,14 @@ export class EducationCreateForm extends React.Component<EducationCreateFormProp
     }
 }
 
-export const EducationCreateFormWithData = graphql<EducationCreateMutation, EducationCreateFormProps>(gql`
-mutation EducationCreate($input: EducationCreateInput!) {
-    EducationCreate(input: $input) {
-        viewer {
-            id
-            user {
-                id
-                education {
-                    id
-                }
-            }
-        }
-        
-        education {
-            id
-        }
-    }
-}
-`)(EducationCreateForm);
+// tslint:disable-next-line:max-line-length
+// export const EducationCreateFormWithData = graphql<EducationCreateMutation, EducationCreateFormProps>(EDUCATION_CREATE)(EducationCreateForm);
+
+export const EducationCreateFormWithData = () => (
+    // tslint:disable-next-line:max-line-length
+    <Mutation mutation={EDUCATION_CREATE}>{(educationCreate: MutationFn<EducationCreateMutation, EducationCreateMutationVariables>, { data }: MutationResult<EducationCreateMutation>) => {
+        return (
+            <EducationCreateForm mutate={educationCreate} />
+        );
+    }}</Mutation>
+);
