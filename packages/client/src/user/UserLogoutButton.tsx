@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import ApolloClient from 'apollo-client';
 import { Button } from '@hydrokit/button';
 import gql from 'graphql-tag';
 import { withApollo } from 'react-apollo';
 
 export interface UserLogoutButtonProps {}
 
-export const UserLogoutButton = withApollo((props: { client: ApolloClient<{}> }) => {
+export const UserLogoutButton = withApollo(props => {
     const onClick = async () => {
         await props.client.query({ query: gql`
         query Logout {

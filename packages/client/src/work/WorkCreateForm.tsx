@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { ChildProps, MutationOpts, graphql } from 'react-apollo';
+import { Mutation, MutationFn } from 'react-apollo';
+import { MutationFormChildProps, MutationFormProps } from '../utils/hydrokit_graphql_utils';
 import { WorkCreateInput, WorkCreateMutation, WorkCreateMutationVariables } from '../operation-result-types';
 
-import { ApolloQueryResult } from 'apollo-client';
 import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
 import { FormTextField } from '../common/HydrokitFormConnector';
@@ -11,9 +11,7 @@ import { MobxForm } from '../common/MobxForm';
 import gql from 'graphql-tag';
 
 export interface WorkCreateFormState { }
-export interface WorkCreateFormProps extends ChildProps<{}, WorkCreateMutation> {
-    onResult?: (result: ApolloQueryResult<WorkCreateMutation>) => void;
-}
+export interface WorkCreateFormProps extends MutationFormChildProps<WorkCreateMutation, WorkCreateMutationVariables> {}
 
 export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCreateFormState> {
     form = new MobxForm<WorkCreateInput>({
@@ -24,22 +22,9 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
         role: { defaultValue: '', label: 'Role' }
     });
 
-    onSubmit = async (input: WorkCreateInput) => {
-        if (!this.props.mutate) {
-            return;
-        }
-
-        const opts: MutationOpts<WorkCreateMutationVariables> = { variables: { input } };
-        try {
-            const result = await this.props.mutate(opts);
-            if (this.props.onResult) {
-                this.props.onResult(result);
-            }
-            // tslint:disable-next-line:no-console
-            console.info(result);
-        } catch (err) {
-            console.warn(err);
-        }
+    onSubmit = (input: WorkCreateInput) => {
+        const opts = { variables: { input } };
+        return this.props.mutate(opts).then(this.props.onResult).catch(this.props.onError);
     }
 
     footer(submitting: boolean) {
@@ -69,7 +54,7 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
                 <FieldGroup>
                     <FormTextField field={description} />
                 </FieldGroup>
-                <FieldGroup>
+                <FieldGroup inline>
                     <FormTextField field={startDate} />
                     <FormTextField field={endDate} />
                 </FieldGroup>
@@ -81,7 +66,7 @@ export class WorkCreateForm extends React.Component<WorkCreateFormProps, WorkCre
     }
 }
 
-export const WorkCreateFormWithData = graphql<WorkCreateMutation, WorkCreateFormProps>(gql`
+const WORK_CREATE_MUTATION = gql`
 mutation WorkCreate($input: WorkCreateInput!) {
     WorkCreate(input: $input) {
         viewer {
@@ -99,4 +84,11 @@ mutation WorkCreate($input: WorkCreateInput!) {
         }
     }
 }
-`)(WorkCreateForm);
+`;
+export const WorkCreateFormWithData = (props: MutationFormProps<WorkCreateMutation>) => (
+    <Mutation mutation={WORK_CREATE_MUTATION}>
+    {(workCreate: MutationFn<WorkCreateMutation>) =>
+        <WorkCreateForm mutate={workCreate} {...props} />
+    }
+    </Mutation>  
+);

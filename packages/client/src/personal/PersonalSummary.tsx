@@ -15,14 +15,14 @@ export class PersonalSummary extends React.Component<PersonalSummaryQuery, Perso
     render() {
         const node = this.props.node;
 
-        if (!node) {
+        if (!node || !('firstName' in node)) {
             return null;
         }
 
         return (
             <div className="personal-summary">
-                <span>{'firstName' in node ? node.firstName : ''}</span>
-                <span>{'lastName' in  node ? node.lastName : ''}</span>
+                <span>{node.firstName}</span>
+                <span>{node.lastName}</span>
             </div>
         );
     }

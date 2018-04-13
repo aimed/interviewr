@@ -1,14 +1,15 @@
 import * as React from 'react';
 
+import { Query, QueryResult } from 'react-apollo';
+
 import { AuthProviderQuery } from '../operation-result-types';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
 export interface AuthProviderProps {
     children: (isAuthenticated: boolean) => JSX.Element[] | JSX.Element | null | undefined | React.ReactNode;
 }
 
-export const AuthProvider: React.ComponentClass<AuthProviderProps> = graphql<AuthProviderQuery, AuthProviderProps>(gql`
+const QUERY = gql`
 query AuthProvider {
     viewer {
         id
@@ -17,14 +18,11 @@ query AuthProvider {
         }
     }
 }
-`, 
-// tslint:disable-next-line:align
-{ options: { fetchPolicy: 'cache-first' } })(({ data, children }) => {
-    if (!data || data.loading) {
-        return null;
-    }
-    
-    return (
-        children(!!(data.viewer && data.viewer.user))
-    ) as JSX.Element;
-});
+`;
+export const AuthProvider = (props: AuthProviderProps) => (
+    // Use cache first to prevent always checking the auth status.
+    // Loading it initially should be good enough.
+    <Query query={QUERY} fetchPolicy="cache-first">
+        {({ data }: QueryResult<AuthProviderQuery>) => data ? props.children(!!data.viewer) : null}
+    </Query>
+);

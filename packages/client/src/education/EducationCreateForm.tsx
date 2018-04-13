@@ -2,11 +2,13 @@ import * as React from 'react';
 
 // tslint:disable-next-line:max-line-length
 import { EducationCreateInput, EducationCreateMutation, EducationCreateMutationVariables } from '../operation-result-types';
-import { ExecutionResult, Mutation, MutationFn, MutationResult } from 'react-apollo';
+import { Mutation, MutationFn } from 'react-apollo';
 
 import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
+import { FormTextField } from '../common/HydrokitFormConnector';
 import { MobxForm } from '../common/MobxForm';
+import { MutationFormProps } from '../utils/hydrokit_graphql_utils';
 import gql from 'graphql-tag';
 
 const EDUCATION_CREATE = gql`
@@ -29,11 +31,10 @@ mutation EducationCreate($input: EducationCreateInput!) {
 }
 `;
 
+// tslint:disable-next-line:no-any
 export interface EducationCreateFormState { }
-export interface EducationCreateFormProps {
+export interface EducationCreateFormProps extends MutationFormProps<EducationCreateMutation> {
     mutate: MutationFn<EducationCreateMutation, EducationCreateMutationVariables>;
-    // tslint:disable-next-line:no-any
-    onResult?: (result: ExecutionResult<EducationCreateMutation> | void) => any;
 }
 
 export class EducationCreateForm extends React.Component<EducationCreateFormProps, EducationCreateFormState> {
@@ -45,42 +46,40 @@ export class EducationCreateForm extends React.Component<EducationCreateFormProp
         endDate: { defaultValue: '', label: 'End date' }
     });
 
-    onSubmit = async (input: EducationCreateInput) => {
-        if (!this.props.mutate) {
-            return;
-        }
-
+    onSubmit = (input: EducationCreateInput) => {
         const opts = { variables: { input } };
-        try {
-            const result = await this.props.mutate(opts);
-            if (this.props.onResult) {
-                this.props.onResult(result);
-            }
-            // tslint:disable-next-line:no-console
-            console.info(result);
-        } catch (err) {
-            console.warn(err);
-        }
+        return this.props.mutate(opts).then(this.props.onResult).catch(this.props.onError);
     }
 
     render() {
-        // const {
-        //     submit, 
-        //     submitting
-        // } = this.form;
+        const {
+            submit, 
+            submitting
+        } = this.form;
 
-        // const {
-        //     institution,
-        //     degree,
-        //     description,
-        //     startDate,
-        //     endDate
-        // } = this.form.fields;
+        const {
+            institution,
+            degree,
+            description,
+            startDate,
+            endDate
+        } = this.form.fields;
 
         return (
-            <form>
+            <form onSubmit={submit(this.onSubmit)}>
+                <FieldGroup inline>
+                    <FormTextField field={institution} />
+                    <FormTextField field={degree} />
+                </FieldGroup>
                 <FieldGroup>
-                    <Button />
+                    <FormTextField field={description} />
+                </FieldGroup>
+                <FieldGroup>
+                    <FormTextField field={startDate} />
+                    <FormTextField field={endDate} />
+                </FieldGroup>
+                <FieldGroup>
+                    <Button primary type="submit" disabled={submitting} label="Submit" />
                 </FieldGroup>
             </form>
         );
@@ -88,13 +87,11 @@ export class EducationCreateForm extends React.Component<EducationCreateFormProp
 }
 
 // tslint:disable-next-line:max-line-length
-// export const EducationCreateFormWithData = graphql<EducationCreateMutation, EducationCreateFormProps>(EDUCATION_CREATE)(EducationCreateForm);
-
-export const EducationCreateFormWithData = () => (
+export const EducationCreateFormWithData = (props: MutationFormProps<EducationCreateMutation>) => (
     // tslint:disable-next-line:max-line-length
-    <Mutation mutation={EDUCATION_CREATE}>{(educationCreate: MutationFn<EducationCreateMutation, EducationCreateMutationVariables>, { data }: MutationResult<EducationCreateMutation>) => {
+    <Mutation mutation={EDUCATION_CREATE}>{(educationCreate: MutationFn<EducationCreateMutation, EducationCreateMutationVariables>) => {
         return (
-            <EducationCreateForm mutate={educationCreate} />
+            <EducationCreateForm mutate={educationCreate} {...props} />
         );
     }}</Mutation>
 );

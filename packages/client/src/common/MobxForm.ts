@@ -177,9 +177,9 @@ export class Field<T, F extends object> implements FieldDefinition<T, F> {
  * 
  * @export
  * @class FormData
- * @template T A set of keys with their types.
+ * @template TFields A set of keys with their types.
  */
-export class MobxForm<T extends object> {
+export class MobxForm<TFields extends {}> {
     /**
      * When using the submit handler, this will be true while the handler
      * returned promise is not completed.
@@ -200,7 +200,7 @@ export class MobxForm<T extends object> {
     @computed
     public get isValid(): boolean {
         return Object.keys(this.fields).map(
-            (key: keyof T) => {
+            (key: keyof TFields) => {
                 this.fields[key].blur();
                 return this.fields[key].errors;
             }
@@ -211,41 +211,41 @@ export class MobxForm<T extends object> {
      * Rreturns an object containing all submitvalues of the fields.
      * 
      * @readonly
-     * @type {T}
+     * @type {TFields}
      * @memberof MobxForm
      */
     @computed
-    public get values(): T {
+    public get values(): TFields {
         // Check if any of the fields had validation errors.
         // Also blur the fields, to show error messages.
-        const values: Partial<T> = {};
-        Object.keys(this.fields).forEach((field: keyof T) => {
+        const values: Partial<TFields> = {};
+        Object.keys(this.fields).forEach((field: keyof TFields) => {
             values[field] = this.fields[field].submitValue;
         });
-        return values as T;
+        return values as TFields;
     }
 
     /**
      * All fields in the form.
      * 
-     * @type {{[V in keyof T]: Field<T[V], T> }}
+     * @type {{[V in keyof TFields]: Field<TFields[V], TFields> }}
      * @memberof MobxForm
      */
     @observable
-    public fields: {[V in keyof T]: Field<T[V], T> };
+    public fields: {[V in keyof TFields]: Field<TFields[V], TFields> };
 
     /**
      * Creates an instance of MobxForm.
-     * @param {{[P in keyof T]: FieldDefinition<T[P], T> }} fieldDefinitions 
+     * @param {{[P in keyof TFields]: FieldDefinition<TFields[P], TFields> }} fieldDefinitions 
      * @memberof MobxForm
      */
-    constructor(fieldDefinitions: {[P in keyof T]: FieldDefinition<T[P], T> }) {
-        const fields: Partial<{[P in keyof T]: Field<T[P], T> }> = {};
+    constructor(fieldDefinitions: {[P in keyof TFields]: FieldDefinition<TFields[P], TFields> }) {
+        const fields: Partial<{[P in keyof TFields]: Field<TFields[P], TFields> }> = {};
         // Create fields based on the config.
-        Object.keys(fieldDefinitions).forEach((field: keyof T) => {
+        Object.keys(fieldDefinitions).forEach((field: keyof TFields) => {
             fields[field] = new Field(fieldDefinitions[field]);
         });
-        this.fields = fields as {[P in keyof T]: Field<T[P], T> };
+        this.fields = fields as {[P in keyof TFields]: Field<TFields[P], TFields> };
     }
 
     /**
@@ -253,17 +253,18 @@ export class MobxForm<T extends object> {
      * This can be used, for exmaple, after a form has been submitted and 
      * a new default value should be shown.
      * 
-     * @param {(Partial<T> | null | undefined)} values An object contaning the new default values.
+     * @param {(Partial<TFields> | null | undefined)} values An object contaning the new default values.
      * @returns void
      * @memberof MobxForm
      */
     @action
-    public updateDefaultValues(values: Partial<T> | null | undefined) {
+    public updateDefaultValues(values: Partial<TFields> | null | undefined) {
         if (!values) {
             return;
         }
 
-        Object.keys(values).forEach((key: keyof T) => this.fields[key].defaultValue = values[key] as T[keyof T]);
+        Object.keys(values).forEach(
+            (key: keyof TFields) => this.fields[key].defaultValue = values[key] as TFields[keyof TFields]);
     }
 
     /**
@@ -274,7 +275,7 @@ export class MobxForm<T extends object> {
     @action
     public reset() {
         Object.keys(this.fields).forEach(
-            (key: keyof T) => this.fields[key].value = this.fields[key].defaultValue
+            (key: keyof TFields) => this.fields[key].value = this.fields[key].defaultValue
         );
     }
 
@@ -284,12 +285,12 @@ export class MobxForm<T extends object> {
      * The form will only be submittet, if it is not submitting and has no 
      * errors.
      * 
-     * @param {(T => Promise<R>)} submit The callback that will be executed 
+     * @param {(TFields => Promise<R>)} submit The callback that will be executed 
      *                                   if the returned handler is called.
-     * @returns {(React.FormEvent<HTMLFormElement> => Promise<void>)} Handler.
+     * @returns Handler.
      * @memberof MobxForm
      */
-    public submit = <R>(submit: (values: T) => Promise<R> | void) => {
+    public submit = <R>(submit: (values: TFields) => Promise<R> | void) => {
         return async (event?: React.FormEvent<HTMLFormElement>) => {
             if (event) {
                 event.preventDefault();

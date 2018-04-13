@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { PersonalCreateMutation, WorkCreateMutation } from '../../operation-result-types';
 
-import { ApolloQueryResult } from 'apollo-client';
+import { ExecutionResult } from 'react-apollo';
 import { PersonalCreateFormWithData } from '../../personal/PersonalCreateForm';
 import { PersonalSummaryWithData } from '../../personal/PersonalSummary';
 import { WorkCreateFormWithData } from '../../work/WorkCreateForm';
@@ -41,14 +41,14 @@ export interface ApplicationCreateFormProps { }
 
 @observer
 export class ApplicationCreateForm extends React.Component<ApplicationCreateFormProps, ApplicationCreateFormState> {
-  setPersonal = (result: ApolloQueryResult<PersonalCreateMutation>) => {
-    if (result.data.PersonalCreate) {
+  setPersonal = (result: ExecutionResult<PersonalCreateMutation>) => {
+    if (result && result.data && result.data.PersonalCreate) {
       store.personal = result.data.PersonalCreate.personal.id;
     }
   }
 
-  addWork = (result: ApolloQueryResult<WorkCreateMutation>) => {
-    if (result.data.WorkCreate) {
+  addWork = (result: ExecutionResult<WorkCreateMutation>) => {
+    if (result && result.data && result.data.WorkCreate) {
       store.workHistory = [result.data.WorkCreate.work.id, ...store.workHistory];
     }
   }
@@ -65,6 +65,7 @@ export class ApplicationCreateForm extends React.Component<ApplicationCreateForm
           ?
           <PersonalCreateFormWithData
             onResult={this.setPersonal}
+            onError={e => console.warn(e)}
           />
           :
           <PersonalSummaryWithData personalId={store.personal} />}
@@ -76,7 +77,10 @@ export class ApplicationCreateForm extends React.Component<ApplicationCreateForm
     return (
       <section>
         <h2>Work experience</h2>
-        <WorkCreateFormWithData onResult={this.addWork} />
+        <WorkCreateFormWithData 
+          onResult={this.addWork} 
+          onError={e => console.warn(e)}
+        />
       </section>
     );
   }

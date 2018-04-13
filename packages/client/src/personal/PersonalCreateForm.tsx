@@ -1,10 +1,13 @@
 import * as React from 'react';
 
-import { ChildProps, MutationOpts, graphql } from 'react-apollo';
-// tslint:disable-next-line:max-line-length
-import { PersonalCreateInput, PersonalCreateMutation, PersonalCreateMutationVariables } from '../operation-result-types';
+import { Mutation, MutationFn } from 'react-apollo';
+import { MutationFormChildProps, MutationFormProps } from '../utils/hydrokit_graphql_utils';
+import {
+    PersonalCreateInput,
+    PersonalCreateMutation,
+    PersonalCreateMutationVariables
+} from '../operation-result-types';
 
-import { ApolloQueryResult } from 'apollo-client';
 import { Button } from '@hydrokit/button';
 import { FieldGroup } from '../common/FieldGroup';
 import { FormTextField } from '../common/HydrokitFormConnector';
@@ -13,13 +16,10 @@ import gql from 'graphql-tag';
 import { observer } from 'mobx-react';
 
 export interface PersonalCreateFormState { }
-export interface PersonalCreateFormProps extends ChildProps<{}, PersonalCreateMutation> {
-    header?: JSX.Element;
-    footer?: (submit: () => void) => JSX.Element;
-    // tslint:disable-next-line:no-any
-    onSubmit?: (input: PersonalCreateInput) => any;
-    // tslint:disable-next-line:no-any
-    onResult?: (result: ApolloQueryResult<PersonalCreateMutation>) => any;
+export interface PersonalCreateFormProps 
+    extends MutationFormChildProps<PersonalCreateMutation, PersonalCreateMutationVariables> {
+        header?: JSX.Element;
+        footer?: (submit: () => void) => JSX.Element;
 }
 
 @observer
@@ -39,22 +39,9 @@ export class PersonalCreateForm extends React.Component<PersonalCreateFormProps,
         addressLine4: { defaultValue: '', label: 'Address line' },
     });
 
-    onSubmit = async (input: PersonalCreateInput) => {
-        if (!this.props.mutate) {
-            return;
-        }
-
-        const opts: MutationOpts<PersonalCreateMutationVariables> = { variables: { input } };
-        try {
-            const result = await this.props.mutate(opts);
-            if (this.props.onResult) {
-                this.props.onResult(result);
-            }
-            // tslint:disable-next-line:no-console
-            console.info(result);
-        } catch (err) {
-            console.warn(err);
-        }
+    onSubmit = (input: PersonalCreateInput) => {
+        const opts = { variables: { input } };
+        return this.props.mutate(opts).then(this.props.onResult).catch(this.props.onError);
     }
 
     footer(submitting: boolean) {
@@ -65,8 +52,8 @@ export class PersonalCreateForm extends React.Component<PersonalCreateFormProps,
         const { submit, submitting } = this.form;
         // tslint:disable-next-line:max-line-length
         const { firstName, lastName, birthDate, birthPlace, nationality, numberOfChildren, martialStatus, phone, addressLine1, addressLine2, addressLine3, addressLine4 } = this.form.fields;
-        const { header, footer, onSubmit } = this.props;
-        const submitHandle = () => (onSubmit || this.onSubmit)(this.form.values);
+        const { header, footer } = this.props;
+        const submitHandle = () => (this.onSubmit)(this.form.values);
 
         return (
             <form onSubmit={submit(this.onSubmit)}>
@@ -105,7 +92,7 @@ export class PersonalCreateForm extends React.Component<PersonalCreateFormProps,
     }
 }
 
-export const PersonalCreateFormWithData = graphql<PersonalCreateMutation, PersonalCreateFormProps>(gql`
+const MUTATION = gql`
 mutation PersonalCreate($input: PersonalCreateInput!) {
     PersonalCreate(input: $input) {
         viewer {
@@ -123,4 +110,12 @@ mutation PersonalCreate($input: PersonalCreateInput!) {
         }
     }
 }
-`)(PersonalCreateForm);
+`;
+
+export const PersonalCreateFormWithData = (props: MutationFormProps<PersonalCreateMutation>) => (
+    <Mutation mutation={MUTATION}>
+    {(personalCreate: MutationFn<PersonalCreateMutation, PersonalCreateMutationVariables>) => {
+        return <PersonalCreateForm mutate={personalCreate} {...props} />;
+    }}
+    </Mutation>
+);

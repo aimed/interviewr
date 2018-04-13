@@ -18,15 +18,17 @@ export function textField<F extends object>(field: Field<string | null | undefin
 }
 
 export interface FormTextFieldProp { 
-    field: Field<string | null | undefined, {}>; 
+    // TODO: Temporary workaround because in MobxForm in keyof is undefined if value is possibly undefined.
+    field: Field<string | null | undefined, {}> | undefined; 
     type?: string; 
     placeholder?: string; 
     name?: string;
 }
 
+// TODO: Remove undefined check again, see above workaround.
 // tslint:disable-next-line:max-line-length
-export const FormTextField = observer((props: FormTextFieldProp) => (
+export const FormTextField = observer((props: FormTextFieldProp) => props.field ? (
     <FormField {...formField(props.field)}>
         <TextField {...textField(props.field)} type={props.type} placeholder={props.placeholder} name={props.name} />
     </FormField>
-));
+) : null);
