@@ -43,7 +43,7 @@
         "typescript": "^2.7.0"
     },
     "scripts": {
-        "start": "node_modules/.bin/ts-node --type-check -r dotenv/config src/index.ts",
+        "start": "node_modules/.bin/ts-node --type-check -r dotenv/config src/index.ts --dotenv_config_path=../../.env",
         "build": "tsc",
         "typeorm": "node_modules/.bin/ts-node --type-check ./node_modules/.bin/typeorm",
         "test": "tsc --skipLibCheck && yarn jest --testEnvironment=node"

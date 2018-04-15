@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 
-import { ConnectionOptions, createConnection } from 'typeorm';
+// import { ConnectionOptions, createConnection } from 'typeorm';
 import { GraphQLServer, Options } from 'graphql-yoga';
 
-import { contextBuilder } from './graphql/context';
+import { ContainerInstance } from 'typedi';
 import { schemaFactory } from './graphql/schema';
 
 const PORT = process.env.PORT || 8000;
@@ -11,26 +11,26 @@ const PORT = process.env.PORT || 8000;
 // TODO: Generate initial migration once it is availiable in the next typeorm version. See https://github.com/typeorm/typeorm/issues/1305
 // Configure connection in .env http://typeorm.io/#/using-ormconfig/loading-from-ormconfigenv-or-from-environment-variables
 // const options: ConnectionOptions = require(path.resolve(__dirname, '..', 'ormconfig.json'));
-const options: ConnectionOptions = {
-    type: 'mysql',
-    database: 'interviewr',
-    username: 'root',
-    password: '',
-    migrations: [
-        'src/migrations/**/*.ts'
-    ],
-    entities: [
-        'src/entities/**/*.ts'
-    ]
-};
+// const options: ConnectionOptions = {
+//     type: 'mysql',
+//     database: 'interviewr',
+//     username: 'root',
+//     password: '',
+//     migrations: [
+//         'src/migrations/**/*.ts'
+//     ],
+//     entities: [
+//         'src/entities/**/*.ts'
+//     ]
+// };
 
 async function bootstrap() {
     try {
-        const connection = await createConnection(options);
-        const schema = await schemaFactory();
+        // const connection = await createConnection(options);
+        const container = new ContainerInstance('');
+        const schema = await schemaFactory(container);
         const server = new GraphQLServer({
-            schema,
-            context: (req, res) => contextBuilder(connection, req, res)
+            schema
         });
         const serverOptions: Options = { port: PORT, endpoint: '/graphql', playground: '/playground' };
 

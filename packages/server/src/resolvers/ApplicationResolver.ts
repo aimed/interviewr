@@ -46,7 +46,6 @@ export class ApplicationResolver {
             } catch (error) {
                 return null;
             }
-
         }
 
         // Check if the file exists on dropbox.

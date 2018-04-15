@@ -3,3 +3,4 @@ node_modules/
 *.sqlite
 build/
 lerna-debug.log
+.env

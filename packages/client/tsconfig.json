@@ -3,7 +3,11 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["es6", "dom", "esnext"],
+    "lib": [
+      "es6",
+      "dom",
+      "esnext"
+    ],
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
@@ -18,7 +22,8 @@
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": false
+    "esModuleInterop": false,
+    "baseUrl": "./src"
   },
   "exclude": [
     "node_modules",
