@@ -3,10 +3,12 @@ import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
 import { ApplicationPageWithData } from './application/ApplicationPage';
-import { AuthenticatedRoute } from './user/AuthenticatedRoute';
+// import { AuthenticatedRoute } from './user/AuthenticatedRoute';
 import { BrowserRouter } from 'react-router-dom';
-import { DashboardPage } from './dashboard/DashboardPage';
-import { WelcomePage } from './welcome/WelcomePage';
+import { LandingPage } from './landing/LandingPage';
+
+// import { DashboardPage } from './dashboard/DashboardPage';
+// import { WelcomePage } from './welcome/WelcomePage';
 
 export class App extends React.PureComponent {
   render() {
@@ -14,9 +16,10 @@ export class App extends React.PureComponent {
       <BrowserRouter>
         <div className="app">
           <Switch>
-            <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
+            <Route path="/" exact component={LandingPage} />
+            {/* <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} /> */}
             <Route path="/application/:accessCode" component={ApplicationPageWithData} />
-            <Route exact path="/" component={WelcomePage} />
+            {/* <Route exact path="/" component={WelcomePage} /> */}
             <Route render={() => <Redirect to="/" />} />
           </Switch>
         </div>

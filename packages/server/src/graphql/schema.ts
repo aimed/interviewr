@@ -1,12 +1,8 @@
-import {
-    GraphQLSchema,
-    graphql
-} from 'graphql';
+import { ApplicationResolver } from '../resolvers/ApplicationResolver';
+import { buildSchema } from 'type-graphql';
 
-import { MutationType } from './mutations/MutationType';
-import { RootQueryType } from './queries/RootQueryType';
-
-export const schema = new GraphQLSchema({
-    query: RootQueryType,
-    mutation: MutationType
-});
+export const schemaFactory = () => {
+    return buildSchema({
+        resolvers: [ApplicationResolver]
+    });
+};

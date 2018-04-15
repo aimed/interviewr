@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { WorkSummaryQuery } from '../operation-result-types';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+// import { WorkSummaryQuery } from '../operation-result-types';
+// import gql from 'graphql-tag';
+// import { graphql } from 'react-apollo';
 
 export interface WorkSummaryState { }
 export interface WorkSummaryProps {
@@ -15,17 +15,17 @@ export class WorkSummary extends React.Component<WorkSummaryProps, WorkSummarySt
     }
 }
 
-export const WorkSummaryWithData = graphql<WorkSummaryQuery, WorkSummaryProps>(gql`
-query WorkSummary($id: ID!) {
-    node(id: $id) {
-        ... on Work {
-            role
-            employer
-        }
-    }
-}
-`,
-    // tslint:disable-next-line:align
-    {
-        options: (props) => ({ variables: { id: props.workId } })
-    })(WorkSummary);
+// export const WorkSummaryWithData = graphql<WorkSummaryQuery, WorkSummaryProps>(gql`
+// query WorkSummary($id: ID!) {
+//     node(id: $id) {
+//         ... on Work {
+//             role
+//             employer
+//         }
+//     }
+// }
+// `,
+//     // tslint:disable-next-line:align
+//     {
+//         options: (props) => ({ variables: { id: props.workId } })
+//     })(WorkSummary);

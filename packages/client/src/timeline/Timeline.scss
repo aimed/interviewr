@@ -44,5 +44,7 @@
 
     &__body {
         max-width: 60ch;
+        white-space: pre-line;
+        font-weight: 300;
     }
 }

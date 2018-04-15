@@ -1,32 +1,56 @@
 import * as React from 'react';
 
+import {
+    ApplicationWorkExperienceApplicationFragment,
+    ApplicationWorkExperienceWorkFragment
+} from '../operation-result-types';
 import { Timeline, TimelineItem } from '../timeline/Timeline';
 
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import gql from 'graphql-tag';
 
-export interface WorkExperience {
-    id: string;
-    role: string;
-    employer: string;
-    description: string;
-    startDate: Date;
-    endDate?: Date;
-}
-
-const workToTimelineItem: (work: WorkExperience) => TimelineItem = 
-    ({ role, employer, description, ...rest }) => 
-        ({ title: role, text: description, secondaryTitle: employer, ...rest });
+const workToTimelineItem: (work: ApplicationWorkExperienceWorkFragment) => TimelineItem =
+    ({ role, employer, description, id, startDate, endDate }) =>
+        ({
+            id,
+            title: role,
+            text: description,
+            secondaryTitle: employer,
+            startDate: new Date(startDate),
+            endDate: endDate ? new Date(endDate) : null
+        });
 
 export interface ApplicationWorkExperienceProps {
-    work: WorkExperience[];
+    data: ApplicationWorkExperienceApplicationFragment;
 }
 
-export const ApplicationWorkExperience: React.StatelessComponent<ApplicationWorkExperienceProps> = props => {
-    const timeline = props.work.map(workToTimelineItem);
-    return (
-        <div className="work-experience">
-            <ApplicationSectionLabel>Work experience</ApplicationSectionLabel>
-            <Timeline timeline={timeline} />
-        </div>
-    );
-};
+export class ApplicationWorkExperience extends React.PureComponent<ApplicationWorkExperienceProps> {
+    static fragments = {
+        application: gql`
+        fragment ApplicationWorkExperienceApplication on Application {
+            work {
+                ...ApplicationWorkExperienceWork
+            }
+        }
+        `,
+        work: gql`
+        fragment ApplicationWorkExperienceWork on Work {
+            id
+            employer
+            role
+            description
+            startDate
+            endDate
+        }
+        `
+    };
+    render() {
+        const timeline = this.props.data.work.map(workToTimelineItem);
+        return (
+            <div className="work-experience application-segment-appear">
+                <ApplicationSectionLabel>Work experience</ApplicationSectionLabel>
+                <Timeline timeline={timeline} />
+            </div>
+        );
+    }
+}

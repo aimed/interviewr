@@ -10,7 +10,7 @@ export interface TimelineItem {
     secondaryTitle?: string;
     text: string | JSX.Element;
     startDate: Date;
-    endDate?: Date;
+    endDate?: Date | null;
 }
 
 const compareTimelineItems = (a: TimelineItem, b: TimelineItem) => {

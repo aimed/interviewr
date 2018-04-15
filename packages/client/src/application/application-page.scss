@@ -37,3 +37,20 @@
         }
     }
 }
+
+.application-segment-appear {
+    animation: segment-appear 0.3s ease-out;
+}
+
+@keyframes segment-appear {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

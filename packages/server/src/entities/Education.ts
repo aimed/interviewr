@@ -1,40 +1,43 @@
 import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { GraphQLNonNull, GraphQLString } from 'graphql';
-import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
 
 import { Application } from './Application';
 import { User } from './User';
 import { graphQlIDField } from '../graphql/utils';
 
+@ObjectType()
 @Entity()
 export class Education {
-    @GraphQLPrimaryIdField()
+    @Field(type => ID)
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @Field(type => User)
     @ManyToOne(() => User)
     public user: Promise<User>;
 
+    @Field(type => [Application])
     @ManyToMany(() => Application, application => application.education)
     public applications: Application[];
 
-    @GraphQLScalarField({ nonNull: true })
+    @Field()
     @Column()
     public institution: string;
 
-    @GraphQLScalarField({ nonNull: true })
+    @Field()
     @Column()
     public description: string;
 
-    @GraphQLScalarField({ nonNull: true })
+    @Field()
     @Column()
     public degree: string;
 
-    @GraphQLScalarField({ type: new GraphQLNonNull(GraphQLString) })
+    @Field(type => String)
     @Column()
     public startDate: Date;
 
-    @GraphQLScalarField({ type: GraphQLString })
+    @Field(type => String, { nullable: true })
     @Column({ nullable: true })
     public endDate: Date;
 }

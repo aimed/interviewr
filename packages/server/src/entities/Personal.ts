@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { GraphQLOutputField, GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
+import { Field, ID, ObjectType } from 'type-graphql';
 
 import { Application } from './Application';
 import { Education } from './Education';
@@ -9,67 +9,74 @@ import { User } from './User';
 import { Work } from './Work';
 import { graphQlIDField } from '../graphql/utils';
 
+@ObjectType()
 @Entity()
 export class Personal {
-    @GraphQLPrimaryIdField()
+    @Field(type => ID)
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @Field(type => User)
     @ManyToOne(() => User)
     public user: Promise<User>;
 
+    @Field(type => [Application])
     @OneToMany(() => Application, application => application.personal)
     public applications: Promise<Application[]>;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public nationality: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public martialStatus: string;
 
     // This is free text, because users should have the option to specifiy
     // their age as well.
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public numberOfChildren: string;
 
-    @GraphQLScalarField()
-    @Column({ nullable: true })
+    @Field()
+    @Column()
+    public email: string;
+
+    @Field()
+    @Column()
     public phone: string;
 
-    @GraphQLScalarField({ type: GraphQLString })
+    @Field(type => String, { nullable: true })
     @Column({ nullable: true })
     public birthDate: Date;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public birthPlace: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public firstName: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public lastName: string;
 
     // Use a simplified address scheme, because there is no reason to validate
     // the data, nor a need to localize it in the forseeable future.
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public addressLine1: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public addressLine2: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public addressLine3: string;
 
-    @GraphQLScalarField()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     public addressLine4: string;
 }

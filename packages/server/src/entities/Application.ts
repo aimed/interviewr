@@ -1,5 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { GraphQLPrimaryIdField, GraphQLScalarField } from '../graphql/GraphQLFieldDecorator';
+import { Field, ID, ObjectType } from 'type-graphql';
 
 import { Education } from './Education';
 import { Personal } from './Personal';
@@ -7,35 +7,41 @@ import { Skill } from './Skill';
 import { User } from './User';
 import { Work } from './Work';
 
+@ObjectType()
 @Entity()
 export class Application {
-    @GraphQLPrimaryIdField()
+    @Field(type => ID)
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @ManyToOne(() => Personal, personal => personal.applications)
+    @Field(type => Personal)
+    @ManyToOne(() => Personal, personal => personal.applications, { cascadeInsert: true })
     public personal: Promise<Personal>;
 
-    @ManyToMany(() => Skill, skill => skill.applications)
+    @Field(type => [Skill])
+    @ManyToMany(() => Skill, skill => skill.applications, { cascadeInsert: true })
     @JoinTable()
     public skills: Promise<Skill[]>;
 
-    @ManyToMany(() => Work, work => work.applications)
+    @Field(type => [Work])
+    @ManyToMany(() => Work, work => work.applications, { cascadeInsert: true })
     @JoinTable()
     public work: Promise<Work[]>;
 
+    @Field(type => User)
     @ManyToOne(() => User, user => user.applications)
     public user: Promise<User>;
 
-    @ManyToMany(() => Education, education => education.applications)
+    @Field(type => [Education])
+    @ManyToMany(() => Education, education => education.applications, { cascadeInsert: true })
     @JoinTable()
     public education: Promise<Education[]>;
 
-    @GraphQLScalarField()
+    @Field()
     @Column()
     public text: string;
 
-    @GraphQLScalarField()
+    @Field()
     @Column({ default: true })
     public draft: boolean;
 }

@@ -1,31 +1,55 @@
 import * as React from 'react';
 
+import {
+    ApplicationEducationApplicationFragment,
+    ApplicationEducationEducationFragment
+} from '../operation-result-types';
 import { Timeline, TimelineItem } from '../timeline/Timeline';
 
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import gql from 'graphql-tag';
 
-export interface Education {
-    id: string;
-    degree: string;
-    institution: string;
-    description: string;
-    startDate: Date;
-    endDate?: Date;
-}
-
-const educationToTimelineItem: (education: Education) => TimelineItem =
-    ({ degree, institution, description, ...rest }) =>
-        ({ title: degree, secondaryTitle: institution, text: description, ...rest });
+// tslint:disable-next-line:no-any
+const educationToTimelineItem: (education: ApplicationEducationEducationFragment) => TimelineItem =
+    ({ id, degree, institution, description, startDate, endDate }) =>
+        ({ 
+            id, 
+            title: degree, 
+            secondaryTitle: institution, 
+            text: description, 
+            startDate: new Date(startDate), 
+            endDate: endDate ? new Date(endDate) : undefined });
 
 export interface ApplicationEducationProps {
-    education: Education[];
+    data: ApplicationEducationApplicationFragment;
 }
 
-export const ApplicationEducation: React.StatelessComponent<ApplicationEducationProps> = props => {
-    return (
-        <div className="education">
-            <ApplicationSectionLabel>Education</ApplicationSectionLabel>
-            <Timeline timeline={props.education.map(educationToTimelineItem)} />
-        </div>
-    );
-};
+export class ApplicationEducation extends React.PureComponent<ApplicationEducationProps, {}> {
+    static fragments = {
+        application: gql`
+        fragment ApplicationEducationApplication on Application {
+            education {
+                ...ApplicationEducationEducation
+            }
+        }
+        `,
+        education: gql`
+        fragment ApplicationEducationEducation on Education {
+            id
+            institution
+            degree
+            description
+            startDate
+            endDate
+        }
+        `
+    };
+    render() {
+        return (
+            <div className="education application-segment-appear">
+                <ApplicationSectionLabel>Education</ApplicationSectionLabel>
+                <Timeline timeline={this.props.data.education.map(educationToTimelineItem)} />
+            </div>
+        );
+    }   
+}

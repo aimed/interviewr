@@ -2,22 +2,32 @@ import './application-page.css';
 
 import * as React from 'react';
 
-import { ApplicationEducation, Education } from './ApplicationEducation';
 import { ApplicationPageQuery, ApplicationPageQueryVariables } from '../operation-result-types';
 import { ApplicationSkills, Skill, SkillGroup } from './ApplicationSkills';
-import { ApplicationWorkExperience, WorkExperience } from './ApplicationWorkExperience';
 import { Query, QueryResult } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router';
 
+import { ApplicationEducation } from './ApplicationEducation';
 import { ApplicationPersonal } from './ApplicationPersonal';
+import { ApplicationWorkExperience } from './ApplicationWorkExperience';
 import gql from 'graphql-tag';
 
 const QUERY = gql`
     query ApplicationPage($accessCode: String!) {
         application(accessCode: $accessCode) {
             id
+            personal {
+                ...ApplicationPersonalPersonal
+            }
+            ...ApplicationEducationApplication
+            ...ApplicationWorkExperienceApplication
         }
     }
+    ${ApplicationPersonal.fragments.personal}
+    ${ApplicationEducation.fragments.application}
+    ${ApplicationEducation.fragments.education}
+    ${ApplicationWorkExperience.fragments.application}
+    ${ApplicationWorkExperience.fragments.work}
 `;
 
 interface RouteParams {
@@ -25,29 +35,6 @@ interface RouteParams {
 }
 // tslint:disable:max-line-length
 const gravatar = 'https://en.gravatar.com/userimage/24124275/acf9df1a3eb03a58a263aed5c1bff778.jpg?size=200';
-const work: WorkExperience[] = [{
-    id: '1',
-    employer: 'FLW TU Dortmund',
-    role: 'Assistant Student',
-    description: 'Responsible for developing a material flow simulation library. Experience in C#, distributed algorithms, Unit Testing, material flow control.',
-    startDate: new Date(2016, 11, 1)
-}];
-
-const education: Education[] = [{
-    id: '1',
-    institution: 'TU Dortmund',
-    degree: 'B.Sc. Logistics',
-    description: 'Focus on facility logistics. The program includes a wide range of classes related to math, programming and project management.',
-    startDate: new Date(2009, 8, 1),
-    endDate: new Date(2016, 8, 1)
-}, {
-    id: '2',
-    institution: 'TU Dortmund',
-    degree: 'B.Sc. Computer Science',
-    description: 'Computer Science degree with classes on web development and formal system verification.',
-    startDate: new Date(20013, 8, 1),
-    endDate: new Date(2018, 5, 1)
-}];
 
 const programmingGroup: SkillGroup = {
     id: '1',
@@ -65,22 +52,24 @@ const skills: Skill[] = [{
 }];
 
 export interface ApplicationPageProps {
-    data: ApplicationPageQuery | undefined;
+    data: ApplicationPageQuery;
 }
 
 export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = props => {
+    if (!props.data.application) {
+        return null;
+    }
     return (
         <div className="application-page">
             <ApplicationPersonal
-                firstName="Maximilian"
-                lastName="Täschner"
+                data={props.data.application.personal}
                 profileImageUrl={gravatar}
             />
             <ApplicationWorkExperience
-                work={work}
+                data={props.data.application}
             />
             <ApplicationEducation
-                education={education}
+                data={props.data.application}
             />
             <ApplicationSkills
                 skills={skills}

@@ -2,7 +2,7 @@ import './period.css';
 
 import * as React from 'react';
 
-function formatDate(date?: Date): string {
+function formatDate(date?: Date | null): string {
     if (!date) {
         return '';
     }
@@ -11,7 +11,7 @@ function formatDate(date?: Date): string {
 
 export interface Period {
     startDate: Date;
-    endDate?: Date;
+    endDate?: Date | null;
 }
 
 export const Period: React.StatelessComponent<Period> = props => {

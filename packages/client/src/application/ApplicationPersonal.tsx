@@ -2,16 +2,16 @@ import './application-personal.css';
 
 import * as React from 'react';
 
+import { ApplicationPersonalPersonalFragment } from '../operation-result-types';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
-export interface PersonalDataGroupProps {
+export interface PersonalDataItemProps {
     name: string;
     title: string;
-    value: string | JSX.Element;
+    value: string | JSX.Element | null;
 }
 
-export const PersonalDataItem: React.StatelessComponent<PersonalDataGroupProps> = group => {
+export const PersonalDataItem: React.StatelessComponent<PersonalDataItemProps> = group => {
     const {
         name,
         title,
@@ -32,42 +32,70 @@ export const PersonalDataItem: React.StatelessComponent<PersonalDataGroupProps> 
 
 export interface ApplicationPersonalProps {
     profileImageUrl?: string | null;
-    firstName: string | null;
-    lastName: string | null;
+    data: ApplicationPersonalPersonalFragment;
 }
 
-export const ApplicationPersonal: React.StatelessComponent<ApplicationPersonalProps> = props => {
-    const {
-        profileImageUrl,
-        firstName,
-        lastName
-    } = props;
-    return (
-        <div className="personal">
-            <div className="personal__picture">
-                <img src={profileImageUrl || ''} />
-            </div>
-            <div className="personal__data">
-                <h1 className="personal__name">{firstName} {lastName}</h1>
-                <div className="personal__items">
-                    {/* tslint:disable:max-line-length */}
-                    <PersonalDataItem name="birth-date-place" title="Geburtstag, Geburtsort" value={'02.02.1990, Hamm'} />
-                    <PersonalDataItem name="nationality" title="Staatsangehörigkeit" value={'Deutsch'} />
-                    <PersonalDataItem name="contact" title="Kontakt" value={'+49 1517 0810408 | maximilian.taeschner@gmail.com | https://norocketlab.net'} />
-                    <PersonalDataItem name="address" title="Adresse" value={'Dasbecker Weg 88 | 59073 Hamm | Germany'} />
-                    {/* tslint:enable:max-line-length */}
+export class ApplicationPersonal extends React.PureComponent<ApplicationPersonalProps, {}> {
+    static fragments = {
+        personal: gql`
+            fragment ApplicationPersonalPersonal on Personal {
+                firstName
+                lastName
+                email
+                phone
+                nationality
+                martialStatus
+                birthDate
+                birthPlace
+                addressLine1
+                addressLine2
+                addressLine3
+                addressLine4
+            }
+        `
+    };
+
+    render() {
+        const {
+            profileImageUrl,
+            data
+        } = this.props;
+        
+        const {
+            firstName,
+            lastName,
+            birthPlace,
+            birthDate,
+            addressLine1,
+            addressLine2,
+            addressLine3,
+            addressLine4,
+            email,
+            phone,
+            nationality
+        } = data;
+        
+        const dateFormatted = birthDate ? new Date(birthDate).toLocaleDateString() : '';
+        const contact = [email, phone].join(' | ');
+        const address = [addressLine1, addressLine2, addressLine3, addressLine4].filter(a => !!a).join(' | ');
+
+        return (
+            <div className="personal">
+                <div className="personal__picture">
+                    <img src={profileImageUrl || ''} />
+                </div>
+                <div className="personal__data">
+                    <h1 className="personal__name">{firstName} {lastName}</h1>
+                    <div className="personal__items">
+                        {/* tslint:disable:max-line-length */}
+                        <PersonalDataItem name="birth-date-place" title="Geburtstag, Geburtsort" value={`${dateFormatted}, ${birthPlace}`} />
+                        <PersonalDataItem name="nationality" title="Staatsangehörigkeit" value={nationality} />
+                        <PersonalDataItem name="contact" title="Kontakt" value={contact} />
+                        <PersonalDataItem name="address" title="Adresse" value={address} />
+                        {/* tslint:enable:max-line-length */}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-export const ApplicationPersonalWithData = graphql(gql`
-query ApplicationPersonal {
-    viewer {
-        id
+        );
     }
 }
-`)(query => {
-        return null;
-    });
