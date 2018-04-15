@@ -21,7 +21,13 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "^2.13.0"
+    "react-scripts-ts": "^2.13.0",
+    "@types/jest": "^22.1.2",
+    "@types/node": "^9.4.5",
+    "@types/react": "^16.0.37",
+    "@types/react-dom": "^16.0.4",
+    "node-sass-chokidar": "^0.0.3",
+    "typescript": "^2.7.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules --include-path ../../node_modules src/ -o src/",
@@ -37,14 +43,7 @@
     "gql:build": "apollo-codegen generate '**/*.tsx' --schema schema.json --target typescript --output src/operation-result-types.ts"
   },
   "devDependencies": {
-    "@types/jest": "^22.1.2",
-    "@types/node": "^9.4.5",
-    "@types/react": "^16.0.37",
-    "@types/react-dom": "^16.0.4",
-    "apollo-codegen": "^0.18.3",
-    "node-sass-chokidar": "^0.0.3",
-    "npm-run-all": "^4.1.2",
-    "typescript": "^2.7.0"
+    "apollo-codegen": "^0.18.3"
   },
   "proxy": "http://localhost:8000"
 }
