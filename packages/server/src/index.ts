@@ -37,7 +37,7 @@ async function bootstrap() {
         const server = new GraphQLServer({ schema });
 
         // Serve static files.
-        server.use(express.static(path.resolve(__dirname, 'static')));
+        server.use('/robots.txt', express.static(path.resolve(__dirname, 'static')));
 
         // Serve client.
         server.use(express.static(clientDir));
