@@ -5,14 +5,14 @@ import * as React from 'react';
 import { ApplicationPageQuery, ApplicationPageQueryVariables } from '../operation-result-types';
 import { ApplicationSkills, Skill, SkillGroup } from './ApplicationSkills';
 import { Query, QueryResult } from 'react-apollo';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import { ApplicationEducation } from './ApplicationEducation';
 import { ApplicationPersonal } from './ApplicationPersonal';
 import { ApplicationWorkExperience } from './ApplicationWorkExperience';
 import gql from 'graphql-tag';
 
-const QUERY = gql`
+export const APPLICATION_PAGE_QUERY = gql`
     query ApplicationPage($accessCode: String!) {
         application(accessCode: $accessCode) {
             id
@@ -81,9 +81,17 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
 export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParams>>(routeProps => {
     const variables: ApplicationPageQueryVariables = {accessCode: routeProps.match.params.accessCode};
     return (
-        <Query query={QUERY} variables={variables}>{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
-            if (result.loading || !result.data) {
-                return null;
+        <Query query={APPLICATION_PAGE_QUERY} variables={variables} fetchPolicy="cache-first">{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
+            if (result.loading) {
+                return (
+                    <p>Loading...</p>
+                );
+            }
+
+            if (!result.data || !result.data.application) {
+                return (
+                    <Redirect to={{ pathname: '/', state: { oopsie: true } }} />
+                );
             }
             
             return <ApplicationPage data={result.data} />;

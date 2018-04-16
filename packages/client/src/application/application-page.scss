@@ -54,3 +54,11 @@
         transform: translateY(0);
     }
 }
+
+@media print {
+    html, body {
+        font-size: 11pt !important;
+    }
+    // Hide the page title and date.
+    @page { size: auto;  margin: 0mm; }
+}

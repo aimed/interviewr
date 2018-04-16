@@ -1,0 +1,42 @@
+.landing-page {
+    $bg-color: darken($color: #ffffff, $amount: 10%);
+    background-color: $bg-color;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__text {
+        color: #555555;
+        font-size: 2rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    &__input-native-control {
+        outline: none;
+        border: 0;
+        border-bottom: 1px solid #333333;
+        background-color: $bg-color;
+        padding-bottom: 0.2em;
+    }
+
+    &__get-in-touch {
+        margin-top: 5rem;
+        font-size: 0.8rem;
+        text-align: center;
+        color: #777777;
+    }
+
+    &__oopsie {
+        color: hotpink;
+    }
+    
+    a {
+        color: inherit;
+    }
+}
