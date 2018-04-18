@@ -2,9 +2,11 @@ import 'reflect-metadata';
 
 import * as express from 'express';
 import * as path from 'path';
+import * as sslRedirect from 'heroku-ssl-redirect';
 
 // import { ConnectionOptions, createConnection } from 'typeorm';
 import { GraphQLServer, Options } from 'graphql-yoga';
+import { Request, Response } from 'express-serve-static-core';
 
 import { ContainerInstance } from 'typedi';
 import { schemaFactory } from './graphql/schema';
@@ -36,12 +38,17 @@ async function bootstrap() {
         const serverOptions: Options = { port: PORT, endpoint: '/graphql', playground: '/playground' };
         const server = new GraphQLServer({ schema });
 
-        // Serve static files.
-        server.use('/robots.txt', express.static(path.resolve(__dirname, 'static')));
+        // Redirect to https if in production.
+        server.use(sslRedirect());
+
+        // Serve robots.txt.
+        server.get('/robots.txt', (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, 'static', 'robots.txt'));
+        });
 
         // Serve client.
         server.use(express.static(clientDir));
-        server.get('*', (req, res) => {
+        server.get('*', (req: Request, res: Response) => {
             res.sendFile(path.resolve(path.dirname(clientDir), 'index.html'));
         });
 
