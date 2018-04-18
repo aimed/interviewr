@@ -8,6 +8,7 @@ import { WithApolloClient, withApollo } from 'react-apollo';
 
 import { APPLICATION_PAGE_QUERY } from 'application/ApplicationPage';
 import { ChangeEventHandler } from 'react';
+import { Loader } from 'common/Loader';
 import { MobxForm } from '../common/MobxForm';
 import { observer } from 'mobx-react';
 
@@ -60,8 +61,7 @@ export const LandingPage = withRouter(withApollo(observer(
       const accessCodeField = this.form.fields.accessCode;
       return (
         <div className="landing-page">
-          {this.hasError && !submitting && <p className="landing-page__oopsie">That code didn't seem to work.</p>}
-          {submitting && <p>Loading</p>}
+          <Loader loading={submitting} />
           <h1 className="landing-page__text">Enter your access code</h1>
           <form onSubmit={submit(this.submit)}>
             <input
@@ -73,6 +73,7 @@ export const LandingPage = withRouter(withApollo(observer(
               disabled={submitting}
             />
           </form>
+          <p className="landing-page__oopsie">{this.hasError && !submitting && `That code didn't seem to work.`}</p>
           <div className="landing-page__get-in-touch">
             <Link to="/application/test">See my CV!</Link>
             <p>If you don't have an access code, but still want to get in touch, you can contact me here:</p>

@@ -10,6 +10,7 @@ import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { ApplicationEducation } from './ApplicationEducation';
 import { ApplicationPersonal } from './ApplicationPersonal';
 import { ApplicationWorkExperience } from './ApplicationWorkExperience';
+import { LoaderScreen } from 'common/LoaderScreen';
 import gql from 'graphql-tag';
 
 export const APPLICATION_PAGE_QUERY = gql`
@@ -84,7 +85,7 @@ export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParam
         <Query query={APPLICATION_PAGE_QUERY} variables={variables} fetchPolicy="cache-first">{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
             if (result.loading) {
                 return (
-                    <p>Loading...</p>
+                    <LoaderScreen loading />
                 );
             }
 
