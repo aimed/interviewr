@@ -7,9 +7,13 @@
         animation: ease-out 300ms loader-appear-line-top;
     }
 
-    &--loading,
-    &:hover {
+    &:hover,
+    &--loading {
         animation: ease-in-out 500ms loader-loading alternate-reverse;
+    }
+
+    &--loading {
+        animation-iteration-count: infinite;
     }
 }
 
