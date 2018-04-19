@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "private": true,
     "dependencies": {
         "@types/bcrypt": "^1.0.0",
         "@types/cookie-parser": "^1.4.1",
