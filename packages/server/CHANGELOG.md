@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/aimed/interviewr/compare/v2.0.0...v2.1.0) (2018-04-19)
+
+
+### Bug Fixes
+
+* sends correct file in catch all ([056e042](https://github.com/aimed/interviewr/commit/056e042))
+
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2018-04-19)
 

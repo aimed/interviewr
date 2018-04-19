@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/aimed/interviewr/compare/v2.0.0...v2.1.0) (2018-04-19)
+
+
+### Bug Fixes
+
+* adds build dir in postinstall script ([c53f5e8](https://github.com/aimed/interviewr/commit/c53f5e8))
+* sends correct file in catch all ([056e042](https://github.com/aimed/interviewr/commit/056e042))
+
+
+### Features
+
+* adds loader to html to display while loading js ([6960b66](https://github.com/aimed/interviewr/commit/6960b66))
+
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2018-04-19)
 
