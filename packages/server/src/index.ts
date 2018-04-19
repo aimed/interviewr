@@ -43,7 +43,7 @@ async function bootstrap() {
 
         // Serve robots.txt.
         server.get('/robots.txt', (req: Request, res: Response) => {
-            res.sendFile(path.resolve(__dirname, 'static', 'robots.txt'));
+            res.sendFile(path.resolve(__dirname, '..', 'static', 'robots.txt'));
         });
 
         // Serve client.
