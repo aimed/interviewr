@@ -15,7 +15,7 @@
 		"tslint-react": "^3.4.0"
 	},
 	"scripts": {
-		"start": "lerna run --parallel start",
+		"start": "mkdir -p packages/client/build/ && lerna run --parallel start",
 		"postinstall": "lerna run --parallel build"
 	}
 }
