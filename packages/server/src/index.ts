@@ -32,7 +32,7 @@ const PORT = process.env.PORT || 8000;
 async function bootstrap() {
     try {
         // const connection = await createConnection(options);
-        const clientDir = path.resolve(__dirname, '../../client/build');
+        const clientDir = path.resolve(__dirname, '../../client/build/');
         const container = new ContainerInstance('');
         const schema = await schemaFactory(container);
         const serverOptions: Options = { port: PORT, endpoint: '/graphql', playground: '/playground' };
@@ -49,7 +49,7 @@ async function bootstrap() {
         // Serve client.
         server.use(express.static(clientDir));
         server.get('*', (req: Request, res: Response) => {
-            res.sendFile(path.resolve(path.dirname(clientDir), 'index.html'));
+            res.sendFile(path.resolve(clientDir, 'index.html'));
         });
 
         server.start(serverOptions, (info) => {
