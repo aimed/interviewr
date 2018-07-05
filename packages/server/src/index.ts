@@ -26,11 +26,17 @@ async function bootstrap() {
         // Serve robots.txt.
         server.get('/robots.txt', (req: Request, res: Response) => {
             res.sendFile(path.resolve(__dirname, '..', 'static', 'robots.txt'));
+            res.end();
         });
 
         // Serve client.
         server.use(express.static(clientDir));
-        server.get('*', (req: Request, res: Response) => {
+
+        server.get('/', (req: Request, res: Response) => {
+            res.sendFile(path.resolve(clientDir, 'index.html'));
+        });
+
+        server.get('/application/*', (req: Request, res: Response) => {
             res.sendFile(path.resolve(clientDir, 'index.html'));
         });
 
