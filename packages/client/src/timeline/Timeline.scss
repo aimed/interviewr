@@ -1,26 +1,74 @@
 @import '../theme';
 
 .timeline {
-    &__item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    // Line
+    $line-color: orange;
 
-        @media (max-width: 800px) {
-            display: block;
+    $line-offset: 1em;
+    $line-width: 0.1em;
+
+    // Dots
+    $dot-size: 0.5em;
+
+    // Offsets and marings
+    $time-size: 0.8rem;
+    $time-offset: $time-size / 2;
+
+    $bottom-padding: 2em;
+
+    position: relative;
+    margin-left: $line-offset * 2;
+
+    &::before {
+        // Define the timeline line
+        content: "";
+        position: absolute;
+        width: $line-width;
+        background-color: $line-color;
+        top: $time-offset;
+        bottom: -1em;
+        left: -$line-offset;
+    }
+
+    &::after {
+        // The bottom bar
+        content: "";
+        position: absolute;
+        width: $dot-size;
+        height: $line-width;
+        background-color: $line-color;
+        bottom: - ($bottom-padding / 2);
+        left: - ($line-offset + ($dot-size / 2) - ($line-width / 2));
+    }
+
+    &__item {
+        position: relative;
+        page-break-inside: avoid;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: $dot-size;
+            height: $dot-size;
+            border-radius: 50%;
+            background-color: $line-color;
+            top: $time-offset;
+            left: - ($line-offset + (0.5 * $dot-size) - (0.5 * $line-width));
         }
 
         & + & {
-            margin-top: 2em;
+            margin-top: $bottom-padding;
         }
     }
 
-    &__time {
-        width: 20%;
-        min-width: 200px;
+    &__body {
+        grid-area: body;
+        white-space: pre-line;
+        font-weight: 300;
     }
 
     &__title {
+        grid-area: title;
         vertical-align: text-bottom;
         margin-bottom: 0.5em;
 
@@ -40,11 +88,5 @@
         &__primary + &__secondary{
             margin-left: 1em;
         }
-    }
-
-    &__body {
-        max-width: 60ch;
-        white-space: pre-line;
-        font-weight: 300;
     }
 }

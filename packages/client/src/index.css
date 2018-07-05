@@ -76,32 +76,39 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif; }
 
-.hk-button {
-  padding: 0.5rem 0.4rem; }
+@media only print {
+  body {
+    font-size: 11px; } }
+
+@page {
+  size: A4; }
 
 p {
-  margin-bottom: 1.3em; }
+  margin-bottom: 1.3rem; }
 
 h1, h2, h3, h4 {
-  margin: 1.414em 0 0.5em;
+  margin: 1.414rem 0 0.5rem;
   font-weight: inherit;
   line-height: 1.2; }
 
 h1 {
   margin-top: 0;
-  font-size: 1.602em; }
+  font-size: 1.602rem; }
 
 h2 {
-  font-size: 1.424em; }
+  font-size: 1.424rem; }
 
 h3 {
-  font-size: 1.266em; }
+  font-size: 1.266rem; }
 
 h4 {
-  font-size: 1.125em; }
+  font-size: 1.125rem; }
 
 small, .font_small {
-  font-size: 0.889em; }
+  font-size: 0.889rem; }
+
+.hk-button {
+  padding: 0.5rem 0.4rem; }
 
 .hk-field-group + .hk-field-group {
   margin-top: 1em; }

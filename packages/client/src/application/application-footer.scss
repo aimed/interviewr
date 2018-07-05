@@ -1,0 +1,10 @@
+.application-footer {
+    background: #FCFCFC;
+    color: darken(#FCFCFC, 20%);
+    font-size: 0.8rem;
+    grid-area: footer;
+
+    p {
+        text-align: center;
+    }
+}

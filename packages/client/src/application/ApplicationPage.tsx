@@ -8,6 +8,7 @@ import { Query, QueryResult } from 'react-apollo';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import { ApplicationEducation } from './ApplicationEducation';
+import { ApplicationFooter } from './ApplicationFooter';
 import { ApplicationPersonal } from './ApplicationPersonal';
 import { ApplicationWorkExperience } from './ApplicationWorkExperience';
 import { LoaderScreen } from 'common/LoaderScreen';
@@ -66,15 +67,18 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
                 data={props.data.application.personal}
                 profileImageUrl={gravatar}
             />
-            <ApplicationWorkExperience
-                data={props.data.application}
-            />
-            <ApplicationEducation
-                data={props.data.application}
-            />
-            <ApplicationSkills
-                skills={skills}
-            />
+            <div className="application-page__experience-and-skills">
+                <ApplicationWorkExperience
+                    data={props.data.application}
+                />
+                <ApplicationEducation
+                    data={props.data.application}
+                />
+                <ApplicationSkills
+                    skills={skills}
+                />
+            </div>
+            <ApplicationFooter />
         </div>
     );
 };
