@@ -4,34 +4,16 @@ import * as express from 'express';
 import * as path from 'path';
 import * as sslRedirect from 'heroku-ssl-redirect';
 
-// import { ConnectionOptions, createConnection } from 'typeorm';
 import { GraphQLServer, Options } from 'graphql-yoga';
 import { Request, Response } from 'express-serve-static-core';
 
 import { ContainerInstance } from 'typedi';
-import { schemaFactory } from './graphql/schema';
+import { schemaFactory } from './schema';
 
 const PORT = process.env.PORT || 8000;
 
-// TODO: Generate initial migration once it is availiable in the next typeorm version. See https://github.com/typeorm/typeorm/issues/1305
-// Configure connection in .env http://typeorm.io/#/using-ormconfig/loading-from-ormconfigenv-or-from-environment-variables
-// const options: ConnectionOptions = require(path.resolve(__dirname, '..', 'ormconfig.json'));
-// const options: ConnectionOptions = {
-//     type: 'mysql',
-//     database: 'interviewr',
-//     username: 'root',
-//     password: '',
-//     migrations: [
-//         'src/migrations/**/*.ts'
-//     ],
-//     entities: [
-//         'src/entities/**/*.ts'
-//     ]
-// };
-
 async function bootstrap() {
     try {
-        // const connection = await createConnection(options);
         const clientDir = path.resolve(__dirname, '../../client/build/');
         const container = new ContainerInstance('');
         const schema = await schemaFactory(container);

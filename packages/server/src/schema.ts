@@ -1,6 +1,6 @@
 import { buildSchema, useContainer } from 'type-graphql';
 
-import { ApplicationResolver } from '../resolvers/ApplicationResolver';
+import { ApplicationResolver } from './resolvers/ApplicationResolver';
 import { ContainerInstance } from 'typedi';
 
 export const schemaFactory = (container: ContainerInstance) => {

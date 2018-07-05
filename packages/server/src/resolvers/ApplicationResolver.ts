@@ -7,7 +7,6 @@ import { Arg, Query, Resolver } from 'type-graphql';
 
 import { Application } from '../entities/Application';
 import { Dropbox } from 'dropbox';
-import { Validate } from 'class-validator';
 
 // TODO: The property is currently not exposed by the dropbox type declaration.
 interface FileMetadataWithBlob extends DropboxTypes.files.FileMetadata {
