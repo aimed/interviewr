@@ -200,7 +200,7 @@ export class MobxForm<TFields extends {}> {
     @computed
     public get isValid(): boolean {
         return Object.keys(this.fields).map(
-            (key: keyof TFields) => {
+            (key) => {
                 this.fields[key].blur();
                 return this.fields[key].errors;
             }
@@ -219,7 +219,7 @@ export class MobxForm<TFields extends {}> {
         // Check if any of the fields had validation errors.
         // Also blur the fields, to show error messages.
         const values: Partial<TFields> = {};
-        Object.keys(this.fields).forEach((field: keyof TFields) => {
+        Object.keys(this.fields).forEach((field) => {
             values[field] = this.fields[field].submitValue;
         });
         return values as TFields;
@@ -242,7 +242,7 @@ export class MobxForm<TFields extends {}> {
     constructor(fieldDefinitions: {[P in keyof TFields]: FieldDefinition<TFields[P], TFields> }) {
         const fields: Partial<{[P in keyof TFields]: Field<TFields[P], TFields> }> = {};
         // Create fields based on the config.
-        Object.keys(fieldDefinitions).forEach((field: keyof TFields) => {
+        Object.keys(fieldDefinitions).forEach((field) => {
             fields[field] = new Field(fieldDefinitions[field]);
         });
         this.fields = fields as {[P in keyof TFields]: Field<TFields[P], TFields> };
@@ -264,7 +264,7 @@ export class MobxForm<TFields extends {}> {
         }
 
         Object.keys(values).forEach(
-            (key: keyof TFields) => this.fields[key].defaultValue = values[key] as TFields[keyof TFields]);
+            (key) => this.fields[key].defaultValue = values[key] as TFields[keyof TFields]);
     }
 
     /**
@@ -275,7 +275,7 @@ export class MobxForm<TFields extends {}> {
     @action
     public reset() {
         Object.keys(this.fields).forEach(
-            (key: keyof TFields) => this.fields[key].value = this.fields[key].defaultValue
+            (key) => this.fields[key].value = this.fields[key].defaultValue
         );
     }
 

@@ -11,36 +11,11 @@ export interface LoaderProps {
 
 export class Loader extends React.Component<LoaderProps, LoaderState> {
     container?: HTMLSpanElement;
-    /*
-    group?: svgjs.G;
-    canvas?: svgjs.Doc;
-    */
    
     setContainer = (element: HTMLSpanElement | null) => {
         if (!element) {
             return;
         }
-        /*
-        const canvas = svgjs(element);
-        canvas.size(30, 40);
-        
-        const group = canvas.group();
-        group.stroke({ width: 1 });
-        
-        const line1 = group.line(10, 20, 10, 30);
-        const line2 = group.line(0, 0, 5, 5);
-        group.line(15, 15, 20, 10);
-        group.line(20, 10, 20, 20);
-
-        line1.animate(200, '>').translate(0, -10);
-        line2.animate(200, '>').translate(10, 10);
-        // group.animate(500).rotate(360, 15, 15);
-
-        canvas.scale(2, 2);
-        this.canvas = canvas;
-        this.container = element;
-        this.group = group;
-        */
     }
 
     render() {
