@@ -42,9 +42,23 @@
     }
 
     &__item {
-        position: relative;
         page-break-inside: avoid;
 
+        & + & {
+            // Use padding instead of margin, because margins do not apply after a print page break
+            padding-top: $bottom-padding;
+        }
+    }
+
+    &__body {
+        grid-area: body;
+        white-space: pre-line;
+        font-weight: 300;
+    }
+
+    &__time {
+        position: relative;
+        
         &::before {
             content: "";
             position: absolute;
@@ -55,16 +69,6 @@
             top: $time-offset;
             left: - ($line-offset + (0.5 * $dot-size) - (0.5 * $line-width));
         }
-
-        & + & {
-            margin-top: $bottom-padding;
-        }
-    }
-
-    &__body {
-        grid-area: body;
-        white-space: pre-line;
-        font-weight: 300;
     }
 
     &__title {
