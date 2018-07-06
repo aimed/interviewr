@@ -36,7 +36,7 @@ interface RouteParams {
     accessCode: string;
 }
 // tslint:disable:max-line-length
-const gravatar = 'https://en.gravatar.com/userimage/24124275/acf9df1a3eb03a58a263aed5c1bff778.jpg?size=200';
+const gravatar = 'https://s.gravatar.com/avatar/7e772614ab5d6b8fa72d7d2ede235d82?s=200';
 
 const programmingGroup: SkillGroup = {
     id: '1',
