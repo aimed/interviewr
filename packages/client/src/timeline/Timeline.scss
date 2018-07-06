@@ -4,17 +4,17 @@
     // Line
     $line-color: orange;
 
-    $line-offset: 1em;
-    $line-width: 0.1em;
+    $line-offset: 1rem;
+    $line-width: 0.1rem;
 
     // Dots
-    $dot-size: 0.5em;
+    $dot-size: 0.5rem;
 
     // Offsets and marings
     $time-size: 0.8rem;
     $time-offset: $time-size / 2;
 
-    $bottom-padding: 2em;
+    $bottom-padding: 2rem;
 
     position: relative;
     margin-left: $line-offset * 2;
@@ -67,7 +67,7 @@
             height: $dot-size;
             border-radius: 50%;
             background-color: $line-color;
-            top: $time-offset;
+            top: ($time-offset - (0.5 * $dot-size));
             left: - ($line-offset + (0.5 * $dot-size) - (0.5 * $line-width));
         }
     }
