@@ -1,6 +1,6 @@
 {
   "name": "interviewr-client",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "dependencies": {
     "@hydrokit/button": "^0.6.0",

@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/aimed/interviewr/compare/v2.1.1...v2.2.0) (2018-07-07)
+
+
+### Bug Fixes
+
+* fixes dot on page break ([a566b3a](https://github.com/aimed/interviewr/commit/a566b3a))
+* fixes dot positioning ([426f45f](https://github.com/aimed/interviewr/commit/426f45f))
+* fixes rendering of multi page content ([a008976](https://github.com/aimed/interviewr/commit/a008976))
+* fixes responsiveness after refactoring ([d039498](https://github.com/aimed/interviewr/commit/d039498))
+* margins on footer made equal ([d342c40](https://github.com/aimed/interviewr/commit/d342c40))
+
+
+### Features
+
+* adds abilitiy to change timeline color ([68028d9](https://github.com/aimed/interviewr/commit/68028d9))
+* adds markdown rendering ([1909b43](https://github.com/aimed/interviewr/commit/1909b43))
+* fetch and display skills ([1b518d8](https://github.com/aimed/interviewr/commit/1b518d8))
+* makes education description optional ([b2e82a1](https://github.com/aimed/interviewr/commit/b2e82a1))
+
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/aimed/interviewr/compare/v2.0.0...v2.1.0) (2018-04-19)
 

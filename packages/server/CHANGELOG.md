@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/aimed/interviewr/compare/v2.1.1...v2.2.0) (2018-07-07)
+
+
+### Bug Fixes
+
+* explicitly declare routes until https://github.com/prismagraphql/graphql-yoga/issues/352 is resolved ([4e7337e](https://github.com/aimed/interviewr/commit/4e7337e))
+
+
+### Features
+
+* adds abilitiy to change timeline color ([68028d9](https://github.com/aimed/interviewr/commit/68028d9))
+* makes education description optional ([b2e82a1](https://github.com/aimed/interviewr/commit/b2e82a1))
+
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/aimed/interviewr/compare/v2.1.0...v2.1.1) (2018-04-19)
 
