@@ -33,8 +33,6 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
                 ...ApplicationWorkExperienceWork
             }
         }
-        `,
-        work: gql`
         fragment ApplicationWorkExperienceWork on Work {
             id
             employer
@@ -42,8 +40,8 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
             description
             startDate
             endDate
-        }
-        `
+        }        
+        `,
     };
     render() {
         const timeline = this.props.data.work.map(workToTimelineItem);

@@ -2,38 +2,33 @@ import './application-skills.css';
 
 import * as React from 'react';
 
+import {
+    ApplicationSkillGroupSkillGroupFragment,
+    ApplicationSkillGroupsApplicationFragment
+} from 'operation-result-types';
+
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
 import gql from '../../node_modules/graphql-tag';
 
-export interface SkillGroup {
-    id: string;
-    title: string;
-}
-
-export interface Skill {
-    id: string;
-    description: string;
-    group: SkillGroup;
-}
-
 export interface ApplicationSkillGroupProps {
-    title: string;
-    skills: Skill[];
+    data: ApplicationSkillGroupSkillGroupFragment;
 }
 
 export class ApplicationSkillGroup extends React.PureComponent<ApplicationSkillGroupProps> {
     public static fragments = {
         skillGroup: gql`
             fragment ApplicationSkillGroupSkillGroup on SkillGroup {
+                id
                 title
-                # skills {
-
-                # }
+                skills {
+                    id
+                    description
+                }
             }
         `
     };
     render() {
-        const { title, skills } = this.props;
+        const { title, skills } = this.props.data;
         return (
             <div className="skill-group">
                 <div className="skill-group__title">{title}</div>
@@ -49,30 +44,10 @@ export class ApplicationSkillGroup extends React.PureComponent<ApplicationSkillG
     }
 }
 
-export interface ApplicationSkillsProps {
-    skills: Skill[];
+export interface ApplicationSkillGroupsProps {
+    data: ApplicationSkillGroupsApplicationFragment;
 }
 
-export class ApplicationSkills extends React.PureComponent<ApplicationSkillsProps>  {
-    render() {
-        const skillGroups: { [index: string]: Skill[] } = this.props.skills.reduce(
-            (groups, skill) => ({ ...groups, [skill.group.title]: [...(groups[skill.group.title] || []), skill] }),
-            {}
-        );
-        return (
-            <div className="skills application-segment-appear">
-                <ApplicationSectionLabel>Skills</ApplicationSectionLabel>
-                <div className="skills-items">{
-                    Object.keys(skillGroups).map(group =>
-                        <ApplicationSkillGroup title={group} skills={skillGroups[group]} key={group} />
-                    )
-                }</div>
-            </div>
-        );
-    }
-}
-
-export interface ApplicationSkillGroupsProps {}
 export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkillGroupsProps> {
     public static fragments = {
         application: gql`
@@ -81,10 +56,20 @@ export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkill
                     ...ApplicationSkillGroupSkillGroup
                 }
             }
+            ${ApplicationSkillGroup.fragments.skillGroup}
         `
     };
 
     render() {
-        return null;
+        return (
+            <div className="skills application-segment-appear">
+                <ApplicationSectionLabel>Skills</ApplicationSectionLabel>
+                <div className="skills-items">{
+                    this.props.data.skillGroups.map(skillGroup => 
+                        <ApplicationSkillGroup key={skillGroup.id} data={skillGroup} />
+                    )
+                }</div>
+            </div>
+        );
     }
 }

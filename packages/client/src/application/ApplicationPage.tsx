@@ -3,13 +3,13 @@ import './application-page.css';
 import * as React from 'react';
 
 import { ApplicationPageQuery, ApplicationPageQueryVariables } from '../operation-result-types';
-import { ApplicationSkills, Skill, SkillGroup } from './ApplicationSkills';
 import { Query, QueryResult } from 'react-apollo';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import { ApplicationEducation } from './ApplicationEducation';
 import { ApplicationFooter } from './ApplicationFooter';
 import { ApplicationPersonal } from './ApplicationPersonal';
+import { ApplicationSkillGroups } from './ApplicationSkills';
 import { ApplicationWorkExperience } from './ApplicationWorkExperience';
 import { LoaderScreen } from 'common/LoaderScreen';
 import gql from 'graphql-tag';
@@ -23,13 +23,13 @@ export const APPLICATION_PAGE_QUERY = gql`
             }
             ...ApplicationEducationApplication
             ...ApplicationWorkExperienceApplication
+            ...ApplicationSkillGroupsApplication
         }
     }
     ${ApplicationPersonal.fragments.personal}
     ${ApplicationEducation.fragments.application}
-    ${ApplicationEducation.fragments.education}
     ${ApplicationWorkExperience.fragments.application}
-    ${ApplicationWorkExperience.fragments.work}
+    ${ApplicationSkillGroups.fragments.application}
 `;
 
 interface RouteParams {
@@ -37,21 +37,6 @@ interface RouteParams {
 }
 // tslint:disable:max-line-length
 const gravatar = 'https://s.gravatar.com/avatar/7e772614ab5d6b8fa72d7d2ede235d82?s=200';
-
-const programmingGroup: SkillGroup = {
-    id: '1',
-    title: 'Programming languages and Frameworks'
-};
-
-const skills: Skill[] = [{
-    id: '1',
-    description: '> 20 years eagerness to learn',
-    group: programmingGroup
-}, {
-    id: '2',
-    description: 'React',
-    group: programmingGroup
-}];
 
 export interface ApplicationPageProps {
     data: ApplicationPageQuery;
@@ -74,8 +59,8 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
                 <ApplicationEducation
                     data={props.data.application}
                 />
-                <ApplicationSkills
-                    skills={skills}
+                <ApplicationSkillGroups
+                    data={props.data.application}
                 />
             </div>
             <ApplicationFooter />

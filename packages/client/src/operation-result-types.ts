@@ -39,6 +39,14 @@ export interface ApplicationPageQuery {
       startDate: string,
       endDate: string | null,
     } >,
+    skillGroups:  Array< {
+      id: string,
+      title: string,
+      skills:  Array< {
+        id: string,
+        description: string,
+      } >,
+    } >,
   } | null,
 };
 
@@ -79,12 +87,22 @@ export interface ApplicationPersonalPersonalFragment {
 };
 
 export interface ApplicationSkillGroupSkillGroupFragment {
+  id: string,
   title: string,
+  skills:  Array< {
+    id: string,
+    description: string,
+  } >,
 };
 
 export interface ApplicationSkillGroupsApplicationFragment {
   skillGroups:  Array< {
+    id: string,
     title: string,
+    skills:  Array< {
+      id: string,
+      description: string,
+    } >,
   } >,
 };
 

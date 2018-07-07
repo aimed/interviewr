@@ -33,8 +33,6 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
                 ...ApplicationEducationEducation
             }
         }
-        `,
-        education: gql`
         fragment ApplicationEducationEducation on Education {
             id
             institution
@@ -43,7 +41,7 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
             startDate
             endDate
         }
-        `
+        `,
     };
     render() {
         return (
