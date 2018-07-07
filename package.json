@@ -17,6 +17,6 @@
 	"scripts": {
 		"start": "mkdir -p packages/client/build/ && lerna run --parallel start",
 		"postinstall": "mkdir -p packages/client/build/ && lerna run --parallel build",
-		"push": "lerna publish --conventional-commits --skip-npm"
+		"push": "lerna publish --conventional-commits --skip-npm && git push"
 	}
 }
