@@ -8,6 +8,7 @@ export interface ApplicationPageQueryVariables {
 export interface ApplicationPageQuery {
   application:  {
     id: string,
+    color: string,
     personal:  {
       firstName: string | null,
       lastName: string | null,
@@ -22,7 +23,6 @@ export interface ApplicationPageQuery {
       addressLine3: string | null,
       addressLine4: string | null,
     },
-    color: string,
     education:  Array< {
       id: string,
       institution: string,

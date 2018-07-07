@@ -18,6 +18,7 @@ export const APPLICATION_PAGE_QUERY = gql`
     query ApplicationPage($accessCode: String!) {
         application(accessCode: $accessCode) {
             id
+            color
             personal {
                 ...ApplicationPersonalPersonal
             }
@@ -46,8 +47,9 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
     if (!props.data.application) {
         return null;
     }
+    const style = (props.data.application.color ? { '--theme-color': props.data.application.color } : {}) as React.CSSProperties;
     return (
-        <div className="application-page">
+        <div className="application-page" style={style}>
             <ApplicationPersonal
                 data={props.data.application.personal}
                 profileImageUrl={gravatar}

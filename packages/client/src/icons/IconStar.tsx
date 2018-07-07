@@ -1,3 +1,5 @@
+import './icons.css';
+
 import * as React from 'react';
 
 export interface IconStarProps { }
