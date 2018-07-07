@@ -8,7 +8,7 @@ export class Education {
     @Field()
     public institution: string;
 
-    @Field()
+    @Field({ nullable: true })
     public description: string;
 
     @Field()

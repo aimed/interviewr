@@ -9,7 +9,7 @@ export interface TimelineItem {
     id: string;
     title: string;
     secondaryTitle?: string;
-    text: string;
+    text?: string;
     startDate: Date;
     endDate?: Date | null;
 }
@@ -40,7 +40,8 @@ export const Timeline: React.StatelessComponent<TimelineProps> = props => {
                             {item.secondaryTitle && 
                                 <div className="timeline__title__secondary">{item.secondaryTitle}</div>}
                         </div>
-                        <ReactMarkdown className="timeline__text react-mark-down" source={item.text} />
+                        {item.text && 
+                            <ReactMarkdown className="timeline__text react-mark-down" source={item.text} />}
                     </div>
                 </div>
             )}
