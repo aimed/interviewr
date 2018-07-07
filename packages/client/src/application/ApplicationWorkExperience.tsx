@@ -7,6 +7,7 @@ import {
 import { Timeline, TimelineItem } from '../timeline/Timeline';
 
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { IconWork } from 'icons/IconWork';
 import gql from 'graphql-tag';
 
 const workToTimelineItem: (work: ApplicationWorkExperienceWorkFragment) => TimelineItem =
@@ -47,7 +48,7 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
         const timeline = this.props.data.work.map(workToTimelineItem);
         return (
             <div className="work-experience application-segment-appear">
-                <ApplicationSectionLabel>Work experience</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconWork />}>Work experience</ApplicationSectionLabel>
                 <Timeline timeline={timeline} color={this.props.data.color} />
             </div>
         );

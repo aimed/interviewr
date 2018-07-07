@@ -7,6 +7,7 @@ import {
 import { Timeline, TimelineItem } from '../timeline/Timeline';
 
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { IconLaptop } from 'icons/IconLaptop';
 import gql from 'graphql-tag';
 
 const educationToTimelineItem: (education: ApplicationEducationEducationFragment) => TimelineItem =
@@ -45,7 +46,7 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
     render() {
         return (
             <div className="education application-segment-appear">
-                <ApplicationSectionLabel>Education</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconLaptop />}>Education</ApplicationSectionLabel>
                 <Timeline 
                     timeline={this.props.data.education.map(educationToTimelineItem)} 
                     color={this.props.data.color} 

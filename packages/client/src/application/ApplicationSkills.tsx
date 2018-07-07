@@ -9,6 +9,7 @@ import {
 } from 'operation-result-types';
 
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { IconStar } from 'icons/IconStar';
 import gql from '../../node_modules/graphql-tag';
 
 export interface ApplicationSkillGroupProps {
@@ -64,7 +65,7 @@ export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkill
     render() {
         return (
             <div className="skills application-segment-appear">
-                <ApplicationSectionLabel>Skills and Activities</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconStar />}>Skills and Activities</ApplicationSectionLabel>
                 <div className="skills-items">{
                     this.props.data.skillGroups.map(skillGroup => 
                         <ApplicationSkillGroup key={skillGroup.id} data={skillGroup} />
