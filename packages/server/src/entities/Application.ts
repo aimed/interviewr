@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from 'type-graphql';
 
 import { Education } from './Education';
 import { Personal } from './Personal';
-import { Skill } from './Skill';
+import { SkillGroup } from './SkillGroup';
 import { Work } from './Work';
 
 @ObjectType()
@@ -13,8 +13,8 @@ export class Application {
     @Field(type => Personal)
     public personal: Promise<Personal>;
 
-    @Field(type => [Skill])
-    public skills: Promise<Skill[]>;
+    @Field(type => [SkillGroup])
+    public skillGroups: Promise<SkillGroup[]>;
 
     @Field(type => [Work])
     public work: Promise<Work[]>;
@@ -23,8 +23,5 @@ export class Application {
     public education: Promise<Education[]>;
 
     @Field()
-    public text: string;
-
-    @Field()
-    public draft: boolean;
+    public color: string;
 }

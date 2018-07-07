@@ -1,9 +1,10 @@
 @import '../theme';
 
+$line-color: orange;
+
 .timeline {
     // Line
-    $line-color: orange;
-
+    --line-color: #{$line-color};
     $line-offset: 1rem;
     $line-width: 0.1rem;
 
@@ -25,6 +26,7 @@
         position: absolute;
         width: $line-width;
         background-color: $line-color;
+        background-color: var(--line-color);
         top: $time-offset;
         bottom: -1em;
         left: -$line-offset;
@@ -37,6 +39,7 @@
         width: $dot-size;
         height: $line-width;
         background-color: $line-color;
+        background-color: var(--line-color);
         bottom: - ($bottom-padding / 2);
         left: - ($line-offset + ($dot-size / 2) - ($line-width / 2));
     }
@@ -58,7 +61,7 @@
 
     &__time {
         position: relative;
-        
+
         &::before {
             // The dot
             content: "";
@@ -67,6 +70,7 @@
             height: $dot-size;
             border-radius: 50%;
             background-color: $line-color;
+            background-color: var(--line-color);
             top: ($time-offset - (0.5 * $dot-size));
             left: - ($line-offset + (0.5 * $dot-size) - (0.5 * $line-width));
         }

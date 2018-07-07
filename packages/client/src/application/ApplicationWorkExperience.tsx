@@ -28,6 +28,7 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
     static fragments = {
         application: gql`
         fragment ApplicationWorkExperienceApplication on Application {
+            color
             work {
                 ...ApplicationWorkExperienceWork
             }
@@ -49,7 +50,7 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
         return (
             <div className="work-experience application-segment-appear">
                 <ApplicationSectionLabel>Work experience</ApplicationSectionLabel>
-                <Timeline timeline={timeline} />
+                <Timeline timeline={timeline} color={this.props.data.color} />
             </div>
         );
     }

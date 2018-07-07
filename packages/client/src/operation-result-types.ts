@@ -22,6 +22,7 @@ export interface ApplicationPageQuery {
       addressLine3: string | null,
       addressLine4: string | null,
     },
+    color: string,
     education:  Array< {
       id: string,
       institution: string,
@@ -42,6 +43,7 @@ export interface ApplicationPageQuery {
 };
 
 export interface ApplicationEducationApplicationFragment {
+  color: string,
   education:  Array< {
     id: string,
     institution: string,
@@ -76,7 +78,18 @@ export interface ApplicationPersonalPersonalFragment {
   addressLine4: string | null,
 };
 
+export interface ApplicationSkillGroupSkillGroupFragment {
+  title: string,
+};
+
+export interface ApplicationSkillGroupsApplicationFragment {
+  skillGroups:  Array< {
+    title: string,
+  } >,
+};
+
 export interface ApplicationWorkExperienceApplicationFragment {
+  color: string,
   work:  Array< {
     id: string,
     employer: string,

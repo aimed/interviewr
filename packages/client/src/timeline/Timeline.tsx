@@ -22,12 +22,14 @@ const compareTimelineItems = (a: TimelineItem, b: TimelineItem) => {
 
 export interface TimelineProps {
     timeline: TimelineItem[];
+    color?: string;
 }
 
 export const Timeline: React.StatelessComponent<TimelineProps> = props => {
+    const style = (props.color ? {'--line-color': props.color} : {}) as React.CSSProperties;
     const timeline = props.timeline.sort(compareTimelineItems);
     return (
-        <div className="timeline">
+        <div className="timeline" style={style}>
             {timeline.map(item =>
                 <div className="timeline__item" key={item.id}>
                     <div className="timeline__time"><Period startDate={item.startDate} endDate={item.endDate} /> </div>

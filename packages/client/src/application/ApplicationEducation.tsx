@@ -28,6 +28,7 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
     static fragments = {
         application: gql`
         fragment ApplicationEducationApplication on Application {
+            color
             education {
                 ...ApplicationEducationEducation
             }
@@ -48,7 +49,10 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
         return (
             <div className="education application-segment-appear">
                 <ApplicationSectionLabel>Education</ApplicationSectionLabel>
-                <Timeline timeline={this.props.data.education.map(educationToTimelineItem)} />
+                <Timeline 
+                    timeline={this.props.data.education.map(educationToTimelineItem)} 
+                    color={this.props.data.color} 
+                />
             </div>
         );
     }   
