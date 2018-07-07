@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/aimed/interviewr/compare/v2.2.0...v2.3.0) (2018-07-07)
+
+
+### Bug Fixes
+
+* improve icon alignment ([48b73bf](https://github.com/aimed/interviewr/commit/48b73bf))
+* improve spacing betweens single skills ([f706cbb](https://github.com/aimed/interviewr/commit/f706cbb))
+* improve spacing for skills ([eb518d4](https://github.com/aimed/interviewr/commit/eb518d4))
+
+
+### Features
+
+* adds icons to sections ([0d636fe](https://github.com/aimed/interviewr/commit/0d636fe))
+
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/aimed/interviewr/compare/v2.1.1...v2.2.0) (2018-07-07)
 
