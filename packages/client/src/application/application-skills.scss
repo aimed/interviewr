@@ -15,6 +15,9 @@
 }
 
 .skill {
+    & + & {
+        margin-top: 0.1em;
+    }
     // Override react-markdown styles
     &__description.react-mark-down {
         p {
