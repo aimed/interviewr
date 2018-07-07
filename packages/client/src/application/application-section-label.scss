@@ -3,6 +3,7 @@
     align-items: center;
 
     &__icon {
-        margin-right: 0.3em;
+        margin-right: 0.5rem;
+        font-size: 0; // Set to 0 to hide whitespaces that will offset the icon
     }
 }
