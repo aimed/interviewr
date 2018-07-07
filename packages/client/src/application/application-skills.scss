@@ -11,3 +11,18 @@
         padding: 0;
     }
 }
+
+.skill {
+    // Override react-markdown styles
+    &__description.react-mark-down {
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        em {
+            font-size: 0.9em;
+            color: $color-label;
+        }
+    }
+}

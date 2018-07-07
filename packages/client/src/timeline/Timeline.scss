@@ -98,4 +98,11 @@ $line-color: orange;
             margin-left: 1em;
         }
     }
+
+    &__text.react-mark-down {
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    }
 }

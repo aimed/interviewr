@@ -1,6 +1,7 @@
 import './application-skills.css';
 
 import * as React from 'react';
+import * as ReactMarkdown from 'react-markdown';
 
 import {
     ApplicationSkillGroupSkillGroupFragment,
@@ -35,7 +36,7 @@ export class ApplicationSkillGroup extends React.PureComponent<ApplicationSkillG
                 <ul className="skill-group__skills">{
                     skills.map(skill =>
                         <li className="skill" key={skill.id}>
-                            <div className="skill__description">{skill.description}</div>
+                            <ReactMarkdown className="skill__description react-mark-down" source={skill.description} />
                         </li>
                     )}
                 </ul>
@@ -63,7 +64,7 @@ export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkill
     render() {
         return (
             <div className="skills application-segment-appear">
-                <ApplicationSectionLabel>Skills</ApplicationSectionLabel>
+                <ApplicationSectionLabel>Skills and Activities</ApplicationSectionLabel>
                 <div className="skills-items">{
                     this.props.data.skillGroups.map(skillGroup => 
                         <ApplicationSkillGroup key={skillGroup.id} data={skillGroup} />

@@ -9,7 +9,6 @@ import { Timeline, TimelineItem } from '../timeline/Timeline';
 import { ApplicationSectionLabel } from './ApplicationSectionLabel';
 import gql from 'graphql-tag';
 
-// tslint:disable-next-line:no-any
 const educationToTimelineItem: (education: ApplicationEducationEducationFragment) => TimelineItem =
     ({ id, degree, institution, description, startDate, endDate }) =>
         ({ 
