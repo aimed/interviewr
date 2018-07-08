@@ -1,6 +1,9 @@
+@import "theme";
+
 .application-section-label {
     display: flex;
     align-items: center;
+    color: var(--theme-color);
 
     &__icon {
         margin-right: 0.5rem;

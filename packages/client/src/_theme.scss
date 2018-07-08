@@ -1,9 +1,37 @@
-$color-label: #63697A;
-$font-size-label: 0.8rem;
+$background-color: #ffffff;
+$background-color-area: darken($background-color, 10%);
+
+$color-text: #292B38;
+$color-label: lighten($color-text, 50%);
+
+$font-size-label: 0.707rem;
 
 @mixin label {
     color: $color-label;
     font-size: $font-size-label;
     text-transform: uppercase;
     font-weight: lighter;
+}
+
+@mixin headline {
+    font-size: 1.414rem;
+    color: var(--theme-color, $color-text);
+}
+
+@mixin subheadline {
+    font-size: $font-size-label;
+}
+
+@mixin title {
+    fontsize: 3.998rem;
+}
+
+// Same as h1
+@mixin heading {
+    font-size: 2.827rem;
+}
+
+// Same as h2
+@mixin subheading {
+    font-size: 1.999rem;
 }

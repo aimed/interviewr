@@ -5,6 +5,11 @@ import * as ReactMarkdown from 'react-markdown';
 
 import { Period } from '../application/Period';
 
+/* tslint:disable:max-line-length */
+
+/**
+ * Items displayed in the timeline.
+ */
 export interface TimelineItem {
     id: string;
     title: string;
@@ -14,6 +19,11 @@ export interface TimelineItem {
     endDate?: Date | null;
 }
 
+/**
+ * Sorts two items by their start date.
+ * @param a Item 1
+ * @param b Item 2
+ */
 const compareTimelineItems = (a: TimelineItem, b: TimelineItem) => {
     if (a.startDate === b.startDate) {
         return 0;
@@ -27,21 +37,23 @@ export interface TimelineProps {
 }
 
 export const Timeline: React.StatelessComponent<TimelineProps> = props => {
-    const style = (props.color ? {'--line-color': props.color} : {}) as React.CSSProperties;
+    const style = (props.color ? { '--line-color': props.color } : {}) as React.CSSProperties;
     const timeline = props.timeline.sort(compareTimelineItems);
+
     return (
         <div className="timeline" style={style}>
             {timeline.map(item =>
                 <div className="timeline__item" key={item.id}>
-                    <div className="timeline__time"><Period startDate={item.startDate} endDate={item.endDate} /> </div>
+
+                    <div className="timeline__time">
+                        <Period startDate={item.startDate} endDate={item.endDate} />
+                    </div>
+
+                    <div className="timeline__title__primary">{item.title}</div>
+                    {item.secondaryTitle && <div className="timeline__title__secondary">{item.secondaryTitle}</div>}
+
                     <div className="timeline__body">
-                        <div className="timeline__title">
-                            <div className="timeline__title__primary">{item.title}</div>
-                            {item.secondaryTitle && 
-                                <div className="timeline__title__secondary">{item.secondaryTitle}</div>}
-                        </div>
-                        {item.text && 
-                            <ReactMarkdown className="timeline__text react-mark-down" source={item.text} />}
+                        {item.text && <ReactMarkdown className="timeline__text react-mark-down" source={item.text} />}
                     </div>
                 </div>
             )}

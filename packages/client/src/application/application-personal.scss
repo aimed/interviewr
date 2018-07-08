@@ -2,6 +2,7 @@
 
 .personal {
     $margin: 1rem;
+
     padding: 1rem;
     padding-top: 2rem;
     display: flex;
@@ -14,8 +15,8 @@
     &__name {
         margin: 0;
         margin-bottom: 0.5rem;
-        font-size: 2rem;
         color: #000000;
+        @include title;
     }
 
     &__picture {

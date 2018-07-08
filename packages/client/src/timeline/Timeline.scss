@@ -45,6 +45,13 @@ $line-color: #000000;
 
     &__item {
         page-break-inside: avoid;
+        display: grid;
+        grid-template-areas: 
+            "time"
+            "primary"
+            "secondary"
+            "body"
+            ;
 
         & + & {
             // Use padding instead of margin, because margins do not apply after a print page break
@@ -59,6 +66,7 @@ $line-color: #000000;
     }
 
     &__time {
+        grid-area: time;
         position: relative;
 
         &::before {
@@ -75,34 +83,19 @@ $line-color: #000000;
         }
     }
 
-    &__title {
-        grid-area: title;
-        vertical-align: text-bottom;
-        margin-bottom: 0.5em;
-
-        color: $color-label;
-        text-transform: uppercase;
-
-        &__primary,
-        &__secondary {
-            display: inline;
-        }
-
-        &__secondary {
-            font-weight: lighter;
-            font-size: $font-size-label;
-        }
-
-        &__primary + &__secondary{
-            margin-left: 1em;
-        }
+    &__title__primary {
+        grid-area: primary;
+        @include headline;
     }
 
-    // &__text {
-    //     margin-bottom: 1rem;
-    // }
+    &__title__secondary {
+        grid-area: secondary;
+        @include subheadline;
+    }
 
     &__text.react-mark-down {
+        margin-top: 0.5em;
+
         p {
             margin: 0;
             padding: 0;

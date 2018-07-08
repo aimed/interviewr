@@ -1,7 +1,10 @@
+@import "./theme";
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
+  color: $color-text;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
 }
 
 @media only print {
@@ -14,20 +17,27 @@ body {
   size: A4;
 }
 
-p {margin-bottom: 1.3rem;}
+p {
+  margin-bottom: 1.3rem;
+}
+
 h1, h2, h3, h4 {
   margin: 1.414rem 0 0.5rem;
   font-weight: inherit;
   line-height: 1.2;
 }
+
 h1 {
   margin-top: 0;
-  font-size: 1.602rem;
+  @include heading;
 }
-h2 {font-size: 1.424rem;}
-h3 {font-size: 1.266rem;}
-h4 {font-size: 1.125rem;}
-small, .font_small {font-size: 0.889rem;}
+h2 {
+  @include subheading;
+}
+
+small, .font_small {
+  font-size: $font-size-label;
+}
 
 .hk-button {
   padding: 0.5rem 0.4rem;
