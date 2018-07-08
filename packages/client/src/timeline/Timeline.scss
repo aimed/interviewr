@@ -114,9 +114,14 @@ $line-color: #000000;
 
             &::before {
                 // The marker
-                content: "▪";
-                color: $color-label;
-                margin-right: 0.2em;
+                $marker-size: 4px;
+                content: "";
+                font-size: 0;
+                display: inline-block;
+                padding: $marker-size / 2;
+                margin-bottom: 0.2rem;
+                background-color: $color-label;
+                margin-right: 0.2rem;
             }
         }
     }
