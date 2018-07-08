@@ -68,7 +68,8 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
             email,
             phone,
             nationality,
-            profileImageUrl
+            profileImageUrl,
+            martialStatus
         } = this.props.data;
         
         const dateFormatted = birthDate ? new Date(birthDate).toLocaleDateString() : '';
@@ -88,6 +89,7 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
                         <PersonalDataItem name="nationality" title="Staatsangehörigkeit" value={nationality} />
                         <PersonalDataItem name="contact" title="Kontakt" value={contact} />
                         <PersonalDataItem name="address" title="Adresse" value={address} />
+                        <PersonalDataItem name="martial-status" title="Familienstand" value={martialStatus} />
                         {/* tslint:enable:max-line-length */}
                     </div>
                 </div>

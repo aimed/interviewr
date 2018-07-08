@@ -4,7 +4,7 @@ $background-color-area: darken($background-color, 10%);
 $color-text: #292B38;
 $color-label: lighten($color-text, 50%);
 
-$font-size-label: 0.707rem;
+$font-size-label: 0.64rem;
 
 @mixin label {
     color: $color-label;
@@ -14,7 +14,7 @@ $font-size-label: 0.707rem;
 }
 
 @mixin headline {
-    font-size: 1.414rem;
+    font-size: 1.25rem;
     color: var(--theme-color, $color-text);
 }
 
@@ -23,15 +23,15 @@ $font-size-label: 0.707rem;
 }
 
 @mixin title {
-    fontsize: 3.998rem;
+    font-size: 2.441rem;
 }
 
 // Same as h1
 @mixin heading {
-    font-size: 2.827rem;
+    font-size: 1.953rem;
 }
 
 // Same as h2
 @mixin subheading {
-    font-size: 1.999rem;
+    font-size: 1.563rem;
 }

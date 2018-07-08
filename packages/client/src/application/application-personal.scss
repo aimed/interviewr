@@ -1,4 +1,4 @@
-@import '../theme';
+@import 'theme';
 
 .personal {
     $margin: 1rem;
@@ -37,6 +37,7 @@
         grid-template: 
             "birth-date-place contact"
             "nationality address"
+            "martial-status martial-status"
         ;
         grid-row-gap: 1em;
         grid-column-gap: 2em;
