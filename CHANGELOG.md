@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/aimed/interviewr/compare/v2.5.0...v2.6.0) (2018-07-08)
+
+
+### Features
+
+* customize md list in timeline ([496fe50](https://github.com/aimed/interviewr/commit/496fe50))
+
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/aimed/interviewr/compare/v2.4.0...v2.5.0) (2018-07-08)
 
