@@ -5,15 +5,16 @@ import * as React from 'react';
 export interface ApplicationFooterState {}
 export interface ApplicationFooterProps {}
 
+// tslint:disable-next-line:max-line-length
 export class ApplicationFooter extends React.Component<ApplicationFooterProps, ApplicationFooterState> {
   render() {
+    const url = window.location.origin + window.location.pathname;
     return (
         <div className="application-footer">
-            {/* tslint:disable-next-line */}
             <p>
-                This CV has been created using reactjs powered by a graphql backend.<br />
-                You can experiment and query data here: <a>https://maxforhire.com/playground</a>.<br />
-                The open source code is availiable at: <a>https://github.com/aimed/interviewr</a>.</p>
+                This CV has been created using reactjs powered by a graphql backend. 
+                See it live at <a href={url}>{url}</a>.
+            </p>
         </div>
     );
   }

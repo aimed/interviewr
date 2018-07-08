@@ -30,4 +30,18 @@
             color: $color-label;
         }
     }
+
+    // &__proficiency {
+    //     box-sizing: border-box;
+    //     display: block;
+    //     padding: 1px 20% 0 20%;
+    //     margin-top: 1px;
+    //     background-color: var(--theme-color, #000000);
+
+    //     @for $i from 1 through 5 {
+    //         &-#{$i} {
+    //             width: $i * 20%;
+    //         }
+    //     }
+    // }
 }

@@ -25,6 +25,7 @@ export class ApplicationSkillGroup extends React.PureComponent<ApplicationSkillG
                 skills {
                     id
                     description
+                    proficiency
                 }
             }
         `
@@ -38,6 +39,9 @@ export class ApplicationSkillGroup extends React.PureComponent<ApplicationSkillG
                     skills.map(skill =>
                         <li className="skill" key={skill.id}>
                             <ReactMarkdown className="skill__description react-mark-down" source={skill.description} />
+                            {skill.proficiency && 
+                                <div className={`skill__proficiency skill__proficiency-${skill.proficiency}`} />
+                            }
                         </li>
                     )}
                 </ul>

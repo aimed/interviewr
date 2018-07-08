@@ -48,7 +48,7 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
         const timeline = this.props.data.work.map(workToTimelineItem);
         return (
             <div className="work-experience application-segment-appear">
-                <ApplicationSectionLabel icon={<IconWork />}>Work experience</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconWork />}>Work Experience</ApplicationSectionLabel>
                 <Timeline timeline={timeline} color={this.props.data.color} />
             </div>
         );

@@ -9,7 +9,7 @@ export interface TimelineItem {
     id: string;
     title: string;
     secondaryTitle?: string;
-    text?: string;
+    text?: string | null;
     startDate: Date;
     endDate?: Date | null;
 }

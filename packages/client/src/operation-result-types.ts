@@ -27,7 +27,7 @@ export interface ApplicationPageQuery {
       id: string,
       institution: string,
       degree: string,
-      description: string,
+      description: string | null,
       startDate: string,
       endDate: string | null,
     } >,
@@ -45,6 +45,8 @@ export interface ApplicationPageQuery {
       skills:  Array< {
         id: string,
         description: string,
+        // A value between 1 and 5 indicating how well the skill is known
+        proficiency: number | null,
       } >,
     } >,
   } | null,
@@ -56,7 +58,7 @@ export interface ApplicationEducationApplicationFragment {
     id: string,
     institution: string,
     degree: string,
-    description: string,
+    description: string | null,
     startDate: string,
     endDate: string | null,
   } >,
@@ -66,7 +68,7 @@ export interface ApplicationEducationEducationFragment {
   id: string,
   institution: string,
   degree: string,
-  description: string,
+  description: string | null,
   startDate: string,
   endDate: string | null,
 };
@@ -92,6 +94,8 @@ export interface ApplicationSkillGroupSkillGroupFragment {
   skills:  Array< {
     id: string,
     description: string,
+    // A value between 1 and 5 indicating how well the skill is known
+    proficiency: number | null,
   } >,
 };
 
@@ -102,6 +106,8 @@ export interface ApplicationSkillGroupsApplicationFragment {
     skills:  Array< {
       id: string,
       description: string,
+      // A value between 1 and 5 indicating how well the skill is known
+      proficiency: number | null,
     } >,
   } >,
 };
