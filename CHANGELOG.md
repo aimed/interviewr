@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/aimed/interviewr/compare/v2.4.0...v2.5.0) (2018-07-08)
+
+
+### Bug Fixes
+
+* improve font sizes ([8e8e6e6](https://github.com/aimed/interviewr/commit/8e8e6e6))
+* improve footer readablity ([88de02d](https://github.com/aimed/interviewr/commit/88de02d))
+
+
+### Features
+
+* adds (and disables) proficiency ([abe27a1](https://github.com/aimed/interviewr/commit/abe27a1))
+* adds proficiency to skills ([3b294a2](https://github.com/aimed/interviewr/commit/3b294a2))
+* change locale to english ([dc71012](https://github.com/aimed/interviewr/commit/dc71012))
+* improve visual hierarchy ([b078b6f](https://github.com/aimed/interviewr/commit/b078b6f))
+* remove hard coded profile image ([491d43b](https://github.com/aimed/interviewr/commit/491d43b))
+
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/aimed/interviewr/compare/v2.3.0...v2.4.0) (2018-07-07)
 
