@@ -85,11 +85,11 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
                     <h1 className="personal__name">{firstName} {lastName}</h1>
                     <div className="personal__items">
                         {/* tslint:disable:max-line-length */}
-                        <PersonalDataItem name="birth-date-place" title="Geburtstag, Geburtsort" value={`${dateFormatted}, ${birthPlace}`} />
-                        <PersonalDataItem name="nationality" title="Staatsangehörigkeit" value={nationality} />
-                        <PersonalDataItem name="contact" title="Kontakt" value={contact} />
-                        <PersonalDataItem name="address" title="Adresse" value={address} />
-                        <PersonalDataItem name="martial-status" title="Familienstand" value={martialStatus} />
+                        <PersonalDataItem name="birth-date-place" title="Birthdate, -place" value={`${dateFormatted}, ${birthPlace}`} />
+                        <PersonalDataItem name="nationality" title="Nationality" value={nationality} />
+                        <PersonalDataItem name="contact" title="Contact" value={contact} />
+                        <PersonalDataItem name="address" title="Address" value={address} />
+                        <PersonalDataItem name="martial-status" title="Martial Status" value={martialStatus} />
                         {/* tslint:enable:max-line-length */}
                     </div>
                 </div>
