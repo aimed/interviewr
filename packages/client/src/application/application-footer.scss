@@ -3,7 +3,8 @@
 .application-footer {
     grid-area: footer;
     @include label;
-    
+    text-transform: none;
+
     p {
         text-align: center;
         padding: 1rem;
