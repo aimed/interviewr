@@ -22,6 +22,7 @@ export interface ApplicationPageQuery {
       addressLine2: string | null,
       addressLine3: string | null,
       addressLine4: string | null,
+      profileImageUrl: string,
     },
     education:  Array< {
       id: string,
@@ -86,6 +87,7 @@ export interface ApplicationPersonalPersonalFragment {
   addressLine2: string | null,
   addressLine3: string | null,
   addressLine4: string | null,
+  profileImageUrl: string,
 };
 
 export interface ApplicationSkillGroupSkillGroupFragment {

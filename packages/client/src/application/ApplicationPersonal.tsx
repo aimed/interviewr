@@ -31,7 +31,6 @@ export const PersonalDataItem: React.StatelessComponent<PersonalDataItemProps> =
 };
 
 export interface ApplicationPersonalProps {
-    profileImageUrl?: string | null;
     data: ApplicationPersonalPersonalFragment;
 }
 
@@ -51,16 +50,12 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
                 addressLine2
                 addressLine3
                 addressLine4
+                profileImageUrl
             }
         `
     };
 
     render() {
-        const {
-            profileImageUrl,
-            data
-        } = this.props;
-        
         const {
             firstName,
             lastName,
@@ -72,8 +67,9 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
             addressLine4,
             email,
             phone,
-            nationality
-        } = data;
+            nationality,
+            profileImageUrl
+        } = this.props.data;
         
         const dateFormatted = birthDate ? new Date(birthDate).toLocaleDateString() : '';
         const contact = [email, phone].join(' | ');

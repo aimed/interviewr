@@ -2,8 +2,11 @@ import { Field, ID, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class Personal {
-    @Field(() => ID)
+    @Field(type => ID)
     public id: number;
+
+    @Field()
+    public profileImageUrl: string;
 
     @Field({ nullable: true })
     public nationality: string;

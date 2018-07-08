@@ -36,8 +36,6 @@ export const APPLICATION_PAGE_QUERY = gql`
 interface RouteParams {
     accessCode: string;
 }
-// tslint:disable:max-line-length
-const gravatar = 'https://s.gravatar.com/avatar/7e772614ab5d6b8fa72d7d2ede235d82?s=200';
 
 export interface ApplicationPageProps {
     data: ApplicationPageQuery;
@@ -47,12 +45,12 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
     if (!props.data.application) {
         return null;
     }
+    // tslint:disable-next-line:max-line-length
     const style = (props.data.application.color ? { '--theme-color': props.data.application.color } : {}) as React.CSSProperties;
     return (
         <div className="application-page" style={style}>
             <ApplicationPersonal
                 data={props.data.application.personal}
-                profileImageUrl={gravatar}
             />
             <div className="application-page__experience-and-skills">
                 <ApplicationWorkExperience
@@ -73,6 +71,7 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
 export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParams>>(routeProps => {
     const variables: ApplicationPageQueryVariables = {accessCode: routeProps.match.params.accessCode};
     return (
+        // tslint:disable-next-line:max-line-length
         <Query query={APPLICATION_PAGE_QUERY} variables={variables} fetchPolicy="cache-first">{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
             if (result.loading) {
                 return (
