@@ -29,7 +29,7 @@ export class ApplicationResolver {
         @Arg('accessCode') accessCode: string
     ) {
         // IMPORTANT: Perform a security check to prevent reading arbitrary files.
-        if (!accessCode.match(/^[a-zA-Z0-9]+$/)) {
+        if (!accessCode.match(/^[a-zA-Z0-9\-\_]+$/)) {
             return null;
         }
 
