@@ -1,12 +1,16 @@
-.application-footer {
-    background: #FCFCFC;
-    color: darken(#FCFCFC, 20%);
-    font-size: 0.8rem;
-    grid-area: footer;
+@import "theme";
 
+.application-footer {
+    grid-area: footer;
+    @include label;
+    
     p {
         text-align: center;
         padding: 1rem;
         margin: 0;
+    }
+
+    a {
+        color: inherit;
     }
 }
