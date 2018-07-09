@@ -72,7 +72,20 @@ export class ApplicationResolver {
         } catch (error) {
             // tslint:disable-next-line:no-console
             console.error(error);
-            return null;
         }
+
+        // Check if the file exists on dropbox.
+        try {
+            const download = await this.dropbox.filesDownload({ path: `/${accessCode}.yaml` }) as FileMetadataWithBlob;
+            const binary = download.fileBinary;
+            const yamlString = binary.toString();
+            const parsed = YAML.safeLoad(yamlString);
+            return parsed;
+        } catch (error) {
+            // tslint:disable-next-line:no-console
+            console.error(error);
+        }
+
+        return null;
     }
 }
