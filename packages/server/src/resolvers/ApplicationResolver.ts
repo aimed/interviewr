@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 
+import * as YAML from 'js-yaml';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -34,12 +35,26 @@ export class ApplicationResolver {
         }
 
         // Check if the file exists on the server.
-        const localFilePath = path.resolve(__dirname, `../../data/${accessCode}.json`);
-        const localFileExists = fs.existsSync(localFilePath);
+        const localYAMLFilePath = path.resolve(__dirname, `../../data/${accessCode}.yaml`);
+        const localYAMLFileExists = fs.existsSync(localYAMLFilePath);
 
-        if (localFileExists) {
+        if (localYAMLFileExists) {
             try {
-                const fileContents = fs.readFileSync(localFilePath).toString();
+                const fileContents = fs.readFileSync(localYAMLFilePath, 'utf8');
+                const parsed = YAML.safeLoad(fileContents);
+                return parsed;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Check if the file exists on the server.
+        const localJSONFilePath = path.resolve(__dirname, `../../data/${accessCode}.json`);
+        const localJSONFileExists = fs.existsSync(localJSONFilePath);
+
+        if (localJSONFileExists) {
+            try {
+                const fileContents = fs.readFileSync(localJSONFilePath, 'utf8');
                 const parsed = JSON.parse(fileContents);
                 return parsed;
             } catch (error) {
