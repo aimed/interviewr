@@ -3,7 +3,7 @@ import './landing.css';
 import * as React from 'react';
 
 import { ApplicationPageQuery, ApplicationPageQueryVariables } from 'operation-result-types';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithApolloClient, withApollo } from 'react-apollo';
 
 import { APPLICATION_PAGE_QUERY } from 'application/ApplicationPage';
@@ -75,7 +75,7 @@ export const LandingPage = withRouter(withApollo(observer(
           </form>
           <p className="landing-page__oopsie">{this.hasError && !submitting && `That code didn't seem to work.`}</p>
           <div className="landing-page__get-in-touch">
-            <Link to="/application/test">See my CV!</Link>
+            {/* <Link to="/application/test">See my CV!</Link> */}
             <p>If you don't have an access code, but still want to get in touch, you can contact me here:</p>
             <p><a href="mailto:max@maxforhire.com">max@maxforhire.com</a></p>
           </div>
