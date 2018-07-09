@@ -44,7 +44,7 @@ $line-color: #000000;
     }
 
     &__item {
-        page-break-inside: avoid;
+        // page-break-inside: avoid;
         display: grid;
         grid-template-areas: 
             "time"
@@ -102,6 +102,7 @@ $line-color: #000000;
         }
 
         ul {
+            page-break-inside: avoid;
             margin: 0.2em 0 0.7em 0;
             padding: 0 1em;
             // Custom markers
@@ -114,7 +115,7 @@ $line-color: #000000;
 
             &::before {
                 // The marker
-                $marker-size: 4px;
+                $marker-size: 4px; // Use a constant here, because of subpixel rouding displaying might glitch
                 content: "";
                 font-size: 0;
                 display: inline-block;
