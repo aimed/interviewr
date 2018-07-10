@@ -4,7 +4,7 @@ import * as YAML from 'js-yaml';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { Arg, Query, Resolver } from 'type-graphql';
+import { Arg, FieldResolver, Query, Resolver, Root } from 'type-graphql';
 
 import { Application } from '../entities/Application';
 import { Dropbox } from 'dropbox';
@@ -20,6 +20,11 @@ export class ApplicationResolver {
      * Dropbox SDK.
      */
     private dropbox = new Dropbox({ accessToken: process.env.DROPBOX_KEY });
+
+    /**
+     * Caches translation files.
+     */
+    private translationsCache: { [index: string]: string } = {};
 
     /**
      * Resolve an application.
@@ -61,5 +66,21 @@ export class ApplicationResolver {
         }
 
         return null;
+    }
+
+    @FieldResolver()
+    public async i18n(@Root() application: Application) {
+        // tslint:disable-next-line:no-console
+        // console.log('kkk');
+        const localeFilePath = path.resolve(__dirname, `../../i18n/${application.locale || 'en'}.json`);
+        if (!this.translationsCache[localeFilePath]) {
+            if (fs.existsSync(localeFilePath)) {
+                const translations = fs.readFileSync(localeFilePath, 'utf8');
+                this.translationsCache[localeFilePath] = translations;
+            } else {
+                throw new Error('Invalid locale key');
+            }
+        }
+        return this.translationsCache[localeFilePath];
     }
 }
