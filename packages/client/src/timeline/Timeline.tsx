@@ -1,4 +1,4 @@
-import './Timeline.css';
+import './timeline.css';
 
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
