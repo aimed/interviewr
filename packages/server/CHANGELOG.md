@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/aimed/interviewr/compare/v2.7.1...v2.8.0) (2018-07-10)
+
+
+### Features
+
+* adds ability to parse yaml ([400afd7](https://github.com/aimed/interviewr/commit/400afd7))
+* adds yaml from dropbox ([1199047](https://github.com/aimed/interviewr/commit/1199047))
+
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/aimed/interviewr/compare/v2.6.0...v2.7.0) (2018-07-08)
 

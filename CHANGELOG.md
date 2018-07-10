@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/aimed/interviewr/compare/v2.7.1...v2.8.0) (2018-07-10)
+
+
+### Bug Fixes
+
+* allows page breaks inside of timeline items ([b82cb9e](https://github.com/aimed/interviewr/commit/b82cb9e))
+* fixes timeline markers on mobile ([46dc4cb](https://github.com/aimed/interviewr/commit/46dc4cb))
+* removes test link ([fade998](https://github.com/aimed/interviewr/commit/fade998))
+
+
+### Features
+
+* adds ability to parse yaml ([400afd7](https://github.com/aimed/interviewr/commit/400afd7))
+* adds yaml from dropbox ([1199047](https://github.com/aimed/interviewr/commit/1199047))
+
+
+
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/aimed/interviewr/compare/v2.7.0...v2.7.1) (2018-07-08)
 
