@@ -11,6 +11,7 @@
     justify-content: center;
     position: relative;
     background: #FCFCFC;
+    border-bottom: 1px solid var(--theme-color, #FCFCFC);
 
     &__name {
         margin: 0;

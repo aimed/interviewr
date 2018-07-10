@@ -8,8 +8,8 @@ import { WithApolloClient, withApollo } from 'react-apollo';
 
 import { APPLICATION_PAGE_QUERY } from 'application/ApplicationPage';
 import { ChangeEventHandler } from 'react';
-import { Loader } from 'common/Loader';
-import { MobxForm } from '../common/MobxForm';
+import { Loader } from 'loader/Loader';
+import { MobxForm } from 'utils/MobxForm';
 import { observer } from 'mobx-react';
 
 const PLACEHOLDER = 'HERE';

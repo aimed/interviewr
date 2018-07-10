@@ -2,16 +2,16 @@ import './application-page.css';
 
 import * as React from 'react';
 
-import { ApplicationPageQuery, ApplicationPageQueryVariables } from '../operation-result-types';
+import { ApplicationPageQuery, ApplicationPageQueryVariables } from 'operation-result-types';
 import { Query, QueryResult } from 'react-apollo';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
-import { ApplicationEducation } from './ApplicationEducation';
-import { ApplicationFooter } from './ApplicationFooter';
-import { ApplicationPersonal } from './ApplicationPersonal';
-import { ApplicationSkillGroups } from './ApplicationSkills';
-import { ApplicationWorkExperience } from './ApplicationWorkExperience';
-import { LoaderScreen } from 'common/LoaderScreen';
+import { ApplicationEducation } from 'education/ApplicationEducation';
+import { ApplicationFooter } from 'footer/ApplicationFooter';
+import { ApplicationPersonal } from 'personal/ApplicationPersonal';
+import { ApplicationSkillGroups } from 'skills/ApplicationSkills';
+import { ApplicationWorkExperience } from 'work/ApplicationWorkExperience';
+import { LoaderScreen } from 'loader/LoaderScreen';
 import gql from 'graphql-tag';
 
 export const APPLICATION_PAGE_QUERY = gql`

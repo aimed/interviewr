@@ -2,7 +2,7 @@ import './application-personal.css';
 
 import * as React from 'react';
 
-import { ApplicationPersonalPersonalFragment } from '../operation-result-types';
+import { ApplicationPersonalPersonalFragment } from 'operation-result-types';
 import gql from 'graphql-tag';
 
 export interface PersonalDataItemProps {

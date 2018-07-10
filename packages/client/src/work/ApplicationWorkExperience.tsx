@@ -3,10 +3,10 @@ import * as React from 'react';
 import {
     ApplicationWorkExperienceApplicationFragment,
     ApplicationWorkExperienceWorkFragment
-} from '../operation-result-types';
-import { Timeline, TimelineItem } from '../timeline/Timeline';
+} from 'operation-result-types';
+import { Timeline, TimelineItem } from 'timeline/Timeline';
 
-import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconWork } from 'icons/IconWork';
 import gql from 'graphql-tag';
 

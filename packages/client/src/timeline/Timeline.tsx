@@ -3,7 +3,7 @@ import './Timeline.css';
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
 
-import { Period } from '../application/Period';
+import { Period } from 'period/Period';
 
 /* tslint:disable:max-line-length */
 

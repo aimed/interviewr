@@ -3,10 +3,10 @@ import * as React from 'react';
 import {
     ApplicationEducationApplicationFragment,
     ApplicationEducationEducationFragment
-} from '../operation-result-types';
-import { Timeline, TimelineItem } from '../timeline/Timeline';
+} from 'operation-result-types';
+import { Timeline, TimelineItem } from 'timeline/Timeline';
 
-import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconLaptop } from 'icons/IconLaptop';
 import gql from 'graphql-tag';
 

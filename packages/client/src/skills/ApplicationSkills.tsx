@@ -8,9 +8,9 @@ import {
     ApplicationSkillGroupsApplicationFragment
 } from 'operation-result-types';
 
-import { ApplicationSectionLabel } from './ApplicationSectionLabel';
+import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconStar } from 'icons/IconStar';
-import gql from '../../node_modules/graphql-tag';
+import gql from 'graphql-tag';
 
 export interface ApplicationSkillGroupProps {
     data: ApplicationSkillGroupSkillGroupFragment;

@@ -53,6 +53,10 @@ $line-color: #000000;
             "body"
             ;
 
+        page-break-inside: avoid;
+        page-break-after: auto;
+        page-break-before: auto;
+
         & + & {
             // Use padding instead of margin, because margins do not apply after a print page break
             padding-top: $bottom-padding;
@@ -102,17 +106,21 @@ $line-color: #000000;
         }
 
         ul {
-            page-break-inside: avoid;
-            margin: 0.2em 0 0.7em 0;
+            // page-break-inside: avoid;
+            margin: 0.2em 0 0 0;
             padding: 0 1em;
             // Custom markers
             list-style-type: none;
         }
 
+        ul + * {
+            // Adjust margin for elements after a list. If the margin is set for the list itself, descriptions not ending in a list will look different.
+            margin-top: 0.7em;
+        }
+
         li {
             padding: 0;
             margin: 0 0.2em;
-
             &::before {
                 // The marker
                 $marker-size: 4px; // Use a constant here, because of subpixel rouding displaying might glitch

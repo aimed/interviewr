@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { Redirect, Route, Switch } from 'react-router';
 
-import { ApplicationPageWithData } from './application/ApplicationPage';
+import { ApplicationPageWithData } from 'application/ApplicationPage';
 import { BrowserRouter } from 'react-router-dom';
-import { LandingPage } from './landing/LandingPage';
+import { LandingPage } from 'landing/LandingPage';
 
 export class App extends React.PureComponent {
   render() {
