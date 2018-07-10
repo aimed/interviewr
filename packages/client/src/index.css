@@ -28,20 +28,3 @@ h2 {
 
 small, .font_small {
   font-size: 0.64rem; }
-
-.hk-button {
-  padding: 0.5rem 0.4rem; }
-
-.hk-field-group + .hk-field-group {
-  margin-top: 1em; }
-
-.hk-field-group--inline {
-  display: flex;
-  flex-direction: row; }
-  .hk-field-group--inline .hk-formfield {
-    margin-top: 0; }
-  .hk-field-group--inline .hk-formfield + .hk-formfield {
-    margin-left: 0.5em; }
-
-.hk-textfield__native-control {
-  background-color: #f7f7f7; }
