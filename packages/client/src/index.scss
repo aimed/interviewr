@@ -1,4 +1,4 @@
-@import "./theme";
+@import "theme";
 
 body {
   color: $color-text;
@@ -37,30 +37,4 @@ h2 {
 
 small, .font_small {
   font-size: $font-size-label;
-}
-
-.hk-button {
-  padding: 0.5rem 0.4rem;
-}
-
-.hk-field-group {
-  & + & {
-    margin-top: 1em;
-  }
-  &--inline {
-    display: flex;
-    flex-direction: row;
-
-    & .hk-formfield {
-      margin-top: 0;
-    }
-
-    & .hk-formfield + .hk-formfield {
-      margin-left: 0.5em;
-    }
-  }
-}
-
-.hk-textfield__native-control {
-  background-color: darken($color: #fff, $amount: 3%);
 }
