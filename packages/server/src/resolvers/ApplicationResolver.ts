@@ -48,32 +48,6 @@ export class ApplicationResolver {
             }
         }
 
-        // Check if the file exists on the server.
-        const localJSONFilePath = path.resolve(__dirname, `../../data/${accessCode}.json`);
-        const localJSONFileExists = fs.existsSync(localJSONFilePath);
-
-        if (localJSONFileExists) {
-            try {
-                const fileContents = fs.readFileSync(localJSONFilePath, 'utf8');
-                const parsed = JSON.parse(fileContents);
-                return parsed;
-            } catch (error) {
-                return null;
-            }
-        }
-
-        // Check if the file exists on dropbox.
-        try {
-            const download = await this.dropbox.filesDownload({ path: `/${accessCode}.json` }) as FileMetadataWithBlob;
-            const binary = download.fileBinary;
-            const jsonString = binary.toString();
-            const parsed = JSON.parse(jsonString);
-            return parsed;
-        } catch (error) {
-            // tslint:disable-next-line:no-console
-            console.error(error);
-        }
-
         // Check if the file exists on dropbox.
         try {
             const download = await this.dropbox.filesDownload({ path: `/${accessCode}.yaml` }) as FileMetadataWithBlob;
