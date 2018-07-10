@@ -24,4 +24,10 @@ export class Application {
 
     @Field()
     public color: string;
+
+    @Field({ description: 'Translations for keys, such as "Birthdate", "Work Experience", etc. as a JSON string' })
+    public i18n: string;
+
+    @Field()
+    public locale: string;
 }
