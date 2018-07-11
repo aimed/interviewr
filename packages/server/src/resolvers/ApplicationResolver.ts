@@ -14,7 +14,7 @@ interface FileMetadataWithBlob extends DropboxTypes.files.FileMetadata {
     fileBinary: Buffer | undefined;
 }
 
-@Resolver(type => Application)
+@Resolver(Application)
 export class ApplicationResolver {
     /**
      * Dropbox SDK.
@@ -70,8 +70,6 @@ export class ApplicationResolver {
 
     @FieldResolver()
     public async i18n(@Root() application: Application) {
-        // tslint:disable-next-line:no-console
-        // console.log('kkk');
         const localeFilePath = path.resolve(__dirname, `../../i18n/${application.locale || 'en'}.json`);
         if (!this.translationsCache[localeFilePath]) {
             if (fs.existsSync(localeFilePath)) {
