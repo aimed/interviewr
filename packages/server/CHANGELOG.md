@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.9.0"></a>
+# [2.9.0](https://github.com/aimed/interviewr/compare/v2.8.0...v2.9.0) (2018-07-11)
+
+
+### Bug Fixes
+
+* i18n resolver works, gitignore updates ([cad1bc3](https://github.com/aimed/interviewr/commit/cad1bc3))
+
+
+### Features
+
+* add i18n resolver ([0601787](https://github.com/aimed/interviewr/commit/0601787))
+* add locale and i18n field ([6df6e2d](https://github.com/aimed/interviewr/commit/6df6e2d))
+* adds i18n files ([4ae5b33](https://github.com/aimed/interviewr/commit/4ae5b33))
+* adds localization ([4ee5105](https://github.com/aimed/interviewr/commit/4ee5105))
+
+
+
+
 <a name="2.8.0"></a>
 # [2.8.0](https://github.com/aimed/interviewr/compare/v2.7.1...v2.8.0) (2018-07-10)
 
