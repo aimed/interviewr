@@ -24,7 +24,7 @@ export class ApplicationResolver {
     /**
      * Caches translation files.
      */
-    private translationsCache: { [index: string]: string } = {};
+    // private translationsCache: { [index: string]: string } = {};
 
     /**
      * Resolve an application.
@@ -71,14 +71,12 @@ export class ApplicationResolver {
     @FieldResolver()
     public async i18n(@Root() application: Application) {
         const localeFilePath = path.resolve(__dirname, `../../i18n/${application.locale || 'en'}.json`);
-        if (!this.translationsCache[localeFilePath]) {
-            if (fs.existsSync(localeFilePath)) {
-                const translations = fs.readFileSync(localeFilePath, 'utf8');
-                this.translationsCache[localeFilePath] = translations;
-            } else {
-                throw new Error('Invalid locale key');
-            }
+        if (fs.existsSync(localeFilePath)) {
+            const translations = fs.readFileSync(localeFilePath, 'utf8');
+            return translations;
+        } else {
+            throw new Error('Invalid locale key');
         }
-        return this.translationsCache[localeFilePath];
+        // return this.translationsCache[localeFilePath];
     }
 }

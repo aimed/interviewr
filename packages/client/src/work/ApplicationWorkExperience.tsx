@@ -9,6 +9,7 @@ import { Timeline, TimelineItem } from 'timeline/Timeline';
 import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconWork } from 'icons/IconWork';
 import gql from 'graphql-tag';
+import i18next from 'i18next';
 
 const workToTimelineItem: (work: ApplicationWorkExperienceWorkFragment) => TimelineItem =
     ({ role, employer, description, id, startDate, endDate }) =>
@@ -48,7 +49,9 @@ export class ApplicationWorkExperience extends React.PureComponent<ApplicationWo
         const timeline = this.props.data.work.map(workToTimelineItem);
         return (
             <div className="work-experience application-segment-appear">
-                <ApplicationSectionLabel icon={<IconWork />}>Work Experience</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconWork />}>
+                    {i18next.t('application:sections.workExperience')}
+                </ApplicationSectionLabel>
                 <Timeline timeline={timeline} color={this.props.data.color} />
             </div>
         );

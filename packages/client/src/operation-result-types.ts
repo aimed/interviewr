@@ -9,6 +9,9 @@ export interface ApplicationPageQuery {
   application:  {
     id: string,
     color: string,
+    locale: string,
+    // Translations for keys, such as "Birthdate", "Work Experience", etc. as a JSON string
+    i18n: string,
     personal:  {
       firstName: string | null,
       lastName: string | null,

@@ -13,12 +13,25 @@ import { ApplicationSkillGroups } from 'skills/ApplicationSkills';
 import { ApplicationWorkExperience } from 'work/ApplicationWorkExperience';
 import { LoaderScreen } from 'loader/LoaderScreen';
 import gql from 'graphql-tag';
+import i18next from 'i18next';
+
+i18next.init({
+    ns: ['application'],
+    languages: ['de', 'en'],
+    interpolation: {
+        escapeValue: false, // not needed for react!!
+    }
+});
 
 export const APPLICATION_PAGE_QUERY = gql`
     query ApplicationPage($accessCode: String!) {
         application(accessCode: $accessCode) {
             id
             color
+            
+            locale
+            i18n
+
             personal {
                 ...ApplicationPersonalPersonal
             }
@@ -47,6 +60,14 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
     }
     // tslint:disable-next-line:max-line-length
     const style = (props.data.application.color ? { '--theme-color': props.data.application.color } : {}) as React.CSSProperties;
+    const locale = props.data.application.locale;
+
+    if (!i18next.hasResourceBundle(locale, 'application')) {
+        const i18nStrings = JSON.parse(props.data.application.i18n);
+        i18next.addResourceBundle(locale, 'application', i18nStrings, true, true);
+    }
+    i18next.changeLanguage(locale);
+
     return (
         <div className="application-page" style={style}>
             <ApplicationPersonal
@@ -69,7 +90,7 @@ export const ApplicationPage: React.StatelessComponent<ApplicationPageProps> = p
 };
 
 export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParams>>(routeProps => {
-    const variables: ApplicationPageQueryVariables = {accessCode: routeProps.match.params.accessCode};
+    const variables: ApplicationPageQueryVariables = { accessCode: routeProps.match.params.accessCode };
     return (
         // tslint:disable-next-line:max-line-length
         <Query query={APPLICATION_PAGE_QUERY} variables={variables} fetchPolicy="cache-first">{(result: QueryResult<ApplicationPageQuery, ApplicationPageQueryVariables>) => {
@@ -84,7 +105,7 @@ export const ApplicationPageWithData = withRouter<RouteComponentProps<RouteParam
                     <Redirect to={{ pathname: '/', state: { oopsie: true } }} />
                 );
             }
-            
+
             return <ApplicationPage data={result.data} />;
         }}</Query>
     );

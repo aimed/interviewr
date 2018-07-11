@@ -9,16 +9,18 @@ import { Timeline, TimelineItem } from 'timeline/Timeline';
 import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconLaptop } from 'icons/IconLaptop';
 import gql from 'graphql-tag';
+import i18next from 'i18next';
 
 const educationToTimelineItem: (education: ApplicationEducationEducationFragment) => TimelineItem =
     ({ id, degree, institution, description, startDate, endDate }) =>
-        ({ 
-            id, 
-            title: degree, 
-            secondaryTitle: institution, 
-            text: description, 
-            startDate: new Date(startDate), 
-            endDate: endDate ? new Date(endDate) : undefined });
+        ({
+            id,
+            title: degree,
+            secondaryTitle: institution,
+            text: description,
+            startDate: new Date(startDate),
+            endDate: endDate ? new Date(endDate) : undefined
+        });
 
 export interface ApplicationEducationProps {
     data: ApplicationEducationApplicationFragment;
@@ -46,12 +48,16 @@ export class ApplicationEducation extends React.PureComponent<ApplicationEducati
     render() {
         return (
             <div className="education application-segment-appear">
-                <ApplicationSectionLabel icon={<IconLaptop />}>Education</ApplicationSectionLabel>
-                <Timeline 
-                    timeline={this.props.data.education.map(educationToTimelineItem)} 
-                    color={this.props.data.color} 
+                <ApplicationSectionLabel 
+                    icon={<IconLaptop />}
+                >
+                    {i18next.t('application:sections.education')}
+                </ApplicationSectionLabel>
+                <Timeline
+                    timeline={this.props.data.education.map(educationToTimelineItem)}
+                    color={this.props.data.color}
                 />
             </div>
         );
-    }   
+    }
 }

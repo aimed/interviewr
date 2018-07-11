@@ -1,0 +1,2 @@
+// TODO: The current typedefinition is broken and causes problems with ts, because addResourceBundle etc. are not exported functions, but defined as properties on the exported default object.
+declare module 'i18next';

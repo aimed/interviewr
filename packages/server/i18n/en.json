@@ -1,18 +1,18 @@
 {
-    "application.personal": {
-        "Birthdate": "Birthdate",
-        "Birthplace": "Birthplace",
-        "Contact": "Contact",
-        "Nationality": "Nationality",
-        "Address": "Address",
-        "Martial Status": "Martial Status"
+    "personal": {
+        "birthdate": "Birthdate",
+        "contact": "Contact",
+        "nationality": "Nationality",
+        "birthplace": "Birthplace",
+        "address": "Address",
+        "martialStatus": "Martial Status"
     },
-    "application.sections": {
-        "Work Experience": "Work Experience",
-        "Education": "Education",
-        "Skills and Interests": "Skills and Interests"
+    "sections": {
+        "workExperience": "Work Experience",
+        "education": "Education",
+        "skillsAndInterests": "Skills and Interests"
     },
-    "application.footer": {
-        "This CV has been created using reactjs powered by a graphql backend. See it live at {url}": "This CV has been created using reactjs powered by a graphql backend. See it live at {url}"
+    "footer": {
+        "weblink": "This CV has been created using react powered by a graphql backend. See it live at {{url}}."
     }
 }

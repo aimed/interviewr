@@ -1,18 +1,18 @@
 {
-    "application.personal": {
-        "Birthdate": "Geburtsdatum",
-        "Birthplace": "Geburtsort",
-        "Contact": "Kontakt",
-        "Nationality": "Nationalität",
-        "Address": "Adresse",
-        "Martial Status": "Familienstand"
+    "personal": {
+        "birthdate": "Geburtsdatum",
+        "contact": "Kontakt",
+        "nationality": "Staatsangehörigkeit",
+        "birthplace": "Geburtsort",
+        "address": "Adresse",
+        "martialStatus": "Familienstand"
     },
-    "application.sections": {
-        "Work Experience": "Beruflicher Werdegang",
-        "Education": "Akademischer Werdegang",
-        "Skills and Interests": "Kenntnisse und Interessen"
+    "sections": {
+        "workExperience": "Beruflicher Werdegang",
+        "education": "Akademischer Werdegang",
+        "skillsAndInterests": "Fähigkeiten und Interessen"
     },
-    "application.footer": {
-        "This CV has been created using reactjs powered by a graphql backend. See it live at {url}": "Dieser Lebenslauf wurde mittels React und GraphQL erstellt und kann als Web-Version unter {url} eingesehen werden."
+    "footer": {
+        "weblink": "Dieser Lebenslauf wurde mit Hilfe von react und graphql erstellt und kann unter {{url}} eingesehen werden."
     }
 }

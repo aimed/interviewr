@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { ApplicationPersonalPersonalFragment } from 'operation-result-types';
 import gql from 'graphql-tag';
+import i18next from 'i18next';
 
 export interface PersonalDataItemProps {
     name: string;
@@ -85,11 +86,11 @@ export class ApplicationPersonal extends React.PureComponent<ApplicationPersonal
                     <h1 className="personal__name">{firstName} {lastName}</h1>
                     <div className="personal__items">
                         {/* tslint:disable:max-line-length */}
-                        <PersonalDataItem name="birth-date-place" title="Birthdate, -place" value={`${dateFormatted}, ${birthPlace}`} />
-                        <PersonalDataItem name="nationality" title="Nationality" value={nationality} />
-                        <PersonalDataItem name="contact" title="Contact" value={contact} />
-                        <PersonalDataItem name="address" title="Address" value={address} />
-                        <PersonalDataItem name="martial-status" title="Martial Status" value={martialStatus} />
+                        <PersonalDataItem name="birth-date-place" title={`${i18next.t('application:personal.birthdate')}, ${i18next.t('application:personal.birthplace')}`} value={`${dateFormatted}, ${birthPlace}`} />
+                        <PersonalDataItem name="nationality" title={i18next.t('application:personal.nationality')} value={nationality} />
+                        <PersonalDataItem name="contact" title={i18next.t('application:personal.contact')} value={contact} />
+                        <PersonalDataItem name="address" title={i18next.t('application:personal.address')} value={address} />
+                        <PersonalDataItem name="martial-status" title={i18next.t('application:personal.martialStatus')} value={martialStatus} />
                         {/* tslint:enable:max-line-length */}
                     </div>
                 </div>

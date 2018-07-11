@@ -11,6 +11,7 @@ import {
 import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
 import { IconStar } from 'icons/IconStar';
 import gql from 'graphql-tag';
+import i18next from 'i18next';
 
 export interface ApplicationSkillGroupProps {
     data: ApplicationSkillGroupSkillGroupFragment;
@@ -69,7 +70,9 @@ export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkill
     render() {
         return (
             <div className="skills application-segment-appear">
-                <ApplicationSectionLabel icon={<IconStar />}>Skills and Activities</ApplicationSectionLabel>
+                <ApplicationSectionLabel icon={<IconStar />}>
+                    {i18next.t('application:sections.skillsAndInterests')}
+                </ApplicationSectionLabel>
                 <div className="skills-items">{
                     this.props.data.skillGroups.map(skillGroup => 
                         <ApplicationSkillGroup key={skillGroup.id} data={skillGroup} />
