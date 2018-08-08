@@ -9,7 +9,6 @@ import {
 } from 'operation-result-types';
 
 import { ApplicationSectionLabel } from 'sectionLabel/ApplicationSectionLabel';
-import { IconStar } from 'icons/IconStar';
 import gql from 'graphql-tag';
 import i18next from 'i18next';
 
