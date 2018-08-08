@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.10.0"></a>
+# [2.10.0](https://github.com/aimed/interviewr/compare/v2.9.0...v2.10.0) (2018-08-08)
+
+
+### Features
+
+* remove skills icon ([23818db](https://github.com/aimed/interviewr/commit/23818db))
+
+
+
+
 <a name="2.9.0"></a>
 # [2.9.0](https://github.com/aimed/interviewr/compare/v2.8.0...v2.9.0) (2018-07-11)
 
