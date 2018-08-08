@@ -70,7 +70,7 @@ export class ApplicationSkillGroups extends React.PureComponent<ApplicationSkill
     render() {
         return (
             <div className="skills application-segment-appear">
-                <ApplicationSectionLabel icon={<IconStar />}>
+                <ApplicationSectionLabel>
                     {i18next.t('application:sections.skillsAndInterests')}
                 </ApplicationSectionLabel>
                 <div className="skills-items">{

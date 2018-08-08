@@ -47,6 +47,7 @@
     "gql:build": "apollo-codegen generate '**/*.tsx' --schema schema.json --target typescript --output src/operation-result-types.ts"
   },
   "devDependencies": {
+    "apollo": "^1.6.0",
     "apollo-codegen": "^0.18.3"
   },
   "proxy": "http://localhost:8000"
